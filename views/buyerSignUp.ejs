@@ -1,0 +1,64 @@
+<%- include('_header',{user}) %>
+    <div class="container py-4">
+        <div class="card  rounded shadow-lg border-success">
+            <div class="row card-body">
+                <div class="col-md-6 col-sm-12 text-center align-self-center">
+                    <img src="/assets/register.jpg" alt="Farmer Register"
+                    width="90%" />
+                    <br>
+                    <small><a href="https://www.freepik.com/vectors/avatar" class="text-success">Avatar vector created by stories - www.freepik.com</a></small>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <h3 class="text-center">Register As Buyer</h3>
+                    <form method="POST" action="/buyer/register">
+                        <% if (error) {%>
+                        <div class="alert alert-danger" role="alert">
+                            <%=error%>
+                        </div>
+                        <% } %>
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nicNumber">NIC number</label>
+                            <input type="text" class="form-control" id="nicNumber" name="nicNumber" placeholder="NIC Number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactNO">Contact Number</label>
+                            <input type="text" class="form-control" id="contactNo" name="contactNo" placeholder="Contact Number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="district">District</label>
+                            <input type="text" class="form-control" id="district" name="district" placeholder="District" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="password">Password <small>(must be more than 5 characters)</small></label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password"  required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+                        </div>
+    
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-success">Submit and Register</button>
+                        </div>
+    
+                    </form>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+<%- include('_footer') %>

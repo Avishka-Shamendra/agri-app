@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const RootController = require('../controllers/RootController');
+const RootController = require('../controllers/rootController');
 const ifLoggedIn = require('../middleware/ifLoggedIn');
 const ifNotLoggedIn = require('../middleware/ifNotLoggedIn');
 

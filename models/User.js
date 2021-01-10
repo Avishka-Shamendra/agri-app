@@ -1,36 +1,52 @@
 const sql = require('../config/db');
 
 class User {
-    static async getById(id) {
+    static async getUserById(id) {
         const [user] = await sql`
-            SELECT * from User 
-            WHERE id=${id}
+            SELECT * from UserInfo 
+            WHERE uid=${id}
         `;
         return user;
     }
 
-    static async isEmailRegistered(email) {
+    static async isEmailRegistetred(email) {
         const [user] = await sql`
-            SELECT id from User 
+            SELECT uid from userinfo 
             WHERE email=${email}
         `;
         return user != null;
     }
+    
 
-    static async getByEmail(email) {
+    static async findUser(email) {
+        //no need of transactions as all are selects.
         const [user] = await sql`
-            SELECT * from User
+            SELECT * from userinfo
             WHERE email=${email}
         `;
+        if(user && user.type==='farmer'){
+            const[farmerData]=await sql`
+            SELECT * from Farmer
+            WHERE uid=${user.uid}
+            `;
+            user.farmerData=farmerData;
+        }
+        if(user && user.type==='buyer'){
+            const[buyerData]=await sql`
+            SELECT * from Buyer
+            WHERE uid=${user.uid}
+            `;
+            user.buyerData=buyerData;
+        }
         return user;
     }
 
-    static async createUser(email, password) {
+    static async createUser(firstName,lastName,email, hashedPassword) {
         const [createdUser] = await sql`
-            INSERT INTO Account 
-                ( email, password,.. ) 
+            INSERT INTO UserInfo 
+                ( email, type, password, first_name,last_name ) 
             VALUES 
-                ( ${email}, ${password} )
+                ( ${email}, 'admin', ${hashedPassword},${firstName},${lastName} )
             RETURNING *
             `;
         return createdUser;

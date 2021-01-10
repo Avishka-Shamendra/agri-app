@@ -7,10 +7,11 @@
                     width="90%" />
                     <br>
                     <small><a href="https://www.freepik.com/vectors/avatar" class="text-success">Avatar vector created by stories - www.freepik.com</a></small>
+                    <br>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <h3 class="text-center">Register As Farmer</h3>
-                    <form method="POST" action="/farmer/register">
+                    <form method="POST" action="/farmer/signup">
                         <% if (error) {%>
                         <div class="alert alert-danger" role="alert">
                             <%=error%>
@@ -18,31 +19,61 @@
                         <% } %>
                         <div class="form-group">
                             <label for="firstName">First Name</label>
-                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required value="<%=firstName%>">
                         </div>
                         <div class="form-group">
                             <label for="lastName">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required value="<%=lastName%>">
                         </div>
                         <div class="form-group">
                             <label for="nicNumber">NIC number</label>
-                            <input type="text" class="form-control" id="nicNumber" name="nicNumber" placeholder="NIC Number" required>
+                            <input type="text" class="form-control" id="nicNumber" name="nicNumber" placeholder="NIC Number" required value="<%=nicNumber%>">
                         </div>
                         <div class="form-group">
                             <label for="email">Email address</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required value="<%=email%>">
                         </div>
                         <div class="form-group">
                             <label for="contactNO">Contact Number</label>
-                            <input type="text" class="form-control" id="contactNo" name="contactNo" placeholder="Contact Number" required>
+                            <input type="text" class="form-control" id="contactNo" name="contactNo" placeholder="Contact Number" required value="<%=contactNo%>">
                         </div>
                         <div class="form-group">
-                            <label for="district">District</label>
-                            <input type="text" class="form-control" id="district" name="district" placeholder="District" required>
-                        </div>
-    
+                            <label for="district">Residential District</label>
+                            <select id="district" class="form-control" name="district" required>
+                                <option  selected>Choose...</option>
+                                <option value="Anuradhapura">Anuradhapura</option>
+                                <option value="Ampara">Ampara</option>
+                                <option value="Badulla">Badulla</option>
+                                <option value="Batticaloa">Batticaloa</option>
+                                <option value="Colombo">Colombo</option>
+                                <option value="Galle">Galle</option>
+                                <option value="Gampaha">Gampaha</option>
+                                <option value="Hambantota">Hambantota</option>
+                                <option value="Jaffna">Jaffna</option>
+                                <option value="Kalutara">Kalutara</option>
+                                <option value="Kandy">Kandy</option>
+                                <option value="Kegalle">Kegalle</option>
+                                <option value="Kilinochchi">Kilinochchi</option>
+                                <option value="Kurunegala">Kurunegala</option>
+                                <option value="Mannar">Mannar</option>
+                                <option value="Matale">Matale</option>
+                                <option value="Matara">Matara</option>
+                                <option value="Moneragala">Moneragala</option>
+                                <option value="Mullaitivu">Mullaitivu</option>
+                                <option value="Nuwara Eliya">Nuwara Eliya</option>
+                                <option value="Polonnaruwa">Polonnaruwa</option>
+                                <option value="Puttalam">Puttalam</option>
+                                <option value="Ratnapura">Ratnapura</option>
+                                <option value="Trincomalee">Trincomalee</option>
+                                <option value="Vavuniya">Vavuniya</option>
+                            </select>
+                          </div>
                         <div class="form-group">
-                            <label for="password">Password <small>(must be more than 5 characters)</small></label>
+                            <label for="address">Address<small>Optional</small></label>
+                            <textarea class="form-control" id="address" name="address" rows="3"> <%=address%></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password <small>(must be more than 5 less tah 20 characters)</small></label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                         </div>
     

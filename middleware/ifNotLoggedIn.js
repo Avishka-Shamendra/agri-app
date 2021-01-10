@@ -7,6 +7,9 @@ const ifNotLoggedIn = (req, res, next) => {
         res.redirect('/buyer');
     } else if (req.session.user.type === "farmer") { // if admin
         res.redirect('/farmer');
+    }else{
+        req.session.user=null;
+        res.redirect('/');
     }
 };
 

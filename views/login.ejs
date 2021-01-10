@@ -8,6 +8,7 @@
                     width="80%" />
                 <br>
                 <small><a href="https://www.freepik.com/vectors/website" class="text-success">Website vector created by stories - www.freepik.com</a></small> 
+                <br>
             </div>
             <div class="col-md-6 col-sm-12 align-self-center">
             
@@ -18,9 +19,24 @@
                         <%=error%>
                     </div>
                     <% } %>
+                    <% if (adminRegSuccess) {%>
+                    <div class="alert alert-success" role="alert">
+                        <%=adminRegSuccess%>
+                    </div>
+                    <% } %>
+                    <% if (farmerRegSuccess) {%>
+                    <div class="alert alert-success" role="alert">
+                        <%=farmerRegSuccess%>
+                    </div>
+                    <% } %>
+                    <% if (buyerRegSuccess) {%>
+                    <div class="alert alert-success" role="alert">
+                        <%=buyerRegSuccess%>
+                    </div>
+                    <% } %>
                     <div class="form-group">
                         <label for="email">Enter Your Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required value="<%=email%>">
                     </div>
     
                     <div class="form-group">

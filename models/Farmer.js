@@ -24,6 +24,22 @@ class Farmer {
           })
           return [createdUser, createdFarmer]
     }
+
+    static async getUserById(id) {
+        const [user] = await sql`
+            SELECT * from farmer 
+            WHERE uid=${id}
+        `;
+        return user;
+    }
+
+    static async isUIDRegistetred(uid) {
+        const [user] = await sql`
+            SELECT uid from farmer 
+            WHERE uid=${uid}
+        `;
+        return user != null;
+    }
 }
 
 module.exports = Farmer;

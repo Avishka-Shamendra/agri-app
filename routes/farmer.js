@@ -4,10 +4,13 @@ const FarmerController = require('../controllers/farmerController');
 const ifLoggedIn = require('../middleware/ifLoggedIn');
 const ifNotLoggedIn = require('../middleware/ifNotLoggedIn');
 const ifFarmer =require('../middleware/ifFarmer');
+const uploadable = require('../middleware/upload');
 
 //GET Reqs
 router.get('/',ifLoggedIn, ifFarmer, FarmerController.homePage);
 router.get('/signup', ifNotLoggedIn, FarmerController.signupPage);
+router.get('/addPost',ifLoggedIn,ifFarmer,FarmerController.addPostPage);
+router.post('/addPost',ifLoggedIn,ifFarmer,uploadable.single('file'),FarmerController.addPost);
 
 
 //POST Reqs

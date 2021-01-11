@@ -1,12 +1,15 @@
 const express = require('express');
 const helmet = require('helmet');
+/* Make all variables from our .env file available in our process */
+require('dotenv').config();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const pgConnect = require('connect-pg-simple');
+const db = require('./config/db');
 
-/* Make all variables from our .env file available in our process */
-require('dotenv').config();
+global.appRoot = __dirname;
 
+db.sequelize.sync();
 /* Init express */
 const app = express();
 

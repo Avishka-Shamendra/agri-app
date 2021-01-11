@@ -20,7 +20,7 @@ class UserService {
     }
 
     static async adminRegister({
-        firstName,lastName, email, password,confirmPassword, securityKey,
+        firstName,lastName,gender , email, password,confirmPassword, securityKey,
     }) {
         if (!crypto.timingSafeEqual(Buffer.from(password), Buffer.from(confirmPassword))) {
             throw new Errors.BadRequest(' Passwords does not match, please retype password');
@@ -36,11 +36,11 @@ class UserService {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        return User.createUser(firstName,lastName,email, hashedPassword);
+        return User.createUser(firstName,lastName,gender,email, hashedPassword);
     }
 
     static async farmerRegister({
-        firstName,lastName, email, password,confirmPassword, nicNumber, contactNo, address, district
+        firstName,lastName,gender,email, password,confirmPassword, nicNumber, contactNo, address, district
     }) {
         if (!crypto.timingSafeEqual(Buffer.from(password), Buffer.from(confirmPassword))) {
             throw new Errors.BadRequest(' Passwords does not match, please retype password');
@@ -52,11 +52,11 @@ class UserService {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        return Farmer.create(firstName,lastName,email, hashedPassword, nicNumber, contactNo, address, district);
+        return Farmer.create(firstName,lastName,gender,email, hashedPassword, nicNumber, contactNo, address, district);
     }
 
     static async buyerRegister({
-        firstName,lastName, email, password,confirmPassword, nicNumber, contactNo, district
+        firstName,lastName,gender,email, password,confirmPassword, nicNumber, contactNo, district
     }) {
         if (!crypto.timingSafeEqual(Buffer.from(password), Buffer.from(confirmPassword))) {
             throw new Errors.BadRequest(' Passwords does not match, please retype password');
@@ -68,7 +68,7 @@ class UserService {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        return Buyer.create(firstName,lastName,email, hashedPassword, nicNumber, contactNo, district);
+        return Buyer.create(firstName,lastName,gender,email, hashedPassword, nicNumber, contactNo, district);
     }
 }
 

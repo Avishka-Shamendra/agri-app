@@ -15,6 +15,7 @@ class BuyerController {
             email : req.query.email,
             firstName : req.query.firstName,
             lastName : req.query.lastName,
+            gender : req.query.gender,
             district : req.query.district,
             nicNumber : req.query.nicNumber,
             contactNo : req.query.contactNo,
@@ -30,7 +31,7 @@ class BuyerController {
         } catch (err) {
             //logger.error(err);
             res.redirect(
-                `/buyer/signup?error=${err}&email=${req.body.email}&firstName=${req.body.firstName}&lastName=${req.body.lastName}&district=${req.body.district}&nicNumber=${req.body.nicNumber}&contactNo=${req.body.contactNo}`
+                `/buyer/signup?error=${err}&email=${req.body.email}&firstName=${req.body.firstName}&lastName=${req.body.lastName}&gender=${req.body.gender}&district=${req.body.district}&nicNumber=${req.body.nicNumber}&contactNo=${req.body.contactNo}`
                 );
         }
     }

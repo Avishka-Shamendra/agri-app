@@ -14,6 +14,7 @@ DROP TYPE IF EXISTS  Category;
 DROP TYPE IF EXISTS  Complain_State;
 DROP TYPE IF EXISTS  Post_State;
 DROP TYPE IF EXISTS  District_Name;
+DROP TYPE IF EXISTS  Gender_Type;
 
 
 ---------------------------------- ENUMS SCHEMA ------------------------------------
@@ -39,6 +40,12 @@ CREATE TYPE Post_State AS ENUM(
 'Expired',
 'Sold',
 'Deleted'
+);
+
+CREATE TYPE Gender_Type AS ENUM(
+'Male',
+'Female',
+'Other'
 );
 
 CREATE TYPE District_Name As ENUM(
@@ -104,6 +111,7 @@ CREATE TABLE UserInfo (
   password varchar(255) not null,
   first_name varchar(255) not null,
   last_name varchar(255) not null,
+  gender Gender_Type not null,
   banned boolean DEFAULT false not null,
   joined timestamp not null DEFAULT NOW(),
   PRIMARY KEY (uid)

@@ -16,6 +16,13 @@ class RootController {
          });
     }
 
+    static editProfilePage(req,res){
+        res.render('userEditProfile',{
+            error:req.query.error,
+            user:req.session.user
+        });
+    }
+
     static async login(req, res) {
         try {
             const { value, error } = await LogInInfo.validate(req.body);
@@ -29,6 +36,9 @@ class RootController {
             req.session.user.type = user.type;
             req.session.user.email = user.email;
             req.session.user.name = user.first_name+ " "+user.last_name; 
+            req.session.user.firstName = user.first_name;
+            req.session.user.lastName = user.last_name;
+            req.session.user.gender = user.gender;
             req.session.user.farmerData = user.farmerData; // null if not farmer
             req.session.user.buyerData = user.buyerData; // null if not buyer
             res.redirect(`/${user.type}`);

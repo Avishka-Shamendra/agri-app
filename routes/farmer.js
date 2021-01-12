@@ -13,5 +13,6 @@ router.get('/signup', ifNotLoggedIn, FarmerController.signupPage);
 
 //POST Reqs
 router.post('/signup', ifNotLoggedIn, FarmerController.signup);
+router.post('/editProfile/:uid',ifLoggedIn,ifFarmer, FarmerController.editProfile );
 
 module.exports=router;

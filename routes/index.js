@@ -14,6 +14,7 @@ router.get('/editProfile',ifLoggedIn, RootController.editProfilePage);
 
 //POST
 router.post('/login', ifNotLoggedIn, RootController.login);
+router.post('/changePassword/:uid', ifLoggedIn, RootController.changePassword);
 
 
 //USE

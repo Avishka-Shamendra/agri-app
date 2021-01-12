@@ -39,6 +39,18 @@ class UserService {
         return User.createUser(firstName,lastName,gender,email, hashedPassword);
     }
 
+    static async adminUpdate({
+        firstName,lastName,gender , email
+    },uid) {
+
+
+        const user = await User.findUser(email);
+        if (user && user.uid!=uid) {
+            throw new Errors.BadRequest(' Email is already registered');
+        }
+        return User.updateUser(firstName,lastName,gender,email,uid);
+    }
+
     static async farmerRegister({
         firstName,lastName,gender,email, password,confirmPassword, nicNumber, contactNo, address, district
     }) {
@@ -55,6 +67,18 @@ class UserService {
         return Farmer.create(firstName,lastName,gender,email, hashedPassword, nicNumber, contactNo, address, district);
     }
 
+    static async farmerUpdate({
+        firstName,lastName,gender,email, nicNumber, contactNo, address, district
+    },uid) {
+
+
+        const user = await User.findUser(email);
+        if (user && user.uid!=uid) {
+            throw new Errors.BadRequest(' Email is already registered');
+        }
+        return Farmer.updateFarmer(firstName,lastName,gender,email, nicNumber, contactNo, address, district,uid);
+    }
+
     static async buyerRegister({
         firstName,lastName,gender,email, password,confirmPassword, nicNumber, contactNo, district
     }) {
@@ -69,6 +93,30 @@ class UserService {
 
         const hashedPassword = await bcrypt.hash(password, 10);
         return Buyer.create(firstName,lastName,gender,email, hashedPassword, nicNumber, contactNo, district);
+    }
+
+    static async buyerUpdate({
+        firstName,lastName,gender,email, nicNumber, contactNo, district
+    },uid) {
+
+
+        const user = await User.findUser(email);
+        if (user && user.uid!=uid) {
+            throw new Errors.BadRequest(' Email is already registered');
+        }
+        return Buyer.updateBuyer(firstName,lastName,gender,email, nicNumber, contactNo, district,uid);
+    }
+
+    static async changePassword({old_pwd,new_pwd,confirm_pwd},uid){
+        const user = await User.getUserById(uid);
+        const hashedPassword = user.password;
+        const isPasswordCorrect = await bcrypt.compare(old_pwd, hashedPassword);
+        if (!isPasswordCorrect) {
+            throw new Errors.BadRequest('Current Password is not correct');
+        }
+        const newhashedPassword = await bcrypt.hash(new_pwd, 10);
+        return User.updatePassword(newhashedPassword,uid);
+
     }
 }
 

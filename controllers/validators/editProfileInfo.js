@@ -1,29 +1,23 @@
 const Joi = require('joi');
 
-const LogInInfo = Joi.object().options({ abortEarly: false }).keys({
-    password: Joi.string().required().label("password"),
-    email: Joi.string().required().label("email"),
+const ChangePasswordInfo = Joi.object().options({ abortEarly: false }).keys({
+    old_pwd:Joi.string().required().label('Old Password'),
+    new_pwd: Joi.string().min(6).max(20).required().label("Password"),
+    confirm_pwd: Joi.string().required().valid(Joi.ref('new_pwd')).label("Confirmation Password")
+    .messages({ 'any.only': '{{#label}} does not match "New Password"' }),
 });
 
-const AdminSignUpInfo = Joi.object().options({ abortEarly: false }).keys({
+const AdminEditInfo = Joi.object().options({ abortEarly: false }).keys({
     //commmon user details
     email: Joi.string().email().max(50).required().label("Email"),
-    password: Joi.string().min(6).max(20).required().label("Password"),
-    confirmPassword: Joi.string().required().valid(Joi.ref('password')).label("Confirmation Password")
-    .messages({ 'any.only': '{{#label}} does not match "Password"' }),
     firstName: Joi.string().max(20).required().label("First Name"),
     lastName: Joi.string().max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
-    //admin special
-    securityKey: Joi.string().required().label("Security Key"),
 });
 
-const FarmerSignupInfo = Joi.object().options({ abortEarly: false }).keys({
+const FarmerEditInfo = Joi.object().options({ abortEarly: false }).keys({
     //commmon user details
     email: Joi.string().email().max(50).required().label("Email"),
-    password: Joi.string().min(6).max(20).required().label("Password"),
-    confirmPassword: Joi.string().required().valid(Joi.ref('password')).label("Confirmation Password")
-    .messages({ 'any.only': '{{#label}} does not match "Password"' }),
     firstName: Joi.string().max(20).required().label("First Name"),
     lastName: Joi.string().max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
@@ -41,12 +35,9 @@ const FarmerSignupInfo = Joi.object().options({ abortEarly: false }).keys({
     
 });
 
-const BuyerSignupInfo = Joi.object().options({ abortEarly: false }).keys({
+const BuyerEditInfo = Joi.object().options({ abortEarly: false }).keys({
     //commmon user details
     email: Joi.string().email().max(50).required().label("Email"),
-    password: Joi.string().min(6).max(20).required().label("Password"),
-    confirmPassword: Joi.string().required().valid(Joi.ref('password')).label("Confirmation Password")
-    .messages({ 'any.only': '{{#label}} does not match "Password"' }),
     firstName: Joi.string().max(20).required().label("First Name"),
     lastName: Joi.string().max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
@@ -63,6 +54,6 @@ const BuyerSignupInfo = Joi.object().options({ abortEarly: false }).keys({
 });
 
 
-module.exports = { LogInInfo, AdminSignUpInfo, BuyerSignupInfo, FarmerSignupInfo };
+module.exports = { ChangePasswordInfo, AdminEditInfo, BuyerEditInfo, FarmerEditInfo };
 
 

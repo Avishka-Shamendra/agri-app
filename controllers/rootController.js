@@ -1,6 +1,7 @@
 const { LogInInfo } = require('./validators/authInfo');
 const Errors = require('../helpers/error');
 const UserService = require('../services/userServices');
+const { ChangePasswordInfo } = require('./validators/editProfileInfo');
 
 class RootController {
     static indexPage(req,res){
@@ -19,6 +20,9 @@ class RootController {
     static editProfilePage(req,res){
         res.render('userEditProfile',{
             error:req.query.error,
+            success:req.query.success,
+            pwd_success:req.query.pwd_success,
+            pwd_error:req.query.pwd_error,
             user:req.session.user
         });
     }
@@ -39,6 +43,7 @@ class RootController {
             req.session.user.firstName = user.first_name;
             req.session.user.lastName = user.last_name;
             req.session.user.gender = user.gender;
+            req.session.user.banned =user.banned; 
             req.session.user.farmerData = user.farmerData; // null if not farmer
             req.session.user.buyerData = user.buyerData; // null if not buyer
             res.redirect(`/${user.type}`);
@@ -55,6 +60,17 @@ class RootController {
         } catch (err) {
             //logger.error(err);
             res.redirect('/');
+        }
+    }
+
+    static async changePassword(req,res){
+        try{
+            const { value, error } = await ChangePasswordInfo.validate(req.body);
+            if (error) throw (error);
+            await UserService.changePassword(value,req.params.uid);
+            res.redirect(`/editProfile?pwd_success=Password Changed Successfully.#changePassword`)
+        }catch(err){
+            res.redirect(`/editProfile?pwd_error=${err}#changePassword`)
         }
     }
 }

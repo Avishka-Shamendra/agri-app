@@ -1,14 +1,14 @@
 const sql = require('../config/db');
 
 class Farmer {
-    static async create(firstName,lastName,email, hashedPassword, nicNumber, contactNo, address, district) {
+    static async create(firstName,lastName,gender,email, hashedPassword, nicNumber, contactNo, address, district) {
         //transaction as insert is one to two tables
         const [createdUser, createdFarmer] = await sql.begin(async sql => {
             const [user] = await sql`
             INSERT INTO UserInfo
-                ( email, type, password,first_name,last_name ) 
+                ( email, type, password,first_name,last_name,gender ) 
             VALUES 
-                ( ${email}, 'farmer', ${hashedPassword},${firstName},${lastName} )
+                ( ${email}, 'farmer', ${hashedPassword},${firstName},${lastName},${gender} )
             RETURNING *
             `
            

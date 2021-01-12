@@ -26,6 +26,27 @@
                             <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required value="<%=lastName%>">
                         </div>
                         <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" class="form-control" name="gender" required>
+                                <option  selected>Choose...</option>
+                                <% if( gender=='Male') { %>
+                                    <option value="Male" selected>Male</option>
+                                <% }else{  %>
+                                    <option value="Male">Male</option>
+                                <% } %>
+                                <% if( gender=='Female') { %>
+                                    <option value="Female" selected>Female</option>
+                                <% }else{  %>
+                                    <option value="Female">Female</option>
+                                <% } %>
+                                <% if( gender=='Other') { %>
+                                    <option value="Other" selected>Other</option>
+                                <% }else{  %>
+                                    <option value="Other">Other</option>
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="nicNumber">NIC number</label>
                             <input type="text" class="form-control" id="nicNumber" name="nicNumber" placeholder="NIC Number" required value="<%=nicNumber%>">
                         </div>
@@ -42,38 +63,133 @@
                             <select id="district" class="form-control" name="district" required>
                                 <option  selected>Choose...</option>
                                 <option value="Anuradhapura">Anuradhapura</option>
+                                <% if( district=='Ampara') { %>
+                                <option value="Ampara" selected>Ampara</option>
+                                <% }else{  %>
                                 <option value="Ampara">Ampara</option>
+                                <% } %>
+                                <% if( district=='Badulla') { %>
+                                <option value="Badulla" selected>Badulla</option>
+                                <% }else{  %>
                                 <option value="Badulla">Badulla</option>
+                                <% } %>
+                                <% if( district=='Batticaloa') { %>
+                                <option value="Batticaloa" selected>Batticaloa</option>
+                                <% }else{  %>
                                 <option value="Batticaloa">Batticaloa</option>
+                                <% } %>
+                                <% if( district=='Colombo') { %>
+                                <option value="Colombo" selected>Colombo</option>
+                                <% }else{  %>
                                 <option value="Colombo">Colombo</option>
+                                <% } %>
+                                <% if( district=='Galle') { %>
+                                <option value="Galle" selected>Galle</option>
+                                <% }else{  %>
                                 <option value="Galle">Galle</option>
+                                <% } %>
+                                <% if( district=='Gampaha') { %>
+                                <option value="Gampaha" selected>Gampaha</option>
+                                <% }else{  %>
                                 <option value="Gampaha">Gampaha</option>
+                                <% } %>
+                                <% if( district=='Hambantota') { %>
+                                <option value="Hambantota" selected>Hambantota</option>
+                                <% }else{  %>
                                 <option value="Hambantota">Hambantota</option>
+                                <% } %>
+                                <% if( district=='Jaffna') { %>
+                                <option value="Jaffna" selected>Jaffna</option>
+                                <% }else{  %>
                                 <option value="Jaffna">Jaffna</option>
+                                <% } %>
+                                <% if( district=='Kalutara') { %>
+                                <option value="Kalutara" selected>Kalutara</option>
+                                <% }else{  %>
                                 <option value="Kalutara">Kalutara</option>
+                                <% } %>
+                                <% if( district=='Kandy') { %>
+                                <option value="Kandy" selected>Kandy</option>
+                                <% }else{  %>
                                 <option value="Kandy">Kandy</option>
+                                <% } %>
+                                <% if( district=='Kegalle') { %>
+                                <option value="Kegalle" selected>Kegalle</option>
+                                <% }else{  %>
                                 <option value="Kegalle">Kegalle</option>
+                                <% } %>
+                                <% if( district=='Kilinochchi') { %>
+                                <option value="Kilinochchi" selected>Kilinochchi</option>
+                                <% }else{  %>
                                 <option value="Kilinochchi">Kilinochchi</option>
+                                <% } %>
+                                <% if( district=='Kurunegala') { %>
+                                <option value="Kurunegala" selected>Kurunegala</option>
+                                <% }else{  %>
                                 <option value="Kurunegala">Kurunegala</option>
+                                <% } %>
+                                <% if( district=='Mannar') { %>
+                                <option value="Mannar" selected>Mannar</option>
+                                <% }else{  %>
                                 <option value="Mannar">Mannar</option>
+                                <% } %>
+                                <% if( district=='Matale') { %>
+                                <option value="Matale" selected>Matale</option>
+                                <% }else{  %>
                                 <option value="Matale">Matale</option>
+                                <% } %>
+                                <% if( district=='Matara') { %>
+                                <option value="Matara" selected>Matara</option>
+                                <% }else{  %>
                                 <option value="Matara">Matara</option>
+                                <% } %><% if( district=='Moneragala') { %>
+                                <option value="Moneragala" selected>Moneragala</option>
+                                <% }else{  %>
                                 <option value="Moneragala">Moneragala</option>
+                                <% } %>
+                                <% if( district=='Mullaitivu') { %>
+                                <option value="Mullaitivu" selected>Mullaitivu</option>
+                                <% }else{  %>
                                 <option value="Mullaitivu">Mullaitivu</option>
+                                <% } %>
+                                <% if( district=='Nuwara Eliya') { %>
+                                <option value="Nuwara Eliya" selected>Nuwara Eliya</option>
+                                <% }else{  %>
                                 <option value="Nuwara Eliya">Nuwara Eliya</option>
+                                <% } %>
+                                <% if( district=='Polonnaruwa') { %>
+                                <option value="Polonnaruwa" selected>Polonnaruwa</option>
+                                <% }else{  %>
                                 <option value="Polonnaruwa">Polonnaruwa</option>
+                                <% } %>
+                                <% if( district=='Puttalam') { %>
+                                <option value="Puttalam" selected>Puttalam</option>
+                                <% }else{  %>
                                 <option value="Puttalam">Puttalam</option>
+                                <% } %>
+                                <% if( district=='Ratnapura') { %>
+                                <option value="Ratnapura" selected>Ratnapura</option>
+                                <% }else{  %>
                                 <option value="Ratnapura">Ratnapura</option>
+                                <% } %>
+                                <% if( district=='Trincomalee') { %>
+                                <option value="Trincomalee" selected>Trincomalee</option>
+                                <% }else{  %>
                                 <option value="Trincomalee">Trincomalee</option>
+                                <% } %>
+                                <% if( district=='Vavuniya') { %>
+                                <option value="Vavuniya" selected>Vavuniya</option>
+                                <% }else{  %>
                                 <option value="Vavuniya">Vavuniya</option>
+                                <% } %>
                             </select>
                           </div>
                         <div class="form-group">
-                            <label for="address">Address<small>Optional</small></label>
-                            <textarea class="form-control" id="address" name="address" rows="3"> <%=address%></textarea>
+                            <label for="address">Address<small>(Optional)</small></label>
+                            <textarea class="form-control" id="address" name="address" rows="3"><%=address%></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="password">Password <small>(must be more than 5 less tah 20 characters)</small></label>
+                            <label for="password">Password <small>(must be more than 5 less than 20 characters)</small></label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                         </div>
     

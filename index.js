@@ -1,15 +1,12 @@
 const express = require('express');
 const helmet = require('helmet');
-/* Make all variables from our .env file available in our process */
-require('dotenv').config();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const pgConnect = require('connect-pg-simple');
-const db = require('./config/db');
 
-global.appRoot = __dirname;
+/* Make all variables from our .env file available in our process */
+require('dotenv').config();
 
-db.sequelize.sync();
 /* Init express */
 const app = express();
 
@@ -33,10 +30,6 @@ app.use(session({
 
 /* Define the static files and routes */
 app.use('/assets', express.static('public/assets'));
-
-app.use('/public', express.static('public'))
-
-
 app.use(require('./routes'));
 
 //on deployment add logger

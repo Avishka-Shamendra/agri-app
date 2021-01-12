@@ -27,7 +27,7 @@ class FarmerController {
 
     static async addPost(req, res){
         try{
-            console.log(req.file)
+            //console.log(req.body.file)
             const { value, error } = await addpostInfo.validate(req.body);
             if (error) throw (error);
             const post = await PostService.addPost(req.body,req.session.user.uid);

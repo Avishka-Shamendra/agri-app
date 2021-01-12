@@ -8,7 +8,7 @@ const sequalize = new Sequelize(
     {
         host:"localhost",
         dialect:"postgres",
-        operatorsAliases:false,
+        operatorsAliases:0,
 
         pool:{
             max: 5,

@@ -4,7 +4,7 @@ const sequelize = db.sequelize;
 const DataTypes = db.Sequelize;
 
 const Image = sequelize.define("image", {
-    uid: {
+    post_id: {
        type: DataTypes.STRING,
     },
     type: {
@@ -14,7 +14,7 @@ const Image = sequelize.define("image", {
         type: DataTypes.STRING,
     },
     data: {
-        type: DataTypes.BLOB("long"),
+        type: DataTypes.BLOB,
     },
 });
 

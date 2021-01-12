@@ -8,14 +8,7 @@ const imageFilter = (req, file, cb) => {
     }
 };
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, appRoot + "/public/assets/uploads/");
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-post_pic-${file.originalname}`);
-    },
-});
+const storage = multer.memoryStorage();
 
 const uploadFile = multer({
     storage: storage,

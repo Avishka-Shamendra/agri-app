@@ -15,15 +15,9 @@ class FileService {
                 post_id:post_id,
                 type: file.mimetype,
                 name: file.originalname,
-                data: fs.readFileSync(
-                    appRoot + "/public/assets/uploads/" + file.filename
-                ),
+                data: file.buffer,
             }).then((image) => {
-                fs.writeFileSync(
-                    appRoot + "/public/assets/uploads/tmp/" + image.name,
-                    image.data
-                );
-
+                //console.log(image)
                 return true;
             });
         } catch (error) {

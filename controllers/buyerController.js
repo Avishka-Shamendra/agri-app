@@ -1,4 +1,5 @@
 const { BuyerSignupInfo } = require('./validators/authInfo');
+const { BuyerEditInfo } = require('./validators/editProfileInfo');
 const UserService = require('../services/userServices');
 
 class BuyerController {
@@ -35,6 +36,26 @@ class BuyerController {
                 );
         }
     }
+
+    static async editProfile(req, res) {
+        try{
+            const { value, error } = await BuyerEditInfo.validate(req.body);
+            if (error) throw (error);
+            const user = await UserService.buyerUpdate(value,req.params.uid);
+            //save edited info to session
+            req.session.user.email=user.email;
+            req.session.user.name = user.first_name+ " "+user.last_name;
+            req.session.user.banned =user.banned; 
+            req.session.user.firstName=user.first_name;
+            req.session.user.lastName=user.last_name;
+            req.session.user.gender=user.gender;
+            req.session.user.buyerData=user.buyerData;
+            res.redirect('/editProfile?success=Changes saved sucessfully');
+        }catch(err){
+            //logger.error(err);
+            res.redirect(`/editProfile?error=${err}`)
+        }
+    } 
 }
 
 module.exports = BuyerController;

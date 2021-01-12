@@ -51,6 +51,25 @@ class User {
             `;
         return createdUser;
     }
+
+    static async updateUser(firstName,lastName,gender,email,uid) {
+        const [updatedUser] = await sql`
+            UPDATE UserInfo 
+            SET  email=${email}, first_name=${firstName},last_name=${lastName},gender=${gender} 
+            WHERE uid=${uid}
+            RETURNING *
+            `;
+        return updatedUser;
+    }
+
+    static async updatePassword(password,uid){
+         await sql`
+            UPDATE UserInfo 
+            SET  password=${password}
+            WHERE uid=${uid}
+            `;
+        return true;
+    }
 }
 
 module.exports = User;

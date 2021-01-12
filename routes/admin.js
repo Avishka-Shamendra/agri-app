@@ -10,6 +10,7 @@ router.get('/signup', ifNotLoggedIn, AdminController.signupPage);
 
 //POST Requests
 router.post('/signup',ifNotLoggedIn, AdminController.signup);
+router.post('/editProfile/:uid',ifLoggedIn,ifAdmin, AdminController.editProfile );
 
 
 

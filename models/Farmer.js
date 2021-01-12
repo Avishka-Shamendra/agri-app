@@ -24,6 +24,29 @@ class Farmer {
           })
           return [createdUser, createdFarmer]
     }
+
+    static async updateFarmer(firstName,lastName,gender,email, nicNumber, contactNo, address, district, uid) {
+        //transaction as insert is one to two tables
+        const [updatedUser, updatedFarmer] = await sql.begin(async sql => {
+            const [user] = await sql
+            `
+            UPDATE UserInfo 
+            SET  email=${email}, first_name=${firstName},last_name=${lastName},gender=${gender} 
+            WHERE uid=${uid}
+            RETURNING *
+            `
+           
+            const [Farmer] = await sql`
+            UPDATE Farmer
+            SET nic=${nicNumber},contact_no=${contactNo},district=${district},address=${address}
+            WHERE uid=${uid}
+            RETURNING *
+            `
+            return [user, Farmer]
+          })
+          updatedUser.farmerData=updatedFarmer;
+          return updatedUser;
+    }
 }
 
 module.exports = Farmer;

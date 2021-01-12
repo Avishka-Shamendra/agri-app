@@ -41,12 +41,12 @@ class User {
         return user;
     }
 
-    static async createUser(firstName,lastName,email, hashedPassword) {
+    static async createUser(firstName,lastName,gender,email, hashedPassword) {
         const [createdUser] = await sql`
             INSERT INTO UserInfo 
-                ( email, type, password, first_name,last_name ) 
+                ( email, type, password, first_name,last_name,gender ) 
             VALUES 
-                ( ${email}, 'admin', ${hashedPassword},${firstName},${lastName} )
+                ( ${email}, 'admin', ${hashedPassword},${firstName},${lastName},${gender} )
             RETURNING *
             `;
         return createdUser;

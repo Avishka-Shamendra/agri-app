@@ -15,6 +15,7 @@ class AdminController {
             email: req.query.email,
             firstName: req.query.firstName,
             lastName:req.query.lastName,
+            gender:req.query.gender,
             securityKey:req.query.securityKey
          });
     }   
@@ -27,7 +28,7 @@ class AdminController {
             res.redirect('/login?adminRegSuccess=You are now registered as an system admin. You can now login using your email and password');
         } catch (err) {
             //logger.error(err);
-            res.redirect(`/admin/signup?error=${err}&email=${req.body.email}&firstName=${req.body.firstName}&lastName=${req.body.lastName}&securityKey=${req.body.securityKey}`);
+            res.redirect(`/admin/signup?error=${err}&email=${req.body.email}&firstName=${req.body.firstName}&lastName=${req.body.lastName}&gender=${req.body.gender}&securityKey=${req.body.securityKey}`);
         }
     } 
 }

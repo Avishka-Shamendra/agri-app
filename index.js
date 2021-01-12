@@ -33,7 +33,9 @@ app.use(session({
 
 /* Define the static files and routes */
 app.use('/assets', express.static('public/assets'));
+
 app.use('/public', express.static('public'))
+
 
 app.use(require('./routes'));
 

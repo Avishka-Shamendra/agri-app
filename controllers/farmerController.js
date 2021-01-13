@@ -1,5 +1,6 @@
 const { FarmerSignupInfo } = require('./validators/authInfo');
 const UserService = require('../services/userServices');
+const { FarmerEditInfo } = require('./validators/editProfileInfo');
 
 class FarmerController {
     static homePage(req,res){
@@ -34,6 +35,26 @@ class FarmerController {
             res.redirect(
                 `/farmer/signup?error=${err}&email=${req.body.email}&firstName=${req.body.firstName}&lastName=${req.body.lastName}&gender=${req.body.gender}&district=${req.body.district}&nicNumber=${req.body.nicNumber}&contactNo=${req.body.contactNo}&address=${req.body.address}`
                 );
+        }
+    } 
+
+    static async editProfile(req, res) {
+        try{
+            const { value, error } = await FarmerEditInfo.validate(req.body);
+            if (error) throw (error);
+            const user = await UserService.farmerUpdate(value,req.params.uid);
+            //save edited info to session
+            req.session.user.email=user.email;
+            req.session.user.name = user.first_name+ " "+user.last_name;
+            req.session.user.banned =user.banned; 
+            req.session.user.firstName=user.first_name;
+            req.session.user.lastName=user.last_name;
+            req.session.user.gender=user.gender;
+            req.session.user.farmerData=user.farmerData;
+            res.redirect('/editProfile?success=Changes saved sucessfully');
+        }catch(err){
+            //logger.error(err);
+            res.redirect(`/editProfile?error=${err}`)
         }
     } 
 }

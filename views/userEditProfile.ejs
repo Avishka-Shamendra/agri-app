@@ -380,6 +380,55 @@
     </form>
 </div>
 
+<a name='delAccount'></a>
+<div class="container py-4">
+    <div class="card p-3 text-center shadow rounded border-danger" style="color:maroon" >
+        <h3>Delete My Account</h3>
+        <% if (del_acc_error) { %>
+            <div class="alert alert-danger" role="alert">
+                <%=del_acc_error%>
+            </div>
+        <% } %>
+        <p>Once you have deleted your account there is no way of recovering..</p>
+        <div>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                Delete My Account
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the account?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            All the data will be lost and no recovery possible
+                        </div>
+                        <form class="p-3 text-left" method="POST" action="/deleteAccount/<%=user.uid%>">
+                            
+                            <div>
+                                <label for="del_password">Please Enter Your Password (required)</label>
+                                <input type="password" name="del_password" class="form-control" required/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger">Delete Account</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
 
 
 

@@ -19,6 +19,20 @@ class UserService {
         return user;
     }
 
+    static async deleteAccount({ del_password },uid) {
+        const user = await User.getUserById(uid);
+        if (!user) {
+            throw new Errors.BadRequest('Email is not registered');
+        }
+        const hashedPassword = user.password;
+        const isPasswordCorrect = await bcrypt.compare(del_password, hashedPassword);
+        if (!isPasswordCorrect) {
+            throw new Errors.BadRequest('Password Entered Not Valid');
+        }
+        await User.deleteAccount(uid);
+        return true;
+    }
+
     static async adminRegister({
         firstName,lastName,gender , email, password,confirmPassword, securityKey,
     }) {

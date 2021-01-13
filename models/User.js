@@ -70,6 +70,12 @@ class User {
             `;
         return true;
     }
+
+    static async deleteAccount(uid){
+        await sql`DELETE
+        FROM UserInfo
+        WHERE uid=${uid}`;
+    }
 }
 
 module.exports = User;

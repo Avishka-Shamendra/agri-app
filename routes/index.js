@@ -15,6 +15,7 @@ router.get('/editProfile',ifLoggedIn, RootController.editProfilePage);
 //POST
 router.post('/login', ifNotLoggedIn, RootController.login);
 router.post('/changePassword/:uid', ifLoggedIn, RootController.changePassword);
+router.post('/deleteAccount/:uid',ifLoggedIn,RootController.deleteAccount);
 
 
 //USE

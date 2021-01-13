@@ -7,7 +7,7 @@ class FileService {
     static async retrievePostImage(post_id){
         try {
             if(post_id == undefined) {
-                throw new Errors.BadRequest(`Internal Server Error. post_id is undefined`);
+                throw new Errors.BadRequest(`Internal Server Error`);
             }
 
             const image_b64 = await ImageClass.retrievePostImage(post_id);

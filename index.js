@@ -9,7 +9,7 @@ const db = require('./config/db');
 
 global.appRoot = __dirname;
 
-//db.sequelize.sync();
+// db.sequelize.sync();
 /* Init express */
 const app = express();
 

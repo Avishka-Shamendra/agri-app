@@ -29,15 +29,14 @@ function uploadFileMiddleware(req, res, next) {
 
     upload(req, res, function (err) {
         if (err instanceof multer.MulterError && (req.url === '/addPost' || req.url === '/farmer/addPost' || req.url ==='farmer/addPost' )) {
-            res.redirect(`/farmer/addPost?error=${err}&title=${req.body.title}&product_name=${req.body.product_name}&expected_price=${req.body.expected_price}&quantity=${req.body.quantity}&phone_num=${req.body.phone_num}&description=${req.body.description}`);
+            res.redirect(`/farmer/addPost?error=${err}&title=${req.body.title}&product_name=${req.body.product_name}&expected_price=${req.body.expected_price}&quantity=${req.body.quantity}&phone_num=${req.body.phone_num}&description=${req.body.description}&product_category=${req.body.product_category}`);
         }
         else if(err === 'filetypeError'){
-            res.redirect(`/farmer/addPost?error=The File is not an Image&title=${req.body.title}&product_name=${req.body.product_name}&expected_price=${req.body.expected_price}&quantity=${req.body.quantity}&phone_num=${req.body.phone_num}&description=${req.body.description}`);
+            res.redirect(`/farmer/addPost?error=The File uploaded is not an Image&title=${req.body.title}&product_name=${req.body.product_name}&expected_price=${req.body.expected_price}&quantity=${req.body.quantity}&phone_num=${req.body.phone_num}&description=${req.body.description}&product_category=${req.body.product_category}`);
         }
         else if (err) {
-            res.send(`something went wrong ${err}`);
+            res.redirect(`/farmer/addPost?error=${err}&title=${req.body.title}&product_name=${req.body.product_name}&expected_price=${req.body.expected_price}&quantity=${req.body.quantity}&phone_num=${req.body.phone_num}&description=${req.body.description}&product_category=${req.body.product_category}`);res.send(`something went wrong ${err}`);
         }else {
-            // Everything went fine.
             next()
         }
     })

@@ -1,0 +1,86 @@
+<%- include('_header',{user}) %>
+
+<div class="container py-4">
+    <div class="card  rounded shadow-lg border-success">
+        <div class="card-body">
+            <h3 class="text-center">Add Post</h3>
+                <% if (error) {%>
+                <div class="alert alert-danger" role="alert">
+                    <%=error%>
+                </div>
+                <% } %>
+                <form method="post" action="/farmer/addPost" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <label for="title">Post Title</label>
+                                <input class="form-control" type="text" id="title" name="title" placeholder="Title of Post" value="<%=title%>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <label for="product_name">Product Name</label>
+                                <input class="form-control" type="text" id="product_name" name="product_name" placeholder="Name" value="<%=product_name%>" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <label for="quantity">Quantity <small>(kg)</small></label>
+                                <input class="form-control" type="text" id="quantity" name="quantity" placeholder="Amount to be sold" value="<%=quantity%>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <label for="expected_price">Expected Total Price</label>
+                                <input class="form-control" type="text" id="expected_price" name="expected_price" placeholder="Total Price" value="<%=expected_price%>" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <label for="phone_num">Contact Number</label>
+                                <input class="form-control" type="text" id="phone_num" name="phone_num" placeholder="Phone Number" value="<%=phone_num%>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <label for="product_category">Product Type</label>
+                                    <select id="product_category" class="form-control" name="product_category" required>
+                                        <option  selected>Choose...</option>
+                                        <% if(product_category=='vegetable') {%>
+                                            <option id="vegetable" value="vegetable" selected>Vegetable</option>
+                                        <% }else {%>
+                                            <option id="vegetable" value="vegetable">Vegetable</option>
+                                        <%}%>
+                                        <% if(product_category=='fruit') {%>
+                                            <option id="fruit" value="fruit" selected>Fruit</option>
+                                        <% }else {%>
+                                            <option id="fruit" value="fruit">Fruit</option>
+                                        <%}%>
+                                        
+                                        
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" placeholder="Description" rows="5" required><%=description%></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Image of Product</label>
+                        <input type="file" name="file" id="file" class="form-control-file border">
+                    </div>
+                    <div class="form-group text-right">
+                        <button class="btn btn-success" type="submit">Add New Post</button>
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</div>
+
+<%- include('_footer') %>

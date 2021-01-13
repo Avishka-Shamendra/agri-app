@@ -13,7 +13,8 @@ class RootController {
              email:req.query.email,
             adminRegSuccess:req.query.adminRegSuccess,
             farmerRegSuccess:req.query.farmerRegSuccess,
-            buyerRegSuccess:req.query.buyerRegSuccess
+            buyerRegSuccess:req.query.buyerRegSuccess,
+            del_acc_success:req.query.del_acc_success,
          });
     }
 
@@ -23,6 +24,7 @@ class RootController {
             success:req.query.success,
             pwd_success:req.query.pwd_success,
             pwd_error:req.query.pwd_error,
+            del_acc_error:req.query.del_acc_error,
             user:req.session.user
         });
     }
@@ -71,6 +73,16 @@ class RootController {
             res.redirect(`/editProfile?pwd_success=Password Changed Successfully.#changePassword`)
         }catch(err){
             res.redirect(`/editProfile?pwd_error=${err}#changePassword`)
+        }
+    }
+
+    static async deleteAccount(req,res){
+        try{
+            await UserService.deleteAccount(req.body,req.params.uid);
+            req.session.user = undefined;
+            res.redirect('/login?del_acc_success=Account Deleted Successfully');
+        }catch(err){
+            res.redirect(`/editProfile?del_acc_error=${err}#delAccount`)
         }
     }
 }

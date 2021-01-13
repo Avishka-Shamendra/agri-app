@@ -7,6 +7,7 @@ class FarmerController {
         res.render('farmerHome',{ 
             error: req.query.error, 
             user: req.session.user,
+            new_post_success:req.query.new_post_success,
          });
     } 
     static signupPage(req,res){

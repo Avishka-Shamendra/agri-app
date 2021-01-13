@@ -160,10 +160,10 @@ CREATE TABLE Post (
   expected_price numeric(6,2) not null,
   available_district district_name not null,
   available_address varchar(127) not null,
-  status Post_State not null,
+  status Post_State not null DEFAULT 'Active',
   added_day DATE not null,
   exp_day DATE not null,
-  img_url VARCHAR(127) not null, -- change to image bytes if needed
+  img_data VARCHAR(255) null, -- change to image bytes if needed
   PRIMARY KEY (post_id),
   FOREIGN KEY(farmer_id) REFERENCES Farmer(uid) ON DELETE CASCADE ON UPDATE CASCADE
 );

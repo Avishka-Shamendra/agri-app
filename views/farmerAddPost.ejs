@@ -1,0 +1,216 @@
+<%- include('_header',{user}) %>
+
+<div class="container py-4">
+    <div class="card  rounded shadow-lg border-success">
+        <div class="card-body">
+            <h3 class="text-center">Add Post</h3>
+                <% if (error) {%>
+                <div class="alert alert-danger" role="alert">
+                    <%=error%>
+                </div>
+                <% } %>
+                <form method="post" action="/farmer/addPost">
+                    <div class="text-center mb-3">
+                        <img src="/assets/add_new_post.jpg" alt="Farmers"
+                            width="50%" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <label for="title">Post Title</label>
+                                <input class="form-control" type="text" id="title" name="title" placeholder="Title of Post" value="<%=title%>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <label for="product_name">Product Name</label>
+                                <input class="form-control" type="text" id="product_name" name="product_name" placeholder="What is the product" value="<%=product_name%>" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <label for="quantity">Quantity <small>(kg)</small></label>
+                                <input class="form-control" type="text" id="quantity" name="quantity" placeholder="Amount to be sold" value="<%=quantity%>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <label for="expected_price">Expected Total Price <small>(LKR/Rs.)</small></label>
+                                <input class="form-control" type="text" id="expected_price" name="expected_price" placeholder="Total Price" value="<%=expected_price%>" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <label for="phone_num">Contact Number</label>
+                                <input class="form-control" type="text" id="phone_num" name="phone_num" placeholder="Phone Number" value="<%=phone_num%>" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <div class="form-group">
+                                <label for="product_category">Product Type</label>
+                                    <select id="product_category" class="form-control" name="product_category" required>
+                                        <option  selected>Choose...</option>
+                                        <% if(product_category=='vegetable') {%>
+                                            <option id="vegetable" value="vegetable" selected>Vegetable</option>
+                                        <% }else {%>
+                                            <option id="vegetable" value="vegetable">Vegetable</option>
+                                        <%}%>
+                                        <% if(product_category=='fruit') {%>
+                                            <option id="fruit" value="fruit" selected>Fruit</option>
+                                        <% }else {%>
+                                            <option id="fruit" value="fruit">Fruit</option>
+                                        <%}%>
+                                        
+                                        
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Available Location/Address</label>
+                        <textarea class="form-control" id="address" name="address" rows="3"><%=address%></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="district">Available District</label>
+                        <select id="district" class="form-control" name="district" required>
+                            <option  selected>Choose...</option>
+                            <option value="Anuradhapura">Anuradhapura</option>
+                            <% if( district=='Ampara') { %>
+                            <option value="Ampara" selected>Ampara</option>
+                            <% }else{  %>
+                            <option value="Ampara">Ampara</option>
+                            <% } %>
+                            <% if( district=='Badulla') { %>
+                            <option value="Badulla" selected>Badulla</option>
+                            <% }else{  %>
+                            <option value="Badulla">Badulla</option>
+                            <% } %>
+                            <% if( district=='Batticaloa') { %>
+                            <option value="Batticaloa" selected>Batticaloa</option>
+                            <% }else{  %>
+                            <option value="Batticaloa">Batticaloa</option>
+                            <% } %>
+                            <% if( district=='Colombo') { %>
+                            <option value="Colombo" selected>Colombo</option>
+                            <% }else{  %>
+                            <option value="Colombo">Colombo</option>
+                            <% } %>
+                            <% if( district=='Galle') { %>
+                            <option value="Galle" selected>Galle</option>
+                            <% }else{  %>
+                            <option value="Galle">Galle</option>
+                            <% } %>
+                            <% if( district=='Gampaha') { %>
+                            <option value="Gampaha" selected>Gampaha</option>
+                            <% }else{  %>
+                            <option value="Gampaha">Gampaha</option>
+                            <% } %>
+                            <% if( district=='Hambantota') { %>
+                            <option value="Hambantota" selected>Hambantota</option>
+                            <% }else{  %>
+                            <option value="Hambantota">Hambantota</option>
+                            <% } %>
+                            <% if( district=='Jaffna') { %>
+                            <option value="Jaffna" selected>Jaffna</option>
+                            <% }else{  %>
+                            <option value="Jaffna">Jaffna</option>
+                            <% } %>
+                            <% if( district=='Kalutara') { %>
+                            <option value="Kalutara" selected>Kalutara</option>
+                            <% }else{  %>
+                            <option value="Kalutara">Kalutara</option>
+                            <% } %>
+                            <% if( district=='Kandy') { %>
+                            <option value="Kandy" selected>Kandy</option>
+                            <% }else{  %>
+                            <option value="Kandy">Kandy</option>
+                            <% } %>
+                            <% if( district=='Kegalle') { %>
+                            <option value="Kegalle" selected>Kegalle</option>
+                            <% }else{  %>
+                            <option value="Kegalle">Kegalle</option>
+                            <% } %>
+                            <% if( district=='Kilinochchi') { %>
+                            <option value="Kilinochchi" selected>Kilinochchi</option>
+                            <% }else{  %>
+                            <option value="Kilinochchi">Kilinochchi</option>
+                            <% } %>
+                            <% if( district=='Kurunegala') { %>
+                            <option value="Kurunegala" selected>Kurunegala</option>
+                            <% }else{  %>
+                            <option value="Kurunegala">Kurunegala</option>
+                            <% } %>
+                            <% if( district=='Mannar') { %>
+                            <option value="Mannar" selected>Mannar</option>
+                            <% }else{  %>
+                            <option value="Mannar">Mannar</option>
+                            <% } %>
+                            <% if( district=='Matale') { %>
+                            <option value="Matale" selected>Matale</option>
+                            <% }else{  %>
+                            <option value="Matale">Matale</option>
+                            <% } %>
+                            <% if( district=='Matara') { %>
+                            <option value="Matara" selected>Matara</option>
+                            <% }else{  %>
+                            <option value="Matara">Matara</option>
+                            <% } %><% if( district=='Moneragala') { %>
+                            <option value="Moneragala" selected>Moneragala</option>
+                            <% }else{  %>
+                            <option value="Moneragala">Moneragala</option>
+                            <% } %>
+                            <% if( district=='Mullaitivu') { %>
+                            <option value="Mullaitivu" selected>Mullaitivu</option>
+                            <% }else{  %>
+                            <option value="Mullaitivu">Mullaitivu</option>
+                            <% } %>
+                            <% if( district=='Nuwara Eliya') { %>
+                            <option value="Nuwara Eliya" selected>Nuwara Eliya</option>
+                            <% }else{  %>
+                            <option value="Nuwara Eliya">Nuwara Eliya</option>
+                            <% } %>
+                            <% if( district=='Polonnaruwa') { %>
+                            <option value="Polonnaruwa" selected>Polonnaruwa</option>
+                            <% }else{  %>
+                            <option value="Polonnaruwa">Polonnaruwa</option>
+                            <% } %>
+                            <% if( district=='Puttalam') { %>
+                            <option value="Puttalam" selected>Puttalam</option>
+                            <% }else{  %>
+                            <option value="Puttalam">Puttalam</option>
+                            <% } %>
+                            <% if( district=='Ratnapura') { %>
+                            <option value="Ratnapura" selected>Ratnapura</option>
+                            <% }else{  %>
+                            <option value="Ratnapura">Ratnapura</option>
+                            <% } %>
+                            <% if( district=='Trincomalee') { %>
+                            <option value="Trincomalee" selected>Trincomalee</option>
+                            <% }else{  %>
+                            <option value="Trincomalee">Trincomalee</option>
+                            <% } %>
+                            <% if( district=='Vavuniya') { %>
+                            <option value="Vavuniya" selected>Vavuniya</option>
+                            <% }else{  %>
+                            <option value="Vavuniya">Vavuniya</option>
+                            <% } %>
+                        </select>
+                      </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" placeholder="Description" rows="5" required><%=description%></textarea>
+                    </div>
+                    <div class="form-group text-right">
+                        <button class="btn btn-success" type="submit">Add New Post</button>
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</div>
+
+<%- include('_footer') %>

@@ -17,6 +17,10 @@ class postServices{
         const expire_date =dateFormat.ymd(date_obj);
         return Post.createPost(uid,title,product_name,quantity,expected_price,description,product_category,district,address,added_day,expire_date);
     }
+
+    static async getFarmerPostsById(uid){
+        return Post.getFarmerPostsById(uid);
+    }
 }
 
 module.exports = postServices;

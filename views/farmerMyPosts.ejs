@@ -1,0 +1,64 @@
+<%- include('_header',{user}) %>
+<div class="container p-1">
+    <h2 class="p-3 text-center">My Posts</h1>
+        <% if(error) { %>
+            <div class="alert alert-danger text-center" role="alert">
+                <%=error%>
+            </div>
+        <%} %>
+        <div class="card shadow rounded border-success">
+            <div class="nav-tabs-boxed">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#allposts" role="tab"
+                            aria-controls="allposts" aria-selected="true">All Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#activeposts" role="tab"
+                        aria-controls="activeposts" aria-selected="false">Active Posts</a></li>
+    
+                </ul>
+                <div class="tab-content p-3">
+                    <div class="tab-pane active" id="allposts" role="tabpanel">
+                        <div class="text-center">
+                            <img src="/assets/my_posts_all.jpg"
+                                class="img-fluid" alt="All Posts" />
+                                <br>
+                    <small><a href="https://www.freepik.com/vectors/nature" class="text-success">Nature vector created by freepik - www.freepik.com</a></small>
+                        </div>
+                        <div class="p-3">
+                            <% if(posts) {%>
+                                <% posts.forEach(function(post){%>
+                                   
+                                  <div class="card" style="width: 18rem;">
+                                    <% if(!post.image_data && post.product_category=='vegetable') {%>
+                                        <img class="card-img-top" src="/assets/default_vegetables.jfif" alt="Card image cap">
+                                    <%}%>
+                                    <div class="card-body">
+                                      <h5 class="card-title"><%=post.title%></h5>
+                                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
+                                    </div>
+                                  </div>
+                                <%});%>
+                                
+                
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="activeposts" role="tabpanel">
+                        <div class="text-center">
+                            <img src="/assets/my_posts_active.jpg"
+                                class="img-fluid" alt="Active Posts" height="20%" />
+                                <br>
+                                <small><a href="https://www.freepik.com/vectors/business" class="text-success">Business vector created by freepik - www.freepik.com</a></small>
+                        </div>
+                        <div class="p-3">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+        
+
+</div>
+
+<%- include('_footer') %>

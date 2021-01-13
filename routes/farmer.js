@@ -10,6 +10,7 @@ const ifFarmer =require('../middleware/ifFarmer');
 router.get('/',ifLoggedIn, ifFarmer, FarmerController.homePage);
 router.get('/signup', ifNotLoggedIn, FarmerController.signupPage);
 router.get('/addPost',ifLoggedIn,ifFarmer,PostController.addPostPage);
+router.get('/myPosts/:uid',ifLoggedIn,ifFarmer,FarmerController.myPostsPage);
 
 
 //POST Reqs

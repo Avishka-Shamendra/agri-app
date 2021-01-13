@@ -14,14 +14,21 @@ class Post{
 
     static async getAllPost(){
         const posts = sql`
-        SELECT * FROM posts ORDER BY added_day,title DESC;`
+        SELECT * FROM post ORDER BY added_day,title DESC;`
         return posts;
     }
 
     static async getRecentPosts(){
         const posts = sql`
-        SELECT * FROM posts ORDER BY added_day,title DESC LIMIT 10;`
+        SELECT * FROM post ORDER BY added_day,title DESC LIMIT 10;`
         return posts;
+    }
+
+    //get all posts belong to a farmer
+    static async getFarmerPostsById(uid){
+        const posts = sql`
+        SELECT * FROM post WHERE farmer_id=${uid} ORDER BY added_day,title DESC;`
+        return posts; 
     }
 }
 

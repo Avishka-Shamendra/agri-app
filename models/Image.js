@@ -22,9 +22,14 @@ const Image = sequelize.define("image", {
 
 class ImageClass{
     static  async addpost_img(details){
-        const [img] =await db`
-            INSERT
-        `
+        const [img_id] =await db`
+            INSERT INTO images 
+                ( id, post_id, type, name,data)
+            VALUES
+                ( generate_uuid4 (),${details['post_id']}, ${details['type']}, ${details['name']}, ${details['data']})
+            RETURNING id;
+      `
+        return img_id;
     }
 
     static async retrievePostImage(post_id){

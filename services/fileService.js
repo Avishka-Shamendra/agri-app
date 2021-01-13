@@ -45,7 +45,35 @@ class FileService {
             //return res.send(`Error when trying upload images: ${error}`);
 
         }
-    };
+    }
+
+    static async uploadPostImage_manual(file, post_id) {
+        try {
+            console.log(file);
+
+            if (file == undefined) {
+                throw new Errors.BadRequest(`You must select a file.`);
+            }
+            const details = {
+                post_id:post_id,
+                type: file.mimetype,
+                name: file.originalname,
+                data: file.buffer,
+            }
+
+            const img_id = await ImageClass.addpost_img(details);
+
+            if(!img_id){
+                throw new Errors.BadRequest(`Error when saving to database`);
+            }
+
+        } catch (error) {
+            console.log(error);
+            throw new Errors.BadRequest(`Error when trying upload images: ${error}`);
+            //return res.send(`Error when trying upload images: ${error}`);
+
+        }
+    }
 
 }
 

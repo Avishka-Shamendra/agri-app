@@ -18,5 +18,20 @@ const Image = sequelize.define("image", {
     },
 });
 
+//SELECT encode(data, 'base64') FROM image where id = 145
 
-module.exports = Image;
+class ImageClass{
+    static async retrievePostImage(post_id){
+        const [img] = await db`
+            SELECT encode(data, 'base64') from images
+            WHERE post_id=${post_id}
+        `;
+        return img;
+    }
+}
+
+
+module.exports = {
+    Image:Image,
+    ImageClass:ImageClass
+};

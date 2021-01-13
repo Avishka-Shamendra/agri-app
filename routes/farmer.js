@@ -12,7 +12,7 @@ router.get('/',ifLoggedIn, ifFarmer, FarmerController.homePage);
 router.get('/signup', ifNotLoggedIn, FarmerController.signupPage);
 router.get('/addPost',ifLoggedIn,ifFarmer,PostController.addPostPage);
 router.post('/addPost',ifLoggedIn,ifFarmer,uploadFileMiddleware,PostController.addPost);
-
+router.get('/getimage',ifLoggedIn,ifFarmer,PostController.retrievePostImage)
 
 //POST Reqs
 router.post('/signup', ifNotLoggedIn, FarmerController.signup);

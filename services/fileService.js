@@ -1,5 +1,6 @@
 const fs = require("fs");
-const Image = require("./../models/Image");
+const Image = require("./../models/Image").Image;
+const ImageClass = require("./../models/Image").ImageClass;
 const Errors = require('../helpers/error');
 
 class FileService {
@@ -9,6 +10,9 @@ class FileService {
                 throw new Errors.BadRequest(`Internal Server Error. post_id is undefined`);
             }
 
+            const image_b64 = await ImageClass.retrievePostImage(post_id);
+            const image = `data:image/jpeg;base64,${image_b64['encode']}`
+            return image;
         }catch (e){
             throw new Errors.BadRequest(`Error when trying download image: ${error}`);
         }

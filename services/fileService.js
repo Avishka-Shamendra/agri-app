@@ -3,6 +3,17 @@ const Image = require("./../models/Image");
 const Errors = require('../helpers/error');
 
 class FileService {
+    static async retrievePostImage(post_id){
+        try {
+            if(post_id == undefined) {
+                throw new Errors.BadRequest(`Internal Server Error. post_id is undefined`);
+            }
+
+        }catch (e){
+            throw new Errors.BadRequest(`Error when trying download image: ${error}`);
+        }
+    }
+
     static async uploadPostImage(file, post_id) {
         try {
             console.log(file);

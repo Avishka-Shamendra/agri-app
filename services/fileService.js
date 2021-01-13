@@ -3,20 +3,24 @@ const Image = require("./../models/Image").Image;
 const ImageClass = require("./../models/Image").ImageClass;
 const Errors = require('../helpers/error');
 
+function img_add_keyword(image_b64){
+    return `data:image/jpeg;base64,${image_b64['encode']}`
+}
+
 class FileService {
     static async retrievePostImage(post_id){
         try {
             if(post_id == undefined) {
                 throw new Errors.BadRequest(`Internal Server Error. post_id is undefined`);
             }
-
             const image_b64 = await ImageClass.retrievePostImage(post_id);
-            const image = `data:image/jpeg;base64,${image_b64['encode']}`
+            const image = img_add_keyword(image_b64);
             return image;
         }catch (e){
             throw new Errors.BadRequest(`Error when trying download image: ${error}`);
         }
     }
+
 
     static async uploadPostImage(file, post_id) {
         try {

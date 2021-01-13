@@ -6,12 +6,12 @@ const Post = require('../models/Post');
 const dateFormat = require('../helpers/dateFormat');
 
 class postServices{
-    static async addPost(details,uid){
-        if (!await Farmer.isUIDRegistetred(uid)) {
+    static async addPost(details,session,file){
+        if (!await Farmer.isUIDRegistetred(session.user.uid)) {
             throw new Errors.BadRequest('Internal Server error');
         }
 
-        const user = await Farmer.getUserById(uid)
+        const user = await Farmer.getUserById(session.user.uid)
 
         const combined = {
             ...details,
@@ -26,7 +26,7 @@ class postServices{
 
         const expire_date =dateFormat.ymd(date_obj);
 
-
+        combined['img_url'] = file.originalname;
         combined['status'] = 'Active';
         combined['added_day'] = added_day;
         combined['exp_day'] = expire_date;

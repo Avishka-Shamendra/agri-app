@@ -6,16 +6,16 @@
             <div class="col-md-6 col-sm-12 text-center align-self-center">
                 <% if (error) {%>
                 <div class="alert alert-danger" role="alert">
-                    <%=error%>
+                    <%=title%>
                 </div>
                 <% } %>
                 <form method="post" action="/farmer/addPost" enctype="multipart/form-data">
                     <h2 class="text-center">Add Post</h2>
-                    <div class="form-group"><input class="form-control" type="text" id="title" name="title" placeholder="Title of Post" value=<% if (title) {%>"<%=title%>"<% } %>></div>
-                    <div class="form-group"><input class="form-control" type="text" id="product_name" name="product_name" placeholder="Item" value=<% if (product_name) {%><%=product_name%><% } %>></div>
-                    <div class="form-group"><input class="form-control" type="text" id="expected_price" name="expected_price" placeholder="Price per Kg" value=<% if (expected_price) {%><%=expected_price%><% } %>></div>
-                    <div class="form-group"><input class="form-control" type="text" id="quantity" name="quantity" placeholder="Amount to be sold" value=<% if (quantity) {%><%=quantity%><% } %>></div>
-                    <div class="form-group"><input class="form-control" type="text" id="phone_num" name="phone_num" placeholder="Phone Number" value=<% if (phone_num) {%><%=phone_num%><% } %>></div>
+                    <div class="form-group"><input class="form-control" type="text" id="title" name="title" placeholder="Title of Post" value="<%=title%>"></div>
+                    <div class="form-group"><input class="form-control" type="text" id="product_name" name="product_name" placeholder="Item" value="<%=product_name%>"></div>
+                    <div class="form-group"><input class="form-control" type="text" id="expected_price" name="expected_price" placeholder="Price per Kg" value="<%=expected_price%>"></div>
+                    <div class="form-group"><input class="form-control" type="text" id="quantity" name="quantity" placeholder="Amount to be sold" value="<%=quantity%>"></div>
+                    <div class="form-group"><input class="form-control" type="text" id="phone_num" name="phone_num" placeholder="Phone Number" value="<%=phone_num%>"></div>
                     <div class="form-group">
                         <label for="product_category_label">Product Type</label>
                             <select id="product_category" class="form-control" name="product_category" required>
@@ -24,7 +24,7 @@
                                 <option id="fruit" value="fruit">Fruit</option>
                             </select>
                     </div>
-                    <div class="form-group"><textarea class="form-control" id="description" name="description" placeholder="Description" rows="10" value=<% if (description) {%><%=description%><% } %>></textarea></div>
+                    <div class="form-group"><textarea class="form-control" id="description" name="description" placeholder="Description" rows="10" value=<%=description%>></textarea></div>
                     <div class="form-group"><input type="file" name="file" id="file" class="form-control-file border"></div>
                     <div class="form-group"><button class="btn btn-primary" type="submit">Add post</button></div>
                 </form>

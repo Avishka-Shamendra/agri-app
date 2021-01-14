@@ -77,6 +77,11 @@ class UserService {
             throw new Errors.BadRequest(' Email is already registered');
         }
 
+        const isNICRegistered = await User.isNICregistered(nicNumber);
+        if (isNICRegistered) {
+            throw new Errors.BadRequest(' NIC is already registered');
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10);
         return Farmer.create(firstName,lastName,gender,email, hashedPassword, nicNumber, contactNo, address, district);
     }
@@ -90,6 +95,7 @@ class UserService {
         if (user && user.uid!=uid) {
             throw new Errors.BadRequest(' Email is already registered');
         }
+        
         return Farmer.updateFarmer(firstName,lastName,gender,email, nicNumber, contactNo, address, district,uid);
     }
 
@@ -103,6 +109,11 @@ class UserService {
         const isRegistered = await User.isEmailRegistetred(email);
         if (isRegistered) {
             throw new Errors.BadRequest(' Email is already registered');
+        }
+
+        const isNICRegistered = await User.isNICregistered(nicNumber);
+        if (isNICRegistered) {
+            throw new Errors.BadRequest(' NIC is already registered');
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);

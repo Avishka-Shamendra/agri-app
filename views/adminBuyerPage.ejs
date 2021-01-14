@@ -15,16 +15,23 @@
             </div>
             <% } %>
 
-            <% if (buyers) {%>
-                <% for(let num_buyer=0; num_buyer < buyers.length; num_buyer++) { %>
-                    <div class="card bg-light border-success mb-3 text-left">
-                        <div class="card-header" ><%=buyers[num_buyer].buyer_id%></div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                text to put.
-                            </p>
-                        </div>
+            <% if (buyers.count>0) {%>
+                <% for(let num_buyers=0; num_buyers < buyers.length; num_buyers++) { %>
+                <div class="card bg-light border-success mb-3 text-left">
+                    <div class="card-header" ><%=`${buyers[num_buyers].first_name} ${buyers[num_buyers].last_name}`%></div>
+                    <div class="card-body text-success">
+                        <p class="card-text">Nic number :- <%=buyers[num_buyers].nic%> </p>
+                        <p class="card-text">Contact Number :- <%=buyers[num_buyers].contact_no%> </p>
+                        <p class="card-text">District :- <%=buyers[num_buyers].district%> </p>
+                        <p class="card-text">Address :- <%=buyers[num_buyers].address%> </p>
+                        <p class="card-text">Email :- <%=buyers[num_buyers].email%> </p>
+                        <p class="card-text">Gender :- <%=buyers[num_buyers].gender%> </p>
+                        <p class="card-text">Nic number :- <%=buyers[num_buyers].nic%> </p>
+                        <% if (buyers[num_buyers].banned) {%>
+                        <p class="card-text alert alert-danger">Is banned? :- <%=buyers[num_buyers].banned%> </p>
+                        <% } %>
                     </div>
+                </div>
                 <% } %>
             <% } %>
         </div>

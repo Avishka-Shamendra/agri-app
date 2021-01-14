@@ -2,6 +2,7 @@ const { AdminSignUpInfo } = require('./validators/authInfo');
 const UserService = require('../services/userServices');
 const buyerService = require('../services/buyerService');
 const farmerService = require('../services/farmerService');
+const postService = require('../services/postServices');
 
 class AdminController {
     static homePage(req,res){
@@ -53,6 +54,16 @@ class AdminController {
             error: req.query.error,
             user: req.session.user,
             buyers:buyers
+        });
+    }
+
+    static async allPostsofFarmer(req,res){
+        console.log(req.params.uid);
+        const posts = await postService.getPostofFarmer(req.params.uid);
+        res.render('adminFarmerPostsPage',{
+            error: req.query.error,
+            user: req.session.user,
+            posts:posts
         });
     }
 }

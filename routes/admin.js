@@ -9,6 +9,7 @@ router.get('/',ifLoggedIn,ifAdmin, AdminController.homePage);
 router.get('/signup', ifNotLoggedIn, AdminController.signupPage);
 router.get('/allFarmers',AdminController.allFarmersPage);
 router.get('/allBuyers',AdminController.allBuyersPage);
+router.get('/farmer/:uid',AdminController.allPostsofFarmer);
 
 //POST Requests
 router.post('/signup',ifNotLoggedIn, AdminController.signup);

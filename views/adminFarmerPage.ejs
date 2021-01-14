@@ -20,6 +20,7 @@
                 <div class="card bg-light border-success mb-3 text-left">
                     <div class="card-header" ><%=`${farmers[num_farmer].first_name} ${farmers[num_farmer].last_name}`%></div>
                     <div class="card-body text-success">
+                        <a class="card-block stretched-link text-decoration-none" href="<%='/admin/farmer/'+farmers[num_farmer].uid%>"></a>
                         <p class="card-text">Nic number :- <%=farmers[num_farmer].nic%> </p>
                         <p class="card-text">Contact Number :- <%=farmers[num_farmer].contact_no%> </p>
                         <p class="card-text">District :- <%=farmers[num_farmer].district%> </p>

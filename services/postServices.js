@@ -75,6 +75,20 @@ class postServices{
         console.log(posts);
         return posts;
     }
+
+    static async getPostofFarmer(uid,limit=null){
+        const posts = await Post.getPostsofFarmer(uid,limit,fal);
+
+        posts.forEach((item,index)=>{
+            //console.log(item.encode);
+            item.encode = img_add_keyword_bitstream(item.encode);
+            return item;
+        });
+
+
+        console.log(posts);
+        return posts;
+    }
 }
 
 module.exports = postServices;

@@ -1,0 +1,75 @@
+<%- include('_header',{user}) %>
+
+<div class="container py-4">
+    <h2 class="p-3 display-4 text-center" style="font-size:4vw;">Posts of </h2>
+    <div class="card  rounded shadow-lg border-success text-center align-self-center">
+        <div class="col-md-6 col-sm-12 text-center align-self-center">
+            <% if (error) {%>
+            <div class="alert alert-danger" role="alert">
+                <%=error%>
+            </div>
+            <% } %>
+            <% if (posts.count <= 0) {%>
+                <div class="alert alert-danger" role="alert">
+                    <h5>There are no Posts from this Farmer</h5>
+                </div>
+            <% } %>
+
+            <% if (posts.count>0) {%>
+                <div class="p-3">
+                        <% posts.forEach(function(post){%>
+
+
+                            <div class="card mb-2 border">
+                                <div class="row">
+                                    <div class="col-lg-5 align center">
+                                        <% if(post.img_name) {%>
+                                            <img class="d-block w-100" src="<%=post.encode%>" alt="vegetables">
+                                        <%} else if(!post.img_name && post.product_category=='vegetable') {%>
+                                            <img class="d-block w-100" src="/assets/default_vegetables.jpg" alt="vegetables">
+                                        <%} else if (!post.img_name && post.product_category=='fruit') {%>
+                                            <img class="d-block w-100 rounded border-success" src="/assets/default_fruits.jpg" alt="">
+                                        <%}%>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="card-block p-3">
+                                            <h5 class="card-title"><%=post.title%></h5>
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12 text-secondary">
+                                                    <p class="text-success"><i class="fas fa-heartbeat" style="margin-right: 6px;"></i><b>State: <%=post.status%> </b></p>
+                                                    <p><i class="fas fa-balance-scale-right" style="margin-right: 6px;"></i>Qunatity : <%=post.quantity%> kg</p>
+                                                    <p><i class="fas fa-tags" style="margin-right: 6px;"></i>Price : Rs. <%=post.expected_price%> </p>
+
+                                                </div>
+                                                <div class="col-md-6 col-sm-12 text-secondary">
+                                                    <p><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No : <%=post.contact_no%></p>
+                                                    <p><i class="fas fa-thumbtack" style="margin-right: 6px;"></i>Available District : <%=post.available_district%> </p>
+                                                    <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Added On : <%=post.added_day.getFullYear()+'/'+("0" + (post.added_day.getMonth() + 1)).slice(-2)+'/'+("0" + post.added_day.getDate()).slice(-2) %> </p>
+                                                </div>
+                                            </div>
+                                            <p class="text-secondary"><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i>Available Location : <%=post.available_address%> </p>
+                                            <a class="card-block stretched-link text-muted" href=''><i class="fas fa-edit" style="margin-right: 6px;"></i>Edit Post</a>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        <%});%>
+
+
+
+                    <% }else{ %>
+                        <div class="alert alert-warning text-center">
+                            <strong>No Posts Available</strong>
+                        </div>
+                </div>
+
+            <% } %>
+        </div>
+    </div>
+</div>
+
+
+<%- include('_footer') %>

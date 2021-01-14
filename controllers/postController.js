@@ -34,6 +34,21 @@ class PostController{
         const img = await FileService.retrievePostImage('e051dc79-1a2b-47f7-a4c1-1df45e903897')
         res.send(`<img src='${img}'/>`);
     }
+
+    static async retrieveAPost(req, res){
+
+    }
+
+    static async retrieveAllPosts(req, res){
+        try{
+            const Posts = await PostService.retrieveAllPosts();
+            //console.log(Posts)
+            res.redirect('/farmer');
+        }catch (e) {
+            //console.log(e);
+            res.redirect('/farmer');
+        }
+    }
 }
 
 module.exports = PostController;

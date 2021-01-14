@@ -35,6 +35,37 @@ class postServices{
         return await Post.createPost(combined);
 
     }
+
+    static async retrieveAllPosts(all=true,maxPost = 20,strategy = 'newest',filter='None'){
+
+        //labels_sting : "post_id,farmer_id,product_name,title,description,product_category,quantity,expected_price,available_district,available_address,status,added_day,exp_day,encode",
+        //             labels : ["post_id","farmer_id","product_name","title","description","product_category","quantity","expected_price","available_district","available_address","status","added_day","exp_day","encode"],
+        //
+
+        let Info = {
+            all:all,
+            maxPost:maxPost
+        }
+
+        if(!all){
+            Info['maxPost']  = null;
+        }
+
+        switch (strategy){
+            case "newest":
+                Info['sort_param']= "added_day";
+                Info['sort_order']= "DESC";
+                break;
+        }
+
+        switch (filter) {
+            case "None":
+                Info['WhereClause'] = null;
+                break;
+        }
+
+        return await Post.retrieveAllPost(Info);
+    }
 }
 
 module.exports = postServices;

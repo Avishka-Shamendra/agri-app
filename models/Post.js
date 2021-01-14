@@ -1,12 +1,12 @@
 const sql = require('../config/db');
 
 class Post{
-    static async createPost(uid,title,product_name,quantity,expected_price,description,product_category,district,address,added_day,expire_date){
+    static async createPost(uid,title,product_name,quantity,expected_price,description,product_category,district,address,phone_num,added_day,expire_date){
         const [createdPost] = await sql`
             INSERT INTO post 
-                ( farmer_id, title, product_name, quantity, expected_price, description, product_category, available_district, available_address, added_day, exp_day) 
+                ( farmer_id, title, product_name, quantity, expected_price, description, product_category, available_district, available_address,contact_no, added_day, exp_day) 
             VALUES 
-                ( ${uid},${title}, ${product_name}, ${quantity},${expected_price},${description},${product_category},${district},${address},${added_day},${expire_date})
+                ( ${uid},${title}, ${product_name}, ${quantity},${expected_price},${description},${product_category},${district},${address},${phone_num},${added_day},${expire_date})
             RETURNING *
             `;
         return createdPost;

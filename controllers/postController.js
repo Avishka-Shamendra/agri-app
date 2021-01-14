@@ -12,10 +12,10 @@ class PostController{
             product_name:req.query.product_name,
             expected_price:req.query.expected_price,
             quantity:req.query.quantity,
-            phone_num:req.session.user?(req.session.user.farmerData?req.session.user.farmerData.contact_no:undefined):req.query.phone_num,
+            phone_num:req.query.phone_num?req.query.phone_num:req.session.user?(req.session.user.farmerData?req.session.user.farmerData.contact_no:undefined):undefined,
             description:req.query.description,
-            address:req.session.user?(req.session.user.farmerData?req.session.user.farmerData.address:undefined):req.query.address,
-            district:req.session.user?(req.session.user.farmerData?req.session.user.farmerData.district:undefined):req.query.district,
+            address:req.query.address?req.query.address:req.session.user?(req.session.user.farmerData?req.session.user.farmerData.address:undefined):undefined,
+            district:req.query.district?req.query.district:req.session.user?(req.session.user.farmerData?req.session.user.farmerData.district:undefined):undefined,
             product_category:req.query.product_category
         });
     }
@@ -27,7 +27,7 @@ class PostController{
             const post = await PostService.addPost(req.body,req.session.user.uid);
             res.redirect('/farmer?new_post_success=Your post is now Active .You can view the post in "My Posts" section.Edit your post  or add an image to your post from there if needed.');
         }catch (e) {
-            res.redirect(`/farmer/addPost?error=${e}&title=${req.body.title}&product_name=${req.body.product_name}&expected_price=${req.body.expected_price}&quantity=${req.body.quantity}&phone_num=${req.body.phone_num}&description=${req.body.description}&product_category=${req.body.product_category}`);
+            res.redirect(`/farmer/addPost?error=${e}&title=${req.body.title}&product_name=${req.body.product_name}&expected_price=${req.body.expected_price}&quantity=${req.body.quantity}&phone_num=${req.body.phone_num}&description=${req.body.description}&product_category=${req.body.product_category}&address=${req.body.address}&district=${req.body.district}`);
         }
     }
 }

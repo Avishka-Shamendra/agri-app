@@ -1,0 +1,35 @@
+<%- include('_header',{user}) %>
+
+<div class="container py-4">
+    <h2 class="p-3 display-4 text-center" style="font-size:4vw;">Farmers in system</h2>
+    <div class="card  rounded shadow-lg border-success text-center align-self-center">
+        <div class="col-md-6 col-sm-12 text-center align-self-center">
+            <% if (error) {%>
+            <div class="alert alert-danger" role="alert">
+                <%=error%>
+            </div>
+            <% } %>
+            <% if (buyers.count <= 0) {%>
+            <div class="alert alert-danger" role="alert">
+                <h5>There are no buyers Registered</h5>
+            </div>
+            <% } %>
+
+            <% if (buyers) {%>
+                <% for(let num_buyer=0; num_buyer < buyers.length; num_buyer++) { %>
+                    <div class="card bg-light border-success mb-3 text-left">
+                        <div class="card-header" ><%=buyers[num_buyer].buyer_id%></div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                text to put.
+                            </p>
+                        </div>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+
+<%- include('_footer') %>

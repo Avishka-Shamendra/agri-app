@@ -40,6 +40,18 @@ class Farmer {
         `;
         return user != null;
     }
+
+    static async getFarmers(limit){
+        let data;
+
+        if(!limit){
+            data = await sql` SELECT U.uid,nic,contact_no,district,address,email,first_name,last_name,gender,banned FROM farmer AS F NATURAL JOIN userinfo AS U WHERE F.uid = U.uid ORDER BY U.banned,U.joined DESC`;
+        }else{
+            data = await sql` SELECT U.uid,nic,contact_no,district,address,email,first_name,last_name,gender,banned FROM farmer AS F NATURAL JOIN userinfo AS U WHERE F.uid = U.uid ORDER BY U.banned,U.joined DESC LIMIT ${limit}`;
+        }
+
+        return data;
+    }
 }
 
 module.exports = Farmer;

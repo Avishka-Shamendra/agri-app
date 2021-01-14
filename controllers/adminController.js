@@ -1,5 +1,7 @@
 const { AdminSignUpInfo } = require('./validators/authInfo');
 const UserService = require('../services/userServices');
+const buyerService = require('../services/buyerService');
+const farmerService = require('../services/farmerService');
 
 class AdminController {
     static homePage(req,res){
@@ -30,7 +32,29 @@ class AdminController {
             //logger.error(err);
             res.redirect(`/admin/signup?error=${err}&email=${req.body.email}&firstName=${req.body.firstName}&lastName=${req.body.lastName}&gender=${req.body.gender}&securityKey=${req.body.securityKey}`);
         }
-    } 
+    }
+
+    static async allFarmersPage(req,res){
+        const farmers = await farmerService.getFarmers();
+        console.log(farmers.count);
+
+        res.render('adminFarmerPage',{
+            error: req.query.error,
+            user: req.session.user,
+            farmers:farmers
+        });
+    }
+
+    static async allBuyersPage(req,res){
+        const buyers = await buyerService.getBuyers();
+        //console.log(buyers.count);
+
+        res.render('adminBuyerPage',{
+            error: req.query.error,
+            user: req.session.user,
+            buyers:buyers
+        });
+    }
 }
 
 module.exports = AdminController;

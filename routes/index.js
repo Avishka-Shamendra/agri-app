@@ -7,6 +7,7 @@ const ifNotLoggedIn = require('../middleware/ifNotLoggedIn');
 
 //GET
 router.get('/', ifNotLoggedIn, RootController.indexPage);
+
 router.get('/login',ifNotLoggedIn, RootController.loginPage);
 router.get('/logout', ifLoggedIn, RootController.logout);
 router.get('/editProfile',ifLoggedIn, RootController.editProfilePage);

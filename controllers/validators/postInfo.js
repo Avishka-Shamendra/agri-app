@@ -16,5 +16,14 @@ const addpostInfo = Joi.object().options({ abortEarly: false }).keys({
     address: Joi.string().required().label("Address")
 });
 
+const filterPostsInfo = Joi.object().options({ abortEarly: false }).keys({
+    min_quantity:Joi.number().empty('').default(0).integer().min(0).max(100000000).label("Min. Quantity"),
+    max_quantity:Joi.number().empty('').default(100000000).integer().min(0).max(100000000).label("Max. Quantity"),
+    min_price:Joi.number().empty('').default(0).integer().min(0).max(100000000).label("Min. Price"),
+    max_price:Joi.number().empty('').default(100000000).integer().min(0).max(100000000).label("Min. Price"),
+    filter_category:Joi.string().valid('vegetable','fruit','all').required().label("Product Category"),
+    filter_district: Joi.string().label("District"),
+});
 
-module.exports = { addpostInfo };
+
+module.exports = { addpostInfo, filterPostsInfo };

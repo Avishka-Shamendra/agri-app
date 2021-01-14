@@ -1,7 +1,37 @@
 <%- include('_header',{user}) %>
 <div class="container py-4">
-    Farmer Home Welcome <%=user.name%>
-    <%=user.farmerData.contact_no%>
+    <h1 class="p-3 display-4" style="font-size:4vw;">Welcome <%=user.name.toUpperCase()%></h1>
+    <hr>
+    <% if(error) { %>
+        <div class="alert alert-danger text-center" role="alert">
+            <%=error%>
+        </div>
+    <%} %>
+    <% if (new_post_success) {%>
+        <div class="p-3 alert alert-success text-center" role="alert">
+            <%=new_post_success%>
+        </div>
+    <% } %>
+    <div class="row p-3" >
+        <div class="card p-3 m-2 text-center col-md-3 col-sm-12 rouned-lg shadow border-success">
+            <div class="card-body">
+                <a class="card-block stretched-link text-decoration-none" href='/farmer/addPost'></a>
+                <i class="fas fa-plus fa-4x mt-4"></i>
+                <h4 class="card-text mt-4">Add New Post</h4>
+            </div>
+        </div>
+        <div class="card p-3 m-2 text-center col-md-3 col-sm-12 rouned-lg shadow border-success">
+            <div class="card-body">
+                <a class="card-block stretched-link text-decoration-none" href='/farmer/myPosts/<%=user.uid%>'></a>
+                <img src="assets/icons/farmer_home_vegetable_basket.png" alt="vegetable-basket" width="70px" class="mt-4"/>
+            <h4 class="card-text mt-4">My Posts</h4>
+            </div>
+            
+        </div>
+
+    </div>
+        
+
 </div>
 
 <%- include('_footer') %>

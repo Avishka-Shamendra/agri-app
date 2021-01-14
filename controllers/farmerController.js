@@ -1,5 +1,6 @@
 const { FarmerSignupInfo } = require('./validators/authInfo');
 const UserService = require('../services/userServices');
+const PostService = require('../services/postServices');
 const { FarmerEditInfo } = require('./validators/editProfileInfo');
 
 class FarmerController {
@@ -7,8 +8,24 @@ class FarmerController {
         res.render('farmerHome',{ 
             error: req.query.error, 
             user: req.session.user,
+            new_post_success:req.query.new_post_success,
          });
     } 
+
+    static async myPostsPage(req,res){
+        try{
+        const posts = await PostService.getFarmerPostsById(req.params.uid);
+        res.render('farmerMyPosts',{
+            user:req.session.user,
+            error:req.query.error,
+            posts:posts,
+            activePosts:posts.filter((post)=>post.status=='Active'),
+            soldPosts:posts.filter((post)=>post.status=='Sold'),
+        });
+        }catch(err){
+            res.redirect(`/farmer?error=${err}`);
+        }
+    }
     static signupPage(req,res){
         res.render('farmerSignUp',{ 
             error : req.query.error,

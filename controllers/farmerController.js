@@ -19,6 +19,8 @@ class FarmerController {
             user:req.session.user,
             error:req.query.error,
             posts:posts,
+            activePosts:posts.filter((post)=>post.status=='Active'),
+            soldPosts:posts.filter((post)=>post.status=='Sold'),
         });
         }catch(err){
             res.redirect(`/farmer?error=${err}`);

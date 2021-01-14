@@ -21,6 +21,21 @@ class postServices{
     static async getFarmerPostsById(uid){
         return Post.getFarmerPostsById(uid);
     }
+
+    static async getAllActivePosts(){
+        return Post.getAllActivePosts();
+    }
+
+    static async getFilteredPosts({min_price,max_price,min_quantity,max_quantity,filter_category,filter_district}){
+        if(!min_quantity) min_quantity=0;
+        if(!max_quantity) max_quantity=100000000;
+        if(!min_price) min_price=0;
+        if(!max_price) max_price=100000000;
+        if(filter_category==='all') filter_category=null;
+        if(filter_district==='all') filter_district=null;
+        return Post.getFilteredPosts(min_price,max_price,min_quantity,max_quantity,filter_category,filter_district);
+    }
+
 }
 
 module.exports = postServices;

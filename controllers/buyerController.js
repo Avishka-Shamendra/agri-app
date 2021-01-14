@@ -1,14 +1,63 @@
 const { BuyerSignupInfo } = require('./validators/authInfo');
 const { BuyerEditInfo } = require('./validators/editProfileInfo');
+const {filterPostsInfo } = require('./validators/postInfo');
 const UserService = require('../services/userServices');
+const PostService = require('../services/postServices');
 
 class BuyerController {
-    static homePage(req,res){
-        res.render('buyerHome',{ 
-            error: req.query.error, 
-            user: req.session.user,
-         });
+    static async  homePage(req,res){
+            try{
+                const posts = await PostService.getAllActivePosts();
+                res.render('buyerHome',{ 
+                    error: req.query.error, 
+                    user: req.session.user,
+                    posts:posts,
+                    filter_category:req.query.filter_category,
+                    filter_district:req.query.filter_district,
+                    min_price:req.query.min_price,
+                    max_price:req.query.max_price,
+                    min_quantity:req.query.min_quantity,
+                    max_quantity:req.query.max_qunatity,
+                });
+            }catch(err){
+                res.render('buyerHome',{ 
+                    error: err, 
+                    user: req.session.user,
+                    posts:null, // incase of error
+                    filter_category:req.query.filter_category,
+                    filter_district:req.query.filter_district,
+                    min_price:req.query.min_price,
+                    max_price:req.query.max_price,
+                    min_quantity:req.query.min_quantity,
+                    max_quantity:req.query.max_qunatity,
+                });
+            }
+            
     } 
+
+    static async filterPosts(req,res){
+        try {
+            const { value, error } = await filterPostsInfo.validate(req.body);
+            if (error) throw (error);
+            const filtered = await PostService.getFilteredPosts(value);
+            res.render('buyerHome',{ 
+                error: req.query.error, 
+                user: req.session.user,
+                posts:filtered,
+                filter_category:req.body.filter_category,
+                filter_district:req.body.filter_district,
+                min_price:req.body.min_price,
+                max_price:req.body.max_price,
+                min_quantity:req.body.min_quantity,
+                max_quantity:req.body.max_quantity,
+            });
+        } catch (err) {
+            res.redirect(
+                `/buyer?error=${err}&filter_category=${req.body.filter_category}&filter_district=${req.body.filter_district}&min_price=${req.body.min_price}&max_price=${req.body.max_price}&min_quantity=${req.body.min_quantity}&max_quantity=${req.body.max_quantity}`
+                );
+        }
+    } 
+
     static signupPage(req,res){
         res.render('buyerSignUp',{ 
             error: req.query.error,

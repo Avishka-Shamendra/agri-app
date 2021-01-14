@@ -30,6 +30,35 @@ class Post{
         SELECT * FROM post WHERE farmer_id=${uid} ORDER BY added_day,title DESC;`
         return posts; 
     }
+
+    static async getAllActivePosts(filter_category,filter_district){
+        console.log(filter_category,filter_district)
+        if(filter_category && filter_district){
+            console.log("Both Given")
+            const posts = sql`
+            SELECT * FROM post WHERE status='Active' AND product_category=${filter_category} AND available_district=${filter_district} ORDER BY added_day,title DESC;`
+            return posts; 
+        }
+        if(filter_category){
+            console.log("product_category Given")
+            const posts = sql`
+            SELECT * FROM post WHERE status='Active' AND product_category=${filter_category} ORDER BY added_day,title DESC;`
+            return posts; 
+        }
+        if(filter_district){
+            console.log("filter_distric Given")
+            const posts = sql`
+            SELECT * FROM post WHERE status='Active' AND available_district=${filter_district} ORDER BY added_day,title DESC;`
+            return posts; 
+        }
+        else{
+            console.log("None Given")
+            const posts = sql`
+            SELECT * FROM post WHERE status='Active' ORDER BY added_day,title DESC;`
+            return posts; 
+        }
+       
+    }
 }
 
 module.exports = Post;

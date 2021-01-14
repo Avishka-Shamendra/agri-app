@@ -1,14 +1,34 @@
 const { BuyerSignupInfo } = require('./validators/authInfo');
 const { BuyerEditInfo } = require('./validators/editProfileInfo');
 const UserService = require('../services/userServices');
+const PostService = require('../services/postServices');
 
 class BuyerController {
-    static homePage(req,res){
+    static async  homePage(req,res){
+        console.log(req.query.filter_category)
+        console.log(req.query.filter_district)
+
+        req.query.filter_category=req.query.filter_category=="all"?null:req.query.filter_category;
+        req.query.filter_district=req.query.filter_district=="all"?null:req.query.filter_district;
+
+        const posts = await PostService.getAllActivePosts(req.query.filter_category,req.query.filter_district);
+
         res.render('buyerHome',{ 
             error: req.query.error, 
             user: req.session.user,
+            posts:posts,
+            filter_category:req.query.filter_category,
+            filter_district:req.query.filter_district
          });
     } 
+
+    static async filterPosts(req,res){
+        console.log(req.body)
+        res.redirect(
+            `/buyer?filter_category=${req.body.filter_category}&filter_district=${req.body.filter_district}`
+            );
+    } 
+
     static signupPage(req,res){
         res.render('buyerSignUp',{ 
             error: req.query.error,

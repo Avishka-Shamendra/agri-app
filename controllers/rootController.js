@@ -29,6 +29,13 @@ class RootController {
         });
     }
 
+    static creditPage(req,res){
+        res.render('_credits',{
+            error:req.query.error,
+            user:req.session.user
+        });
+    }
+
     static async login(req, res) {
         try {
             const { value, error } = await LogInInfo.validate(req.body);

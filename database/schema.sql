@@ -156,14 +156,15 @@ CREATE TABLE Post (
   title varchar(63) not null,
   description varchar(999) not null,
   product_category Category not null,
-  quantity numeric(6,2) not null,
-  expected_price numeric(6,2) not null,
+  quantity numeric(20,2) not null,
+  expected_price numeric(20,2) not null,
   available_district district_name not null,
   available_address varchar(127) not null,
-  status Post_State not null,
+  contact_no valid_contact_no not null,
+  status Post_State not null DEFAULT 'Active',
   added_day DATE not null,
   exp_day DATE not null,
-  img_url VARCHAR(127) not null, -- change to image bytes if needed
+  img_data VARCHAR(255) null, -- change to image bytes if needed
   PRIMARY KEY (post_id),
   FOREIGN KEY(farmer_id) REFERENCES Farmer(uid) ON DELETE CASCADE ON UPDATE CASCADE
 );

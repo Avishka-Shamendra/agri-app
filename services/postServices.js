@@ -4,6 +4,7 @@ const Farmer = require('../models/Farmer');
 const Buyer = require('../models/Buyer');
 const Post = require('../models/Post');
 const dateFormat = require('../helpers/dateFormat');
+const {img_add_keyword} = require('../helpers/image_helper');
 
 class postServices{
     static async addPost(details,session,file){
@@ -64,7 +65,11 @@ class postServices{
                 break;
         }
 
-        return await Post.retrieveAllPost(Info);
+        const posts  = await Post.retrieveAllPost(Info);
+        posts.forEach((item,index)=>{
+            item.encode = img_add_keyword(item.encode);
+            return item;
+        });
     }
 }
 

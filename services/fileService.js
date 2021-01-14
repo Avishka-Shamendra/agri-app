@@ -2,10 +2,8 @@ const fs = require("fs");
 const Image = require("./../models/Image").Image;
 const ImageClass = require("./../models/Image").ImageClass;
 const Errors = require('../helpers/error');
+const {img_add_keyword} = require('../helpers/image_helper');
 
-function img_add_keyword(image_b64){
-    return `data:image/jpeg;base64,${image_b64['encode']}`
-}
 
 class FileService {
     static async retrievePostImage(post_id){

@@ -76,6 +76,17 @@ class User {
         FROM UserInfo
         WHERE uid=${uid}`;
     }
+
+    static async isNICregistered(nic){
+        const [farmer] = await sql`SELECT
+        nic FROM Farmer
+        WHERE nic=${nic}`;
+        const [buyer] = await sql`SELECT
+        nic FROM Buyer
+        WHERE nic=${nic}`;
+        return farmer!=null || buyer!=null;
+
+    }
 }
 
 module.exports = User;

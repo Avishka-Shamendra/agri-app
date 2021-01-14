@@ -9,7 +9,7 @@ router.get('/signup', ifNotLoggedIn, BuyerController.signupPage);
 router.get('/',ifLoggedIn,ifBuyer, BuyerController.homePage);
 
 //post
-router.post('/',ifLoggedIn,ifBuyer, BuyerController.filterPosts);
+router.post('/filter',ifLoggedIn,ifBuyer, BuyerController.filterPosts);
 router.post('/signup', ifNotLoggedIn, BuyerController.signup);
 router.post('/editProfile/:uid',ifLoggedIn,ifBuyer, BuyerController.editProfile );
 

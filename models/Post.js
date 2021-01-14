@@ -31,33 +31,57 @@ class Post{
         return posts; 
     }
 
-    static async getAllActivePosts(filter_category,filter_district){
-        console.log(filter_category,filter_district)
+    static async getFilteredPosts(min_price,max_price,min_quantity,max_quantity,filter_category,filter_district){
         if(filter_category && filter_district){
-            console.log("Both Given")
             const posts = sql`
-            SELECT * FROM post WHERE status='Active' AND product_category=${filter_category} AND available_district=${filter_district} ORDER BY added_day,title DESC;`
+            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name FROM post INNER JOIN UserInfo 
+            ON UserInfo.uid=Post.farmer_id
+            WHERE status='Active'
+             AND product_category=${filter_category} AND available_district=${filter_district}
+             AND expected_price >= ${min_price} AND expected_price <=${max_price}
+             AND quantity >= ${min_quantity} AND quantity <= ${max_quantity}
+              ORDER BY added_day,title DESC LIMIT 30;`
             return posts; 
         }
         if(filter_category){
-            console.log("product_category Given")
             const posts = sql`
-            SELECT * FROM post WHERE status='Active' AND product_category=${filter_category} ORDER BY added_day,title DESC;`
+            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name FROM post INNER JOIN UserInfo 
+            ON UserInfo.uid=Post.farmer_id
+            WHERE status='Active' AND product_category=${filter_category}
+            AND expected_price >= ${min_price} AND expected_price <=${max_price}
+             AND quantity >= ${min_quantity} AND quantity <= ${max_quantity}
+             ORDER BY added_day,title DESC LIMIT 30;`
             return posts; 
         }
         if(filter_district){
-            console.log("filter_distric Given")
             const posts = sql`
-            SELECT * FROM post WHERE status='Active' AND available_district=${filter_district} ORDER BY added_day,title DESC;`
+            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name FROM post INNER JOIN UserInfo 
+            ON UserInfo.uid=Post.farmer_id
+            WHERE status='Active' AND available_district=${filter_district}
+            AND expected_price >= ${min_price} AND expected_price <=${max_price}
+             AND quantity >= ${min_quantity} AND quantity <= ${max_quantity}
+             ORDER BY added_day,title DESC LIMIT 30;`
             return posts; 
         }
         else{
-            console.log("None Given")
             const posts = sql`
-            SELECT * FROM post WHERE status='Active' ORDER BY added_day,title DESC;`
+            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name FROM post INNER JOIN UserInfo 
+            ON UserInfo.uid=Post.farmer_id
+            WHERE status='Active'
+            AND expected_price >= ${min_price} AND expected_price <=${max_price}
+            AND quantity >= ${min_quantity} AND quantity <= ${max_quantity}
+            ORDER BY added_day,title DESC LIMIT 30;`
             return posts; 
         }
        
+    }
+
+    static async getAllActivePosts(){
+        const posts = sql`
+             SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name FROM post INNER JOIN UserInfo 
+            ON UserInfo.uid=Post.farmer_id
+            WHERE status='Active' ORDER BY added_day,title DESC LIMIT 30;`
+            return posts; 
     }
 }
 

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:Devin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3d0a2661-1605-49df-967e-737de9f2aad2" name="Default Changelist" comment="addnewfiles">
+      <change afterPath="$PROJECT_DIR$/.idea/agri-app.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/validators/editProfileInfo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/add_new_post.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/default_fruits.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/default_vegetables.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/icons/farmer_home_vegetable_basket.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/my_posts_active.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/my_posts_all.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/update_profile.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/_credits.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/farmerAddPost.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/farmerMyPosts.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/userEditProfile.ejs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Devin" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="KEEP" />
+  </component>
+  <component name="ProjectId" id="1mrkvbgKMEF4QRVTEOPSnFJsILq" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/farmer/assets" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Users\ACER\AppData\Local\JetBrains\Toolbox\apps\WebStorm\ch-0\202.7319.49\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Academic_PC\Sem 4\Software engineering\agri-app\public" />
+      <recent name="D:\Academic_PC\Sem 4\Software engineering\agri-app\services" />
+      <recent name="D:\Academic_PC\Sem 4\Software engineering\agri-app\public\javascript" />
+      <recent name="D:\Academic_PC\Sem 4\Software engineering\agri-app\public\css" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Academic_PC\Sem 4\Software engineering\agri-app\public\farmer\assets" />
+      <recent name="D:\Academic_PC\Sem 4\Software engineering\agri-app\public\css" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3d0a2661-1605-49df-967e-737de9f2aad2" name="Default Changelist" comment="" />
+      <created>1610259329115</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1610259329115</updated>
+      <workItem from="1610259330399" duration="2503000" />
+      <workItem from="1610280751428" duration="34138000" />
+      <workItem from="1610455433567" duration="7739000" />
+      <workItem from="1610505630511" duration="66246000" />
+    </task>
+    <task id="LOCAL-00001" summary="somewhat done post">
+      <created>1610306972811</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1610306972811</updated>
+    </task>
+    <task id="LOCAL-00002" summary="adding post including adding images is done">
+      <created>1610404530830</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1610404530830</updated>
+    </task>
+    <task id="LOCAL-00003" summary="updated add post to use in memory engine">
+      <created>1610472245379</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1610472245379</updated>
+    </task>
+    <task id="LOCAL-00004" summary="skeleton code to retrieve file">
+      <created>1610506229120</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1610506229120</updated>
+    </task>
+    <task id="LOCAL-00005" summary="updaated image sending to databse">
+      <created>1610527426555</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1610527426555</updated>
+    </task>
+    <task id="LOCAL-00006" summary="image retrival done for post">
+      <created>1610535590488</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1610535590488</updated>
+    </task>
+    <task id="LOCAL-00007" summary="RANDOM COMMIT">
+      <created>1610558402783</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1610558402783</updated>
+    </task>
+    <task id="LOCAL-00008" summary="EDITS - dev branch">
+      <created>1610558616959</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1610558616959</updated>
+    </task>
+    <task id="LOCAL-00009" summary="removing orm">
+      <created>1610563125720</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1610563125720</updated>
+    </task>
+    <task id="LOCAL-00010" summary="retriving all posts done">
+      <created>1610616108183</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1610616108183</updated>
+    </task>
+    <task id="LOCAL-00011" summary="retriving all posts done">
+      <created>1610620587120</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1610620587120</updated>
+    </task>
+    <task id="LOCAL-00012" summary="retriving posts added keywords">
+      <created>1610621678290</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1610621678290</updated>
+    </task>
+    <task id="LOCAL-00013" summary="admin check farmers and buyers without link done">
+      <created>1610653676307</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1610653676307</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Devin" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="somewhat done post" />
+    <MESSAGE value="adding post including adding images is done" />
+    <MESSAGE value="updated add post to use in memory engine" />
+    <MESSAGE value="skeleton code to retrieve file" />
+    <MESSAGE value="updaated image sending to databse" />
+    <MESSAGE value="image retrival done for post" />
+    <MESSAGE value="RANDOM COMMIT" />
+    <MESSAGE value="EDITS - dev branch" />
+    <MESSAGE value="removing orm" />
+    <MESSAGE value="retriving all posts done" />
+    <MESSAGE value="retriving posts added keywords" />
+    <MESSAGE value="admin check farmers and buyers without link done" />
+    <MESSAGE value="addnewfiles" />
+    <option name="LAST_COMMIT_MESSAGE" value="addnewfiles" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1610648923233">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1610648923233" />
+    <state x="534" y="214" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1610616461908">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="534" y="214" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1610616461908" />
+    <state x="147" y="65" key="DiffContextDialog" timestamp="1610563180742">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="147" y="65" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1610563180742" />
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1610506451227">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1610506451227" />
+    <state width="1500" height="208" key="GridCell.Tab.0.bottom" timestamp="1610280048097">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1500" height="208" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1610280048097" />
+    <state width="1500" height="208" key="GridCell.Tab.0.center" timestamp="1610280048097">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1500" height="208" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1610280048097" />
+    <state width="1500" height="208" key="GridCell.Tab.0.left" timestamp="1610280048097">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1500" height="208" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1610280048097" />
+    <state width="1500" height="208" key="GridCell.Tab.0.right" timestamp="1610280048097">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1500" height="208" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1610280048097" />
+    <state x="146" y="65" width="1390" height="694" key="MergeDialog" timestamp="1610654770320">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="146" y="65" width="1390" height="694" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1610654770320" />
+    <state x="407" y="174" key="MultipleFileMergeDialog" timestamp="1610654923485">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="407" y="174" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1610654923485" />
+    <state x="533" y="115" key="RollbackChangesDialog" timestamp="1610654934924">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="533" y="115" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1610654934924" />
+    <state x="552" y="110" key="VCS.ChangeListViewerDialog" timestamp="1610654596472">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="552" y="110" key="VCS.ChangeListViewerDialog/0.0.1536.824@0.0.1536.824" timestamp="1610654596472" />
+    <state x="461" y="171" key="Vcs.Multiple.Commit.Info.Dialog.Key" timestamp="1610654579186">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="461" y="171" key="Vcs.Multiple.Commit.Info.Dialog.Key/0.0.1536.824@0.0.1536.824" timestamp="1610654579186" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1610653682929">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1610653682929" />
+    <state x="539" y="125" key="git4idea.branch.GitSmartOperationDialog" timestamp="1610506175743">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="539" y="125" key="git4idea.branch.GitSmartOperationDialog/0.0.1536.824@0.0.1536.824" timestamp="1610506175743" />
+  </component>
+</project>

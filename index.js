@@ -30,7 +30,6 @@ app.use(session({
 
 /* Define the static files and routes */
 app.use('/assets', express.static('public/assets'));
-
 app.use(require('./routes'));
 
 //on deployment add logger

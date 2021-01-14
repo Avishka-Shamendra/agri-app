@@ -78,7 +78,7 @@ Create a `.env` file in the root with following content.
 You may change database user/password/secret as you may wish.
 
 ```text
-DATABASE_URL=postgres://agri_app:password@localhost:5432/agri_db
+DATABASE_URL=postgres://agri_app:password@localhost:5432/agri_app_db
 PORT=3000
 
 

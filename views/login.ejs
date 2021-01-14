@@ -19,6 +19,11 @@
                         <%=error%>
                     </div>
                     <% } %>
+                    <% if (del_acc_success) {%>
+                        <div class="alert alert-danger" role="alert">
+                            <%=del_acc_success%>
+                        </div>
+                        <% } %>
                     <% if (adminRegSuccess) {%>
                     <div class="alert alert-success" role="alert">
                         <%=adminRegSuccess%>

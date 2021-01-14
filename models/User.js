@@ -41,15 +41,51 @@ class User {
         return user;
     }
 
-    static async createUser(firstName,lastName,email, hashedPassword) {
+    static async createUser(firstName,lastName,gender,email, hashedPassword) {
         const [createdUser] = await sql`
             INSERT INTO UserInfo 
-                ( email, type, password, first_name,last_name ) 
+                ( email, type, password, first_name,last_name,gender ) 
             VALUES 
-                ( ${email}, 'admin', ${hashedPassword},${firstName},${lastName} )
+                ( ${email}, 'admin', ${hashedPassword},${firstName},${lastName},${gender} )
             RETURNING *
             `;
         return createdUser;
+    }
+
+    static async updateUser(firstName,lastName,gender,email,uid) {
+        const [updatedUser] = await sql`
+            UPDATE UserInfo 
+            SET  email=${email}, first_name=${firstName},last_name=${lastName},gender=${gender} 
+            WHERE uid=${uid}
+            RETURNING *
+            `;
+        return updatedUser;
+    }
+
+    static async updatePassword(password,uid){
+         await sql`
+            UPDATE UserInfo 
+            SET  password=${password}
+            WHERE uid=${uid}
+            `;
+        return true;
+    }
+
+    static async deleteAccount(uid){
+        await sql`DELETE
+        FROM UserInfo
+        WHERE uid=${uid}`;
+    }
+
+    static async isNICregistered(nic){
+        const [farmer] = await sql`SELECT
+        nic FROM Farmer
+        WHERE nic=${nic}`;
+        const [buyer] = await sql`SELECT
+        nic FROM Buyer
+        WHERE nic=${nic}`;
+        return farmer!=null || buyer!=null;
+
     }
 }
 

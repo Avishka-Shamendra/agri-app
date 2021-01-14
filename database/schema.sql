@@ -14,6 +14,7 @@ DROP TYPE IF EXISTS  Category;
 DROP TYPE IF EXISTS  Complain_State;
 DROP TYPE IF EXISTS  Post_State;
 DROP TYPE IF EXISTS  District_Name;
+DROP TYPE IF EXISTS  Gender_Type;
 
 
 ---------------------------------- ENUMS SCHEMA ------------------------------------
@@ -39,6 +40,12 @@ CREATE TYPE Post_State AS ENUM(
 'Expired',
 'Sold',
 'Deleted'
+);
+
+CREATE TYPE Gender_Type AS ENUM(
+'Male',
+'Female',
+'Other'
 );
 
 CREATE TYPE District_Name As ENUM(
@@ -104,6 +111,7 @@ CREATE TABLE UserInfo (
   password varchar(255) not null,
   first_name varchar(255) not null,
   last_name varchar(255) not null,
+  gender Gender_Type not null,
   banned boolean DEFAULT false not null,
   joined timestamp not null DEFAULT NOW(),
   PRIMARY KEY (uid)
@@ -148,14 +156,15 @@ CREATE TABLE Post (
   title varchar(63) not null,
   description varchar(999) not null,
   product_category Category not null,
-  quantity numeric(6,2) not null,
-  expected_price numeric(6,2) not null,
+  quantity numeric(20,2) not null,
+  expected_price numeric(20,2) not null,
   available_district district_name not null,
   available_address varchar(127) not null,
-  status Post_State not null,
+  contact_no valid_contact_no not null,
+  status Post_State not null DEFAULT 'Active',
   added_day DATE not null,
   exp_day DATE not null,
-  img_url VARCHAR(127) not null, -- change to image bytes if needed
+  img_data VARCHAR(255) null, -- change to image bytes if needed
   PRIMARY KEY (post_id),
   FOREIGN KEY(farmer_id) REFERENCES Farmer(uid) ON DELETE CASCADE ON UPDATE CASCADE
 );

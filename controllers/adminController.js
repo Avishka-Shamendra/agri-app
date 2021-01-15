@@ -36,37 +36,118 @@ class AdminController {
     }
 
     static async allFarmersPage(req,res){
-        const farmers = await farmerService.getFarmers();
-        console.log(farmers.count);
+        try{
+            const farmers = await farmerService.getFarmers();
+            //console.log(farmers.count);
 
-        res.render('adminFarmerPage',{
-            error: req.query.error,
-            user: req.session.user,
-            farmers:farmers
-        });
+            res.render('adminFarmerPage',{
+                error: req.query.error,
+                user: req.session.user,
+                farmers:farmers
+            });
+        }catch (e) {
+            res.redirect(`/admin?error=${e}`)
+        }
     }
 
     static async allBuyersPage(req,res){
-        const buyers = await buyerService.getBuyers();
-        //console.log(buyers.count);
+        try{
+            const buyers = await buyerService.getBuyers();
+            //console.log(buyers.count);
 
-        res.render('adminBuyerPage',{
-            error: req.query.error,
-            user: req.session.user,
-            buyers:buyers
-        });
+            res.render('adminBuyerPage',{
+                error: req.query.error,
+                user: req.session.user,
+                buyers:buyers
+            });
+        }
+        catch (e){
+            res.redirect(`/admin?error=${e}`)
+        }
     }
 
     static async allPostsofFarmer(req,res){
-        console.log(req.params.uid);
-        const posts = await postService.getPostofFarmer(req.params.uid);
-        res.render('adminFarmerPostsPage',{
-            error: req.query.error,
-            user: req.session.user,
-            posts:posts.posts,
-            farmer_name:posts.farmer_name
-        });
+        try{
+            //console.log(req.params.uid);
+            const posts = await postService.getPostofFarmer(req.params.uid);
+            res.render('adminFarmerPostsPage',{
+                error: req.query.error,
+                user: req.session.user,
+                posts:posts.posts,
+                farmer_name:posts.farmer_name,
+                farmer_uid:posts.uid,
+                banned:posts.banned
+            });
+        }catch (e) {
+            res.redirect(`/admin/allFarmers?error=${e}`)
+        }
     }
+
+    static async banUser(req, res){
+        try{
+            const name = await UserService.banUser(req.params.uid);
+
+            if(name){
+                if (req.url === `/buyer/${req.params.uid}/ban`){
+                    res.redirect(`/admin/allBuyers?ban_success=Buyer ${name} was successfully banned`);
+                }
+                else if (req.url === `/farmer/${req.params.uid}/ban`){
+                    res.redirect(`/admin/allFarmers?ban_success=Farmer ${name} was successfully banned`);
+                }
+                else{
+                    res.redirect(`/admin/allFarmers?ban_success=Farmer ${name} was successfully banned`);
+                }
+
+            }
+
+        }catch (e) {
+
+            if (req.url === `/buyer/${req.params.uid}/ban`){
+                res.redirect(`/admin/allBuyers?error=${e}`)
+            }
+            else if (req.url === `/farmer/${req.params.uid}/ban`){
+                res.redirect(`/admin/allFarmers?error=${e}`)
+            }
+            else{
+                res.redirect(`/admin/allFarmers?error=${e}`)
+            }
+        }
+    }
+
+    static async unbanUser(req, res){
+        try{
+            console.log(req.url);
+
+            const name = await UserService.unbanUser(req.params.uid);
+
+            if(name){
+                if (req.url === `/buyer/${req.params.uid}/unban`){
+                    res.redirect(`/admin/allBuyers?unban_success=Buyer ${name} was successfully unbanned`);
+                }
+                else if (req.url === `/farmer/${req.params.uid}/unban`){
+                    res.redirect(`/admin/allFarmers?unban_success=Farmer ${name} was successfully unbanned`);
+                }
+                else{
+                    res.redirect(`/admin/allFarmers?unban_success=Farmer ${name} was successfully unbanned`);
+                }
+                console.log('error in loop')
+            }
+            console.log('no error')
+
+        }catch (e) {
+            console.log(e)
+            if (req.url === `/buyer/${req.params.uid}/unban`){
+                res.redirect(`/admin/allBuyers?error=${e}`)
+            }
+            else if (req.url === `/farmer/${req.params.uid}/unban`){
+                res.redirect(`/admin/allFarmers?error=${e}`)
+            }
+            else{
+                res.redirect(`/admin/allFarmers?error=${e}`)
+            }
+        }
+    }
+
 }
 
 module.exports = AdminController;

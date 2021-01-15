@@ -25,14 +25,18 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d0a2661-1605-49df-967e-737de9f2aad2" name="Default Changelist" comment="adding admin farmer and buyer pages plus checking farmer">
-      <change afterPath="$PROJECT_DIR$/helpers/ImageManupulationForUpload.js" afterDir="false" />
+    <list default="true" id="3d0a2661-1605-49df-967e-737de9f2aad2" name="Default Changelist" comment="adding admin farmer and buyer pages plus checking farmerPOST DONE">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/adminController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/adminController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/upload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Post.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Buyer.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Buyer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/buyerService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/buyerService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/farmerService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/farmerService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/postServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/postServices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/userServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/userServices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/adminBuyerPage.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/adminBuyerPage.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/adminFarmerPage.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/adminFarmerPage.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/adminFarmerPostsPage.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/adminFarmerPostsPage.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,7 +110,7 @@
       <workItem from="1610505630511" duration="73813000" />
       <workItem from="1610681567457" duration="848000" />
       <workItem from="1610683668183" duration="5973000" />
-      <workItem from="1610694387911" duration="2084000" />
+      <workItem from="1610694387911" duration="12896000" />
     </task>
     <task id="LOCAL-00001" summary="somewhat done post">
       <created>1610306972811</created>
@@ -213,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610662771841</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="adding admin farmer and buyer pages plus checking farmerPOST DONE">
+      <created>1610696504859</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1610696504859</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,7 +270,8 @@
     <MESSAGE value="admin check farmers and buyers without link done" />
     <MESSAGE value="addnewfiles" />
     <MESSAGE value="adding admin farmer and buyer pages plus checking farmer" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding admin farmer and buyer pages plus checking farmer" />
+    <MESSAGE value="adding admin farmer and buyer pages plus checking farmerPOST DONE" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding admin farmer and buyer pages plus checking farmerPOST DONE" />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1610648923233">
@@ -314,10 +326,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="461" y="171" key="Vcs.Multiple.Commit.Info.Dialog.Key/0.0.1536.824@0.0.1536.824" timestamp="1610654579186" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1610662790513">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1610696519482">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1610662790513" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1610696519482" />
     <state x="539" y="125" key="git4idea.branch.GitSmartOperationDialog" timestamp="1610506175743">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

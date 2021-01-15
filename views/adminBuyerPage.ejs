@@ -1,7 +1,7 @@
 <%- include('_header',{user}) %>
 
 <div class="container py-4">
-    <h2 class="p-3 display-4 text-center" style="font-size:4vw;">Farmers in system</h2>
+    <h2 class="p-3 display-4 text-center" style="font-size:4vw;">Buyers in system</h2>
     <div class="card  rounded shadow-lg border-success text-center align-self-center">
         <div class="col-md-6 col-sm-12 text-center align-self-center">
             <% if (error) {%>
@@ -29,10 +29,17 @@
                         <p class="card-text">Nic number :- <%=buyers[num_buyers].nic%> </p>
                         <% if (buyers[num_buyers].banned) {%>
                         <p class="card-text alert alert-danger">Is banned? :- <%=buyers[num_buyers].banned%> </p>
-                        <% } %>
+                        <div class="text-right">
+                            <a class="btn btn-success" href="<%=`/admin/buyer/${buyers[num_buyers].uid}/unban`%>" role="button">Unban User</a>
+                        </div>
+                        <% }else{ %>
+                            <div class="text-right">
+                                <a class="btn btn-danger" href="<%=`/admin/buyer/${buyers[num_buyers].uid}/ban`%>" role="button">Ban User</a>
+                            </div>
+                        <%}%>
                     </div>
                 </div>
-                <% } %>
+            <% } %>
             <% } %>
         </div>
     </div>

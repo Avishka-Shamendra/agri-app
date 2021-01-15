@@ -70,6 +70,27 @@ class UserService {
         const hashedPassword = await bcrypt.hash(password, 10);
         return Buyer.create(firstName,lastName,gender,email, hashedPassword, nicNumber, contactNo, district);
     }
+
+    static async banUser(uid){
+        const userInfo = await User.banUser(uid);
+        //console.log(userInfo);
+        if(userInfo){
+            //console.log(`${first_name} ${lastname}`);
+            return `${userInfo.first_name} ${userInfo.lastname}`;
+        }else {
+            throw new Errors.BadRequest(' Can\'t ban system error');
+        }
+    }
+
+    static async unbanUser(uid){
+        const userInfo = await User.unbanUser(uid);
+        if(userInfo){
+            return `${userInfo.first_name} ${userInfo.lastname}`;
+        }else {
+            throw new Errors.BadRequest(' Can\'t ban system error');
+        }
+    }
+
 }
 
 module.exports = UserService;

@@ -79,6 +79,13 @@ class postServices{
     static async getPostofFarmer(uid,limit=null){
         const posts = await Post.getPostsofFarmer(uid,limit);
         const farmer = await User.getUserDetailsById(uid);
+        if(!farmer){
+            throw new Errors.BadRequest(' Internal Server Error The farmer not detected');
+        }
+        if(!posts){
+            throw new Errors.BadRequest(' Internal Server Error');
+        }
+
         posts.forEach((item,index)=>{
             //console.log(item.encode);
             item.encode = img_add_keyword_bitstream(item.encode);

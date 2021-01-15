@@ -29,7 +29,12 @@
                         <p class="card-text">Gender :- <%=farmers[num_farmer].gender%> </p>
                         <p class="card-text">Nic number :- <%=farmers[num_farmer].nic%> </p>
                         <% if (farmers[num_farmer].banned) {%>
+                        <div class="card-body text-danger">
                             <p class="card-text alert alert-danger">Is banned? :- <%=farmers[num_farmer].banned%> </p>
+                            <div class="text-right">
+                                <a class="btn btn-success" href="<%=`/admin/farmer/${farmers[num_farmer].uid}/unban`%>" role="button">Unban User</a>
+                            </div>
+                        </div>
                         <% } %>
                     </div>
                 </div>

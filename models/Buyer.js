@@ -29,11 +29,12 @@ class Buyer {
         let data;
 
         if(!limit){
-            data = await sql` SELECT U.uid,nic,contact_no,district,address,email,first_name,last_name,gender,banned FROM buyer AS B NATURAL JOIN userinfo AS U WHERE B.uid = U.uid ORDER BY U.banned,U.joined DESC`;
+            data = await sql` SELECT U.uid,nic,contact_no,district,email,first_name,last_name,gender,banned FROM buyer AS B NATURAL JOIN userinfo AS U WHERE B.uid = U.uid ORDER BY U.banned,U.joined DESC`;
         }else{
-            data = await sql` SELECT U.uid,nic,contact_no,district,address,email,first_name,last_name,gender,banned FROM buyer AS B NATURAL JOIN userinfo AS U WHERE B.uid = U.uid ORDER BY U.banned,U.joined DESC LIMIT ${limit}`;
+            data = await sql` SELECT U.uid,nic,contact_no,district,email,first_name,last_name,gender,banned FROM buyer AS B NATURAL JOIN userinfo AS U WHERE B.uid = U.uid ORDER BY U.banned,U.joined DESC LIMIT ${limit}`;
         }
 
+        //console.log(data);
         return data;
     }
 }

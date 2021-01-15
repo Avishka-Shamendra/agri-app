@@ -59,6 +59,31 @@ class User {
             `;
         return createdUser;
     }
+
+    static async banUser(uid){
+        //console.log(uid)
+        const [updatedUser] = await sql`
+            UPDATE userinfo
+                SET banned = true
+            WHERE uid = ${uid}
+            RETURNING first_name,last_name
+        
+        `
+        //console.log(updatedUser);
+        return updatedUser;
+    }
+
+    static async unbanUser(uid){
+        //console.log(uid)
+        const [updatedUser] = await sql`
+            UPDATE userinfo
+                SET banned = false
+            WHERE uid = ${uid}
+            RETURNING first_name,last_name;
+        
+        `
+        return updatedUser;
+    }
 }
 
 module.exports = User;

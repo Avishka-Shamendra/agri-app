@@ -214,7 +214,15 @@
                   </div>
                   <div class="col-lg-7">
                     <div class="card-block p-3">
-                        <h5 class="card-title"><%=post.title%></h5>
+                        <div class="row space-between">
+                            <div class="col-sm-7 col-xs-12">
+                                <h5 class="card-title"><%=post.title%></h5>
+                            </div>
+                            <div class="col-sm-5 col-xs-12 text-right">
+                                <p class="text-secondary"><i class="fas fa-shopping-basket" style="margin-right: 6px;"></i><%=post.product_name%></p>
+                            </div>
+                        </div>
+                        
                         <div class="row">
                             <div class="col-md-6 col-sm-12 text-secondary">
                                 

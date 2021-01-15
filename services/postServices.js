@@ -21,6 +21,14 @@ class postServices{
     static async getFarmerPostsById(uid){
         return Post.getFarmerPostsById(uid);
     }
+
+    static async getAllActivePosts(){
+        return Post.getAllActivePosts();
+    }
+
+    static async getPost(postid){
+        return Post.getPost(postid);
+    }
 }
 
 module.exports = postServices;

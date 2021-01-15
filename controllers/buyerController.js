@@ -1,13 +1,21 @@
 const { BuyerSignupInfo } = require('./validators/authInfo');
 const { BuyerEditInfo } = require('./validators/editProfileInfo');
 const UserService = require('../services/userServices');
+const PostService =require('../services/postServices');
 
 class BuyerController {
-    static homePage(req,res){
+    static  async homePage(req,res){
+        try{
+        const posts=await PostService.getAllActivePosts();
         res.render('buyerHome',{ 
             error: req.query.error, 
             user: req.session.user,
+            posts:posts,
+            message_success:req.query.message_success
          });
+        }catch(err){
+            res.redirect(`/buyer?error=${err}`);
+        }
     } 
     static signupPage(req,res){
         res.render('buyerSignUp',{ 

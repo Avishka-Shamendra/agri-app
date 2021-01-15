@@ -1,0 +1,63 @@
+<%- include('_header',{user}) %>
+
+<div class="container py-4">
+    <h2 class="p-3 text-center">Registered Buyers</h2>
+    <hr>
+    <div class="container py-4">
+        <div class="text-center">
+            <% if (error) {%>
+                <div class="alert alert-danger" role="alert">
+                    <%=error%>
+                </div>
+                <% } %>
+                <% if (buyers.count <= 0) {%>
+                    <div class="alert alert-warning" role="alert">
+                        <h5>There are no registered farmers</h5>
+                    </div>
+                <% } %>
+        </div>
+            
+            <% if (buyers.count > 0) {%>
+                <% for(let num_buyer=0; num_buyer < buyers.length; num_buyer++) { %>
+
+                <div class="card mb-2 shadow border-success rounded">
+                    <a class="card-block stretched-link text-decoration-none" href="<%='/admin/buyer/'+buyers[num_buyer].uid%>"></a>
+                    <div class="card-body">
+                            <h5 class="card-title">
+                                <%=`${buyers[num_buyer].first_name} ${buyers[num_buyer].last_name}`%>
+                                <% if (buyers[num_buyer].banned) {%>
+                                    <span class="text-danger" style="font-size: 13px;">(Banned)</span>
+                                <% } %>
+                            </h5>
+                            
+                            <h6>Buyer Requests : 00 -Implement</h6>
+                            
+                        <div class="row text-secondary" style="letter-spacing: 3;">
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <p class="card-text"><i class="fas fa-envelope" style="margin-right: 6px;"></i> <%=buyers[num_buyer].email%> </p>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <p class="card-text"><i class="fas fa-phone" style="margin-right: 6px;"></i> <%=buyers[num_buyer].contact_no%> </p>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <p class="card-text"><i class="fas fa-id-card" style="margin-right: 6px;"></i><%=buyers[num_buyer].nic%> </p>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <p class="card-text"><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i><%=buyers[num_buyer].district%> </p>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    
+
+                </div>
+
+                
+                <% } %>
+            <% } %>
+    </div>
+</div>
+
+
+<%- include('_footer') %>

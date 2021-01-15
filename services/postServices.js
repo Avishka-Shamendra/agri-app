@@ -36,6 +36,12 @@ class postServices{
         return Post.getFilteredPosts(min_price,max_price,min_quantity,max_quantity,filter_category,filter_district);
     }
 
+
+    static async getPostsofFarmer(uid,limit=null){
+        const posts = await Post.getPostsofFarmer(uid,limit);
+        return posts;
+    }
+
 }
 
 module.exports = postServices;

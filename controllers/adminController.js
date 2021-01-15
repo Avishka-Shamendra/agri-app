@@ -1,6 +1,10 @@
 const { AdminSignUpInfo } = require('./validators/authInfo');
 const { AdminEditInfo } =require('./validators/editProfileInfo');
 const UserService = require('../services/userServices');
+const FarmerService = require('../services/farmerService');
+const BuyerService = require('../services/buyerService');
+const PostService = require('../services/postServices');
+const Error = require('../helpers/error');
 
 class AdminController {
     static homePage(req,res){
@@ -49,6 +53,131 @@ class AdminController {
         }catch(err){
             //logger.error(err);
             res.redirect(`/editProfile?error=${err}`)
+        }
+    }
+
+    static async allFarmersPage(req,res){
+        try{
+            const farmers = await FarmerService.getFarmers();
+
+            res.render('adminFarmersPage',{
+                error: req.query.error,
+                user: req.session.user,
+                farmers:farmers
+            });
+        }catch (e) {
+            //logger.error(err);
+            res.redirect(`/admin?error=${e}`)
+        }
+    }
+
+    static async allBuyersPage(req,res){
+        try{
+            const buyers = await BuyerService.getBuyers();
+            res.render('adminBuyersPage',{
+                error: req.query.error,
+                user: req.session.user,
+                buyers:buyers,
+            });
+        }
+        catch (e){
+            //logger.error(err);
+            res.redirect(`/admin?error=${e}`)
+        }
+    }
+
+    static async adminSingleFarmerPage(req,res){
+        try{
+            const posts = await PostService.getPostsofFarmer(req.params.uid);
+            const farmer = await FarmerService.getFarmer(req.params.uid);
+            res.render('adminSingleFarmerPage',{
+                error: req.query.error,
+                user: req.session.user,
+                ban_success:req.query.ban_success,
+                unban_success:req.query.unban_success,
+                posts:posts,
+                farmer:farmer,
+            });
+        }catch (e) {
+            //logger.error(err);
+            res.redirect(`/admin/allFarmers?error=${e}`)
+        }
+    }
+
+    static async adminSingleBuyerPage(req,res){
+        try{
+            const buyer = await BuyerService.getBuyer(req.params.uid);
+            res.render('adminSingleBuyerPage',{
+                error: req.query.error,
+                user: req.session.user,
+                ban_success:req.query.ban_success,
+                unban_success:req.query.unban_success,
+                buyer:buyer,
+            });
+        }catch (e) {
+            //logger.error(err);
+            res.redirect(`/admin/allBuyers?error=${e}`)
+        }
+    }
+
+    static async banUser(req, res){
+        try{
+            const name = await UserService.banUser(req.params.uid);
+
+            if(name){
+                if (req.url === `/buyer/${req.params.uid}/ban`){
+                    res.redirect(`/admin/buyer/${req.params.uid}?ban_success=Buyer ${name.toUpperCase()} was successfully banned`);
+                }
+                else if (req.url === `/farmer/${req.params.uid}/ban`){
+                    res.redirect(`/admin/farmer/${req.params.uid}?ban_success=Farmer ${name.toUpperCase()}  was successfully banned`);
+                }
+                else{
+                    throw Error.BadRequest('OOPS Ban Unsuccessful');
+                }
+
+            }
+
+        }catch (e) {
+            //logger.error(err);
+            if (req.url === `/buyer/${req.params.uid}/ban`){
+                res.redirect(`/admin/buyer/${req.params.uid}?error=${e}`)
+            }
+            else if (req.url === `/farmer/${req.params.uid}/ban`){
+                res.redirect(`/admin/farmer/${req.params.uid}?error=${e}`)
+            }
+            else{
+                res.redirect(`/admin?error=${e}`)
+            }
+        }
+    }
+    static async unbanUser(req, res){
+        try{
+
+            const name = await UserService.unbanUser(req.params.uid);
+
+            if(name){
+                if (req.url === `/buyer/${req.params.uid}/unban`){
+                    res.redirect(`/admin/buyer/${req.params.uid}?unban_success=Buyer ${name} was successfully unbanned`);
+                }
+                else if (req.url === `/farmer/${req.params.uid}/unban`){
+                    res.redirect(`/admin/farmer/${req.params.uid}?unban_success=Farmer ${name} was successfully unbanned`);
+                }
+                else{
+                    throw Error.BadRequest('OOPS UnBan Unsuccessful');
+                }
+            }
+
+        }catch (e) {
+            //logger.error(err);
+            if (req.url === `/buyer/${req.params.uid}/unban`){
+                res.redirect(`/admin/buyer/${req.params.uid}?error=${e}`)
+            }
+            else if (req.url === `/farmer/${req.params.uid}/unban`){
+                res.redirect(`/admin/farmer/${req.params.uid}?error=${e}`)
+            }
+            else{
+                res.redirect(`/admin?error=${e}`)
+            }
         }
     }
 }

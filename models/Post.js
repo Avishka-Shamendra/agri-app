@@ -83,6 +83,17 @@ class Post{
             WHERE status='Active' ORDER BY added_day DESC, title ASC LIMIT 30;`
             return posts; 
     }
+
+    static async getPostsofFarmer(uid,limit){
+        let data ;
+            if(!limit){
+                data = sql`SELECT * FROM farmer INNER JOIN post AS P ON P.farmer_id=farmer.uid WHERE P.farmer_id = ${uid} ORDER BY added_day DESC,title ASC`;
+            }
+            else{
+                data = sql`SELECT * farmer INNER JOIN FROM post AS P ON P.farmer_id=farmer.uid WHERE P.farmer_id = ${uid} ORDER BY added_day DESC,title ASC LIMIT ${limit}`;
+            }
+        return data;
+    }
 }
 
 module.exports = Post;

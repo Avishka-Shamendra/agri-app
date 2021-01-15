@@ -1,0 +1,63 @@
+<%- include('_header',{user}) %>
+
+<div class="container py-4">
+    <h2 class="p-3 text-center">Registered Farmers</h2>
+    <hr>
+    <div class="container py-4">
+        <div class="text-center">
+            <% if (error) {%>
+                <div class="alert alert-danger" role="alert">
+                    <%=error%>
+                </div>
+                <% } %>
+                <% if (farmers.count <= 0) {%>
+                    <div class="alert alert-warning" role="alert">
+                        <h5>There are no registered farmers</h5>
+                    </div>
+                <% } %>
+        </div>
+            
+            <% if (farmers.count > 0) {%>
+                <% for(let num_farmer=0; num_farmer < farmers.length; num_farmer++) { %>
+
+                <div class="card mb-2 shadow border-success rounded">
+                    <a class="card-block stretched-link text-decoration-none" href="<%='/admin/farmer/'+farmers[num_farmer].uid%>"></a>
+                    <div class="card-body">
+                            <h5 class="card-title">
+                                <%=`${farmers[num_farmer].first_name} ${farmers[num_farmer].last_name}`%>
+                                <% if (farmers[num_farmer].banned) {%>
+                                    <span class="text-danger" style="font-size: 13px;">(Banned)</span>
+                                <% } %>
+                            </h5>
+                            
+                            <h6>Posts : 00 -Implement</h6>
+                            
+                        <div class="row text-secondary" style="letter-spacing: 3;">
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <p class="card-text"><i class="fas fa-envelope" style="margin-right: 6px;"></i> <%=farmers[num_farmer].email%> </p>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <p class="card-text"><i class="fas fa-phone" style="margin-right: 6px;"></i> <%=farmers[num_farmer].contact_no%> </p>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <p class="card-text"><i class="fas fa-id-card" style="margin-right: 6px;"></i><%=farmers[num_farmer].nic%> </p>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                <p class="card-text"><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i><%=farmers[num_farmer].district%> </p>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    
+
+                </div>
+
+                
+                <% } %>
+            <% } %>
+    </div>
+</div>
+
+
+<%- include('_footer') %>

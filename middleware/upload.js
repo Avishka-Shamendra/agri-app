@@ -1,4 +1,6 @@
 const multer = require("multer");
+const { UploadFileEdits } = require('../helpers/ImageManupulationForUpload')
+
 
 const imageFilter = (req, file, cb) => {
     if (file.mimetype.startsWith("image")) {
@@ -38,6 +40,11 @@ function uploadFileMiddleware(req, res, next) {
             res.send(`something went wrong ${err}`);
         }else {
             // Everything went fine.
+            const {worked,image} = UploadFileEdits(req);
+            if(worked){
+                req.file.buffer = image;
+            }
+            //console.log(req.file.buffer)
             next()
         }
     })

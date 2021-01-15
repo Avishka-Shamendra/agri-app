@@ -66,16 +66,16 @@ class Post{
 
         if(db_img){
             if(!limit){
-                data = sql`SELECT * FROM farmer NATURAL RIGHT JOIN (SELECT post_id,farmer_id,product_name,title,description,product_category,quantity,expected_price,available_district,available_address,status,added_day,exp_day,img_name,encode FROM post as P NATURAL LEFT JOIN (SELECT post_id ,name AS img_name, encode(data,'base64') AS encode FROM images) AS IMG WHERE P.farmer_id = ${uid}) AS Q ORDER BY added_day DESC`;
+                data = sql`SELECT * FROM farmer NATURAL RIGHT JOIN (SELECT post_id,farmer_id,product_name,title,description,product_category,quantity,expected_price,available_district,available_address,status,added_day,exp_day,img_name,encode FROM post as P NATURAL LEFT JOIN (SELECT post_id ,name AS img_name, encode(data,'base64') AS encode FROM images) AS IMG WHERE P.farmer_id = ${uid}) AS Q WHERE Q.farmer_id=farmer.uid ORDER BY added_day DESC`;
             }else{
-                data = sql`SELECT * FROM farmer NATURAL RIGHT JOIN (SELECT post_id,farmer_id,product_name,title,description,product_category,quantity,expected_price,available_district,available_address,status,added_day,exp_day,img_name,encode FROM post as P NATURAL LEFT JOIN (SELECT post_id ,name AS img_name, encode(data,'base64') AS encode FROM images) AS IMG WHERE P.farmer_id = ${uid}) AS Q ORDER BY added_day DESC LIMIT ${limit}`;
+                data = sql`SELECT * FROM farmer NATURAL RIGHT JOIN (SELECT post_id,farmer_id,product_name,title,description,product_category,quantity,expected_price,available_district,available_address,status,added_day,exp_day,img_name,encode FROM post as P NATURAL LEFT JOIN (SELECT post_id ,name AS img_name, encode(data,'base64') AS encode FROM images) AS IMG WHERE P.farmer_id = ${uid}) AS Q WHERE Q.farmer_id=farmer.uid ORDER BY added_day DESC LIMIT ${limit}`;
             }
         }else {
             if(!limit){
-                data = sql`SELECT * FROM farmer  NATURAL RIGHT JOIN post AS P WHERE P.farmer_id = ${uid} ORDER BY added_day DESC`;
+                data = sql`SELECT * FROM farmer NATURAL RIGHT JOIN post AS P ON (P.farmer_id=farmer.uid) WHERE P.farmer_id = ${uid} AND P.farmer_id=farmer.uid ORDER BY added_day DESC`;
             }
             else{
-                data = sql`SELECT * FROM farmer  NATURAL RIGHT JOIN post AS P WHERE P.farmer_id = ${uid} ORDER BY added_day DESC LIMIT ${limit}`;
+                data = sql`SELECT * farmer NATURAL RIGHT JOIN FROM post AS P ON (P.farmer_id=farmer.uid) WHERE P.farmer_id = ${uid} AND P.farmer_id=farmer.uid ORDER BY added_day DESC LIMIT ${limit}`;
             }
         }
 

@@ -9,6 +9,14 @@ class User {
         return user;
     }
 
+    static async getUserDetailsById(id) {
+        const [user] = await sql`
+            SELECT uid,type,email,first_name,last_name,gender,banned from UserInfo 
+            WHERE uid=${id}
+        `;
+        return user;
+    }
+
     static async isEmailRegistetred(email) {
         const [user] = await sql`
             SELECT uid from userinfo 

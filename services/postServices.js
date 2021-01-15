@@ -77,17 +77,27 @@ class postServices{
     }
 
     static async getPostofFarmer(uid,limit=null){
-        const posts = await Post.getPostsofFarmer(uid,limit,fal);
-
+        const posts = await Post.getPostsofFarmer(uid,limit);
+        const farmer = await User.getUserDetailsById(uid);
         posts.forEach((item,index)=>{
             //console.log(item.encode);
             item.encode = img_add_keyword_bitstream(item.encode);
             return item;
         });
 
+        const combined = {
+            posts:posts,
+            ...farmer
+        };
 
-        console.log(posts);
-        return posts;
+        console.log(`${combined['first_name']} ${combined['last_name']}`);
+        combined['farmer_name'] = `${combined['first_name']} ${combined['last_name']}`;
+
+
+
+
+        console.log(combined);
+        return combined;
     }
 }
 

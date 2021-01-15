@@ -63,7 +63,8 @@ class AdminController {
         res.render('adminFarmerPostsPage',{
             error: req.query.error,
             user: req.session.user,
-            posts:posts
+            posts:posts.posts,
+            farmer_name:posts.farmer_name
         });
     }
 }

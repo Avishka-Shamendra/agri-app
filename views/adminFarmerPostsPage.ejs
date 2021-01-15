@@ -1,7 +1,7 @@
 <%- include('_header',{user}) %>
 
 <div class="container py-4">
-    <h2 class="p-3 display-4 text-center" style="font-size:4vw;">Posts of </h2>
+    <h2 class="p-3 display-4 text-center" style="font-size:4vw;">Posts of <%=farmer_name%></h2>
     <div class="card  rounded shadow-lg border-success text-center align-self-center">
         <div class="col-md-6 col-sm-12 text-center align-self-center">
             <% if (error) {%>
@@ -18,8 +18,6 @@
             <% if (posts.count>0) {%>
                 <div class="p-3">
                         <% posts.forEach(function(post){%>
-
-
                             <div class="card mb-2 border">
                                 <div class="row">
                                     <div class="col-lg-5 align center">

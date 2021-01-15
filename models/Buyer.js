@@ -47,6 +47,23 @@ class Buyer {
           updatedUser.buyerData=updatedBuyer;
           return updatedUser;
     }
+
+    static async getBuyers(limit){
+        let data;
+
+        if(!limit){
+            data = await sql` SELECT U.uid,nic,joined,contact_no,district,email,first_name,last_name,gender,banned FROM buyer AS B NATURAL JOIN userinfo AS U WHERE B.uid = U.uid ORDER BY U.first_name ASC, U.last_name ASC, U.banned ASC,U.joined DESC`;
+        }else{
+            data = await sql` SELECT U.uid,nic,joined,contact_no,district,email,first_name,last_name,gender,banned FROM buyer AS B NATURAL JOIN userinfo AS U WHERE B.uid = U.uid ORDER BY U.first_name ASC, U.last_name ASC, U.banned ASC,U.joined DESC LIMIT ${limit}`;
+        }
+        return data;
+    }
+
+    static async getBuyer(uid){
+        const [buyer] = await sql` SELECT U.uid,nic,contact_no,district,joined,email,first_name,last_name,gender,banned FROM buyer AS B NATURAL JOIN userinfo AS U WHERE B.uid = U.uid AND B.uid=${uid} ORDER BY U.first_name ASC, U.last_name ASC, U.banned ASC,U.joined DESC`;
+        
+        return buyer;
+    }
 }
 
 module.exports = Buyer;

@@ -87,6 +87,26 @@ class User {
         return farmer!=null || buyer!=null;
 
     }
+
+    static async banUser(uid){
+        const [updatedUser] = await sql`
+            UPDATE userinfo
+                SET banned = true
+            WHERE uid = ${uid}
+            RETURNING first_name,last_name
+        `;
+        return updatedUser;
+    }
+
+    static async unbanUser(uid){
+        const [updatedUser] = await sql`
+            UPDATE userinfo
+                SET banned = false
+            WHERE uid = ${uid}
+            RETURNING first_name,last_name
+        `;
+        return updatedUser;
+    }
 }
 
 module.exports = User;

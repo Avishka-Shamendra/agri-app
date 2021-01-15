@@ -39,7 +39,6 @@ CREATE TYPE Post_State AS ENUM(
 'Active',
 'Expired',
 'Sold',
-'Deleted'
 );
 
 CREATE TYPE Gender_Type AS ENUM(

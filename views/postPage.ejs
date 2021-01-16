@@ -1,0 +1,106 @@
+<%- include('_header',{user}) %>
+<div class="container py-4">
+    <% if(error) { %>
+      <div class="alert alert-danger text-center" role="alert">
+          <%=error%>
+      </div>
+  <%} %>
+</div>
+
+<div class="p-3">
+    <% if(post && post.length!=0) { %>
+        <div class="card mb-2 ">
+            <div class="row">
+                <div class="col-lg-5 align center">
+                    <% if(!post[0].image_data && post[0].product_category=='vegetable') {%>
+                        <img class="d-block w-100" src="/assets/default_vegetables.jpg" alt="vegetables">
+                    <%} else if (!post[0].image_data && post[0].product_category=='fruit') {%>
+                        <img class="d-block w-100 rounded border-success" src="/assets/default_fruits.jpg" alt="">
+                    <%}%>
+                </div>
+                <div class="col-lg-7">
+                    <div class="card-block p-3">
+                           <h5 class="card-title"><%=post[0].title%></h5> 
+                        <div class="row">
+                           <div class="col-md-6 col-sm-12 text-secondary">
+                            <p><i class="fa fa-user" style="margin-right: 6px;"></i>farmer : <%=post[0].first_name +' ' + post[0].last_name%></p>
+                            <p><i class="fas fa-balance-scale-right" style="margin-right: 6px;"></i>Qunatity : <%=post[0].quantity%> kg</p>
+                            <p><i class="fas fa-tags" style="margin-right: 6px;"></i>Price : Rs. <%=post[0].expected_price%> </p>
+                            
+                        </div>
+                        <div class="col-md-6 col-sm-12 text-secondary">
+                            <p><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No : <%=post[0].contact_no%></p>
+                            <p><i class="fas fa-thumbtack" style="margin-right: 6px;"></i>Available District : <%=post[0].available_district%> </p>
+                            <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Added On : <%=post[0].added_day.getFullYear()+'/'+("0" + (post[0].added_day.getMonth() + 1)).slice(-2)+'/'+("0" + post[0].added_day.getDate()).slice(-2) %> </p>
+                        </div>
+                    </div>
+                    <p class="text-secondary"><i class="fa fa-envelope" style="margin-right: 6px;"></i>email : <%=post[0].email%> </p>
+                    <p class="text-secondary"><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i>Available Location : <%=post[0].available_address%> </p>
+
+                </div>
+            </div>
+
+            </div>
+            <div class="row p-3">
+                <div class="card shadow rounded border-success w-100">
+                    <div class="nav-tabs-boxed">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description" role="tab"
+                                    aria-controls="description" aria-selected="true"><i class="fa fa-file" style="margin-right: 6px;"></i>Description</a></li>
+                            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#buyerRequest" role="tab"
+                                aria-controls="buyerRequest" aria-selected="false">Buyer Resquest</a></li>
+                            
+            
+                        </ul>
+
+
+
+
+                        <div class="tab-content p-3">
+                            <div class="tab-pane active" id="description" role="tabpanel">
+                                <p class="text-secondary"><%=post[0].description%></p>
+                            </div>
+                            <div class="tab-pane" id="buyerRequest" role="tabpane2">
+                                <form method="post" action="/buyer/message/buyerRequest/<%=post[0].post_id%>">
+                                        <div class="form-group">
+                                                <label for="title">Request Title</label>
+                                                <input class="form-control" type="text" id="title" name="title" placeholder="Title of Post" value="<%=request_title%>" required>
+                                        </div>
+                                
+                                        <div class="form-group">
+                                             <label for="description">Description</label>
+                                             <textarea class="form-control" id="description" name="description" placeholder="Description" rows="5" required><%=description%></textarea>
+                                        </div>
+                                        <div class="form-group text-right">
+                                            <button class="btn btn-success" type="submit">Send Request</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+            
+                </div>
+            </div>
+           
+        </div>
+
+
+
+    <% }
+     else{ %>
+
+    <% }%>
+
+
+</div>
+
+
+
+
+
+<%- include('_footer') %>

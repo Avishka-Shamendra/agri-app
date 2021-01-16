@@ -94,6 +94,15 @@ class Post{
             }
         return data;
     }
+
+    static async getPost(postid){
+        const post=sql`
+        select 
+        post.post_id,post.farmer_id, post.product_name, post.title, post.description, post.product_category, post.quantity, post.expected_price, post.available_district,post.available_address, post.contact_no,post.added_day,post.img_data, 
+        userinfo.email, userinfo.first_name, userinfo.last_name 
+        from post natural join userinfo where userinfo.uid=post.farmer_id and post_id=${postid} and status='Active';`
+        return post;
+    }
 }
 
 module.exports = Post;

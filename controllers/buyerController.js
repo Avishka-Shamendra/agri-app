@@ -3,7 +3,6 @@ const { BuyerEditInfo } = require('./validators/editProfileInfo');
 const {filterPostsInfo } = require('./validators/postInfo');
 const UserService = require('../services/userServices');
 const PostService = require('../services/postServices');
-
 class BuyerController {
     static async  homePage(req,res){
             try{
@@ -33,6 +32,7 @@ class BuyerController {
                 });
             }
             
+
     } 
 
     static async filterPosts(req,res){

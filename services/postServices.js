@@ -42,6 +42,9 @@ class postServices{
         return posts;
     }
 
+    static async getPost(postid){
+        return Post.getPost(postid);
+    }
 }
 
 module.exports = postServices;

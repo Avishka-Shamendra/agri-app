@@ -11,8 +11,8 @@ const AdminSignUpInfo = Joi.object().options({ abortEarly: false }).keys({
     password: Joi.string().min(6).max(20).required().label("Password"),
     confirmPassword: Joi.string().required().valid(Joi.ref('password')).label("Confirmation Password")
     .messages({ 'any.only': '{{#label}} does not match "Password"' }),
-    firstName: Joi.string().max(20).required().label("First Name"),
-    lastName: Joi.string().max(20).required().label("Last Name"),
+    firstName: Joi.string().min(2).max(20).required().label("First Name"),
+    lastName: Joi.string().min(2).max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
     //admin special
     securityKey: Joi.string().required().label("Security Key"),
@@ -24,8 +24,8 @@ const FarmerSignupInfo = Joi.object().options({ abortEarly: false }).keys({
     password: Joi.string().min(6).max(20).required().label("Password"),
     confirmPassword: Joi.string().required().valid(Joi.ref('password')).label("Confirmation Password")
     .messages({ 'any.only': '{{#label}} does not match "Password"' }),
-    firstName: Joi.string().max(20).required().label("First Name"),
-    lastName: Joi.string().max(20).required().label("Last Name"),
+    firstName: Joi.string().min(2).max(20).required().label("First Name"),
+    lastName: Joi.string().min(2).max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
     //farmer special
     nicNumber: Joi.string().required().label("NIC Number")
@@ -47,8 +47,8 @@ const BuyerSignupInfo = Joi.object().options({ abortEarly: false }).keys({
     password: Joi.string().min(6).max(20).required().label("Password"),
     confirmPassword: Joi.string().required().valid(Joi.ref('password')).label("Confirmation Password")
     .messages({ 'any.only': '{{#label}} does not match "Password"' }),
-    firstName: Joi.string().max(20).required().label("First Name"),
-    lastName: Joi.string().max(20).required().label("Last Name"),
+    firstName: Joi.string().min(2).max(20).required().label("First Name"),
+    lastName: Joi.string().min(2).max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
     // buyer special
     nicNumber: Joi.string().required().label("NIC Number")

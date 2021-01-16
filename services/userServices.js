@@ -143,6 +143,24 @@ class UserService {
         return User.updatePassword(newhashedPassword,uid);
 
     }
+
+    static async banUser(uid){
+        const userInfo = await User.banUser(uid);
+        if(userInfo){
+            return `${userInfo.first_name} ${userInfo.last_name}`;
+        }else {
+            throw new Errors.BadRequest('Error occured while banning user');
+        }
+    }
+
+    static async unbanUser(uid){
+        const userInfo = await User.unbanUser(uid);
+        if(userInfo){
+            return `${userInfo.first_name} ${userInfo.last_name}`;
+        }else {
+            throw new Errors.InternalServerError(' Error occured while removing the ban');
+        }
+    }
 }
 
 module.exports = UserService;

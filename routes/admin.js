@@ -7,6 +7,14 @@ const ifNotLoggedIn = require('../middleware/ifNotLoggedIn');
 //GET Requests
 router.get('/',ifLoggedIn,ifAdmin, AdminController.homePage);
 router.get('/signup', ifNotLoggedIn, AdminController.signupPage);
+router.get('/allFarmers',ifLoggedIn,ifAdmin,AdminController.allFarmersPage);
+router.get('/allBuyers',ifLoggedIn,ifAdmin,AdminController.allBuyersPage);
+router.get('/farmer/:uid',ifLoggedIn,ifAdmin,AdminController.adminSingleFarmerPage);
+router.get('/buyer/:uid',ifLoggedIn,ifAdmin,AdminController.adminSingleBuyerPage);
+router.get('/farmer/:uid/ban',ifLoggedIn,ifAdmin,AdminController.banUser);
+router.get('/buyer/:uid/ban',ifLoggedIn,ifAdmin,AdminController.banUser)
+router.get('/buyer/:uid/unban',ifLoggedIn,ifAdmin,AdminController.unbanUser);
+router.get('/farmer/:uid/unban',ifLoggedIn,ifAdmin,AdminController.unbanUser)
 
 //POST Requests
 router.post('/signup',ifNotLoggedIn, AdminController.signup);

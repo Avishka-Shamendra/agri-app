@@ -31,11 +31,12 @@ class Post{
         return posts; 
     }
 
-    static async getFilteredPosts(min_price,max_price,min_quantity,max_quantity,filter_category,filter_district){
+    static async getFilteredPosts(min_price,max_price,min_quantity,max_quantity,filter_category,filter_district,buyer_id){
         if(filter_category && filter_district){
             const posts = await sql`
-            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name FROM post INNER JOIN UserInfo 
+            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post INNER JOIN UserInfo 
             ON UserInfo.uid=Post.farmer_id
+            LEFT JOIN buyer_request ON (buyer_request.buyer_id,buyer_request.post_id)=(${buyer_id},post.post_id)
             WHERE status='Active'
              AND product_category=${filter_category} AND available_district=${filter_district}
              AND expected_price >= ${min_price} AND expected_price <=${max_price}
@@ -45,8 +46,9 @@ class Post{
         }
         if(filter_category){
             const posts = await sql`
-            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name FROM post INNER JOIN UserInfo 
+            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name FROM,buyer_request.req_msg_id post INNER JOIN UserInfo 
             ON UserInfo.uid=Post.farmer_id
+            LEFT JOIN buyer_request ON (buyer_request.buyer_id,buyer_request.post_id)=(${buyer_id},post.post_id)
             WHERE status='Active' AND product_category=${filter_category}
             AND expected_price >= ${min_price} AND expected_price <=${max_price}
              AND quantity >= ${min_quantity} AND quantity <= ${max_quantity}
@@ -55,8 +57,9 @@ class Post{
         }
         if(filter_district){
             const posts = await sql`
-            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name FROM post INNER JOIN UserInfo 
+            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post INNER JOIN UserInfo 
             ON UserInfo.uid=Post.farmer_id
+            LEFT JOIN buyer_request ON (buyer_request.buyer_id,buyer_request.post_id)=(${buyer_id},post.post_id)
             WHERE status='Active' AND available_district=${filter_district}
             AND expected_price >= ${min_price} AND expected_price <=${max_price}
              AND quantity >= ${min_quantity} AND quantity <= ${max_quantity}
@@ -65,8 +68,9 @@ class Post{
         }
         else{
             const posts = await sql`
-            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name FROM post INNER JOIN UserInfo 
+            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post INNER JOIN UserInfo 
             ON UserInfo.uid=Post.farmer_id
+            LEFT JOIN buyer_request ON (buyer_request.buyer_id,buyer_request.post_id)=(${buyer_id},post.post_id)
             WHERE status='Active'
             AND expected_price >= ${min_price} AND expected_price <=${max_price}
             AND quantity >= ${min_quantity} AND quantity <= ${max_quantity}
@@ -84,6 +88,15 @@ class Post{
             return posts; 
     }
 
+    static async getAllActivePostsWithMsgState(buyer_id){
+        const posts = await sql`
+             SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post INNER JOIN UserInfo 
+            ON UserInfo.uid=Post.farmer_id
+            LEFT JOIN buyer_request ON (buyer_request.buyer_id,buyer_request.post_id)=(${buyer_id},post.post_id)
+            WHERE status='Active' ORDER BY added_day DESC, title ASC LIMIT 30;`
+            return posts; 
+    }
+
     static async getPostsofFarmer(uid,limit){
         let data ;
             if(!limit){
@@ -93,6 +106,15 @@ class Post{
                 data = sql`SELECT * farmer INNER JOIN FROM post AS P ON P.farmer_id=farmer.uid WHERE P.farmer_id = ${uid} ORDER BY added_day DESC,title ASC LIMIT ${limit}`;
             }
         return data;
+    }
+
+    static async getPost(postid){
+        const post=sql`
+        select 
+        post.post_id,post.farmer_id, post.product_name, post.title, post.description, post.product_category, post.quantity, post.expected_price, post.available_district,post.available_address, post.contact_no,post.added_day,post.img_data, 
+        userinfo.email, userinfo.first_name, userinfo.last_name 
+        from post natural join userinfo where userinfo.uid=post.farmer_id and post_id=${postid} and status='Active';`
+        return post;
     }
 }
 

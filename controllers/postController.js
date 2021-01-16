@@ -3,6 +3,7 @@ const UserService = require('../services/userServices');
 const PostService = require('../services/postServices');
 const { addpostInfo } = require('./validators/postInfo');
 const postServices = require('../services/postServices');
+const BuyerRequest = require('../models/BuyerRequest');
 
 class PostController{
     static addPostPage(req, res){
@@ -35,17 +36,21 @@ class PostController{
     static async viewPost(req,res){
         try{
             const post= await PostService.getPost(req.params.postid);
-            res.render('postPage',{
+            const request = await BuyerRequest.checkAvailable(req.session.user.uid,req.params.postid);
+            res.render('buyerPostPage',{
                 error: req.query.error,
+                msg_error:req.query.msg_error,
+                msg_success:req.query.msg_success,
                 user: req.session.user,
                 post:post,
+                request:request,
                 request_title:req.query.request_title,
                 description:req.query.description
             });
             
         }
         catch(err){
-            res.redirect(`/farmer?error=${err}`);
+            res.redirect(`/buyer?error=${err}`);
         }
         
         

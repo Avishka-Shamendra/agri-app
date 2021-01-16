@@ -4,6 +4,11 @@ const Post = require('../models/Post');
 const dateFormat = require('../helpers/dateFormat');
 
 class postServices{
+    //for home
+    static async getRecentPosts(){
+        return Post.getRecentPosts();
+    }
+
     static async addPost({
         title,product_name,quantity,expected_price,description,product_category,district,address,phone_num},uid){
             const user = await User.getUserById(uid);
@@ -26,14 +31,18 @@ class postServices{
         return Post.getAllActivePosts();
     }
 
-    static async getFilteredPosts({min_price,max_price,min_quantity,max_quantity,filter_category,filter_district}){
+    static async getAllActivePostsForBuyer(buyer_id){
+        return Post.getAllActivePostsWithMsgState(buyer_id);
+    }
+
+    static async getFilteredPosts({min_price,max_price,min_quantity,max_quantity,filter_category,filter_district},buyer_id){
         if(!min_quantity) min_quantity=0;
         if(!max_quantity) max_quantity=100000000;
         if(!min_price) min_price=0;
         if(!max_price) max_price=100000000;
         if(filter_category==='all') filter_category=null;
         if(filter_district==='all') filter_district=null;
-        return Post.getFilteredPosts(min_price,max_price,min_quantity,max_quantity,filter_category,filter_district);
+        return Post.getFilteredPosts(min_price,max_price,min_quantity,max_quantity,filter_category,filter_district,buyer_id);
     }
 
 

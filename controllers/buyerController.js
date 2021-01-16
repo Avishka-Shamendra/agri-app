@@ -3,14 +3,16 @@ const { BuyerEditInfo } = require('./validators/editProfileInfo');
 const {filterPostsInfo } = require('./validators/postInfo');
 const UserService = require('../services/userServices');
 const PostService = require('../services/postServices');
-
+const MessageService = require('../services/messageServices');
+const FarmerService = require('../services/farmerService');
 class BuyerController {
     static async  homePage(req,res){
             try{
-                const posts = await PostService.getAllActivePosts();
+                const posts = await PostService.getAllActivePostsForBuyer(req.session.user.uid);
                 res.render('buyerHome',{ 
                     error: req.query.error, 
                     user: req.session.user,
+                    success: req.query.success,
                     posts:posts,
                     filter_category:req.query.filter_category,
                     filter_district:req.query.filter_district,
@@ -23,6 +25,7 @@ class BuyerController {
                 res.render('buyerHome',{ 
                     error: err, 
                     user: req.session.user,
+                    success: req.query.success,
                     posts:null, // incase of error
                     filter_category:req.query.filter_category,
                     filter_district:req.query.filter_district,
@@ -33,16 +36,18 @@ class BuyerController {
                 });
             }
             
+
     } 
 
     static async filterPosts(req,res){
         try {
             const { value, error } = await filterPostsInfo.validate(req.body);
             if (error) throw (error);
-            const filtered = await PostService.getFilteredPosts(value);
+            const filtered = await PostService.getFilteredPosts(value,req.session.user.uid);
             res.render('buyerHome',{ 
                 error: req.query.error, 
                 user: req.session.user,
+                success: req.query.success,
                 posts:filtered,
                 filter_category:req.body.filter_category,
                 filter_district:req.body.filter_district,
@@ -70,6 +75,20 @@ class BuyerController {
             nicNumber : req.query.nicNumber,
             contactNo : req.query.contactNo,
              });
+    } 
+
+    static async sentRequestsPage(req,res){
+        try{
+            const requests = await MessageService.getSentMessages(req.session.user.uid);
+            res.render('buyerSentRequests',{ 
+                error: req.query.error,
+                user : req.session.user,
+                del_suc: req.query.del_suc,
+                requests:requests,
+                });
+        }catch(err){
+            res.redirect(`/buyer?error=${err}`);
+        }
     } 
     
     static async signup(req, res) {
@@ -105,6 +124,25 @@ class BuyerController {
             res.redirect(`/editProfile?error=${err}`)
         }
     } 
+
+    //to buyer to see a farmer profile
+    static async farmerProfilePage(req,res){
+        try{
+            const posts = await PostService.getPostsofFarmer(req.params.farmer_id);
+            const farmer = await FarmerService.getFarmer(req.params.farmer_id);
+            res.render('buyerFarmerProfile',{
+                error: req.query.error,
+                user: req.session.user,
+                report_success:req.query.report_success,
+                reasons:req.query.reasons,
+                posts:posts,
+                farmer:farmer,
+            });
+
+        }catch(e){
+            res.redirect(`buyer/?error=${e}`)
+        }
+    }
 }
 
 module.exports = BuyerController;

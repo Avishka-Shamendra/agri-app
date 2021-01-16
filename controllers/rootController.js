@@ -1,11 +1,26 @@
 const { LogInInfo } = require('./validators/authInfo');
 const Errors = require('../helpers/error');
 const UserService = require('../services/userServices');
+const PostService = require('../services/postServices');
 const { ChangePasswordInfo } = require('./validators/editProfileInfo');
 
 class RootController {
-    static indexPage(req,res){
-        res.render('index',{ error: req.query.error, user: req.session.user });
+    static async indexPage(req,res){
+        try{
+            const recentPosts = await PostService.getRecentPosts();
+            res.render('index',
+            { error: req.query.error,
+                user: req.session.user,
+                posts:recentPosts,
+            });
+        }catch(e){
+            res.render('index',
+            {
+                error: req.query.error,
+                user: req.session.user,
+                posts:null,
+             }); 
+        }
     }
     static loginPage(req, res) {
         res.render('login', { error: req.query.error,

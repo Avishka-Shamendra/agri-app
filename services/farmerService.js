@@ -19,6 +19,14 @@ class FarmerService{
         return farmer;
     }
 
+    static async deleteFarmer(uid){
+        const farmer = await Farmer.deleteFarmer(uid);
+        if (!farmer){
+            throw new Errors.BadRequest(' Error ');
+        }
+        return farmer;
+    }
+
     
 }
 

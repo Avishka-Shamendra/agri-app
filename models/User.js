@@ -107,6 +107,27 @@ class User {
         `;
         return updatedUser;
     }
+
+    static async numUsers(type){
+        let data;
+
+        switch (type) {
+            case 'admin':
+                data = await sql`SELECT COUNT(*) FROM (SELECT uid FROM userinfo WHERE type='admin') AS U;`;
+                break
+            case 'farmer':
+                data = await sql`SELECT COUNT(*) FROM (SELECT uid FROM userinfo WHERE type='farmer') AS U;`;
+                break
+            case 'buyer':
+                data = await sql`SELECT COUNT(*) FROM (SELECT uid FROM userinfo WHERE type='buyer') AS U;`;
+                break
+            default:
+                data = await sql`SELECT COUNT(*) FROM userinfo;`;
+                break
+        }
+
+        return data;
+    }
 }
 
 module.exports = User;

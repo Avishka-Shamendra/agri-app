@@ -19,6 +19,14 @@ class BuyerService{
         }
         return buyer;
     }
+
+    static async deleteBuyer(uid){
+        const buyer = await Buyer.deleteBuyer(uid);
+        if (!buyer){
+            throw new Errors.BadRequest(' Error ');
+        }
+        return buyer;
+    }
 }
 
 module.exports = BuyerService;

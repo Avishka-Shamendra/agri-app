@@ -4,6 +4,7 @@ const UserService = require('../services/userServices');
 const FarmerService = require('../services/farmerService');
 const BuyerService = require('../services/buyerService');
 const PostService = require('../services/postServices');
+const AdminService = require('../services/adminService');
 const Error = require('../helpers/error');
 
 class AdminController {
@@ -178,6 +179,36 @@ class AdminController {
             else{
                 res.redirect(`/admin?error=${e}`)
             }
+        }
+    }
+
+    static async statsPage(req, res){
+        try{
+            const stats_obj = await  AdminService.systemStats();
+            res.json(stats_obj);
+
+        }catch (e) {
+            res.redirect(`/admin?error=${e}`)
+        }
+    }
+
+    static async deleteFarmer(req, res){
+        const uid = req.params.uid;
+        try{
+            await FarmerService.deleteFarmer(uid);
+            res.redirect('/admin/allFarmers');
+        }catch (e) {
+            res.redirect(`/admin/farmer/${uid}`)
+        }
+    }
+
+    static async deleteBuyer(req, res){
+        const uid = req.params.uid;
+        try{
+            await BuyerService.deleteBuyer(uid);
+            res.redirect('/admin/allBuyers');
+        }catch (e) {
+            res.redirect(`/admin/buyer/${uid}`)
         }
     }
 }

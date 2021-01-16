@@ -13,7 +13,7 @@ class Post{
     }
 
     static async getAllPost(){
-        const posts = sql`
+        const posts = await sql`
         SELECT * FROM post ORDER BY added_day DESC, title ASC;`
         return posts;
     }
@@ -87,11 +87,35 @@ class Post{
     static async getPostsofFarmer(uid,limit){
         let data ;
             if(!limit){
-                data = sql`SELECT * FROM farmer INNER JOIN post AS P ON P.farmer_id=farmer.uid WHERE P.farmer_id = ${uid} ORDER BY added_day DESC,title ASC`;
+                data = await sql`SELECT * FROM farmer INNER JOIN post AS P ON P.farmer_id=farmer.uid WHERE P.farmer_id = ${uid} ORDER BY added_day DESC,title ASC`;
             }
             else{
-                data = sql`SELECT * farmer INNER JOIN FROM post AS P ON P.farmer_id=farmer.uid WHERE P.farmer_id = ${uid} ORDER BY added_day DESC,title ASC LIMIT ${limit}`;
+                data = await sql`SELECT * farmer INNER JOIN FROM post AS P ON P.farmer_id=farmer.uid WHERE P.farmer_id = ${uid} ORDER BY added_day DESC,title ASC LIMIT ${limit}`;
             }
+        return data;
+    }
+
+    static async numPosts(status){
+        let data;
+
+        switch (status){
+            case 'Active':
+                data = await sql`SELECT COUNT(*) FROM (SELECT post_id FROM post WHERE status='Active') AS P`;
+                break
+            case 'Expired':
+                data = await sql`SELECT COUNT(*) FROM (SELECT post_id FROM post WHERE status='Expired') AS P`;
+                break
+            case 'Sold':
+                data = await sql`SELECT COUNT(*) FROM (SELECT post_id FROM post WHERE status='Sold') AS P`;
+                break
+            case 'Deleted':
+                data = await sql`SELECT COUNT(*) FROM (SELECT post_id FROM post WHERE status='Deleted') AS P`;
+                break
+            default:
+                data = await sql`SELECT COUNT(*) FROM post`;
+                break
+        }
+
         return data;
     }
 }

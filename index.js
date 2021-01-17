@@ -4,7 +4,6 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const pgConnect = require('connect-pg-simple');
 
-
 /* Make all variables from our .env file available in our process */
 require('dotenv').config();
 

@@ -16,13 +16,12 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-light shadow-lg bg-light border-bottom border-success fixed-top">
             <a class="navbar-brand" href="/" ><strong><h4>Agro Market Place</h4></strong></a>
-            <% if(user.type=='admin') {%>txtt
-            <div class="search-container">
-                <form class="typeahead" action="/admin/navbarSearch" method="post" role="search">
-                    <input class="typeahead" spellcheck="false" autocomplete="off" type="search" placeholder="Search.." name="search" id="search">
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+            <% if(user && user.type=='admin') {%>
+                <div class="form-group">
+                    <input type="search" name="search" class="form-control" placeholder="Search" autocomplete="off" id="search">
+                    <div id="match-list"></div>
+                    <div id="match-list-error"></div>
+                </div>
             <%}%>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>

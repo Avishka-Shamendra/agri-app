@@ -66,6 +66,13 @@ class Farmer {
         return farmer;
     }
 
+    static async getFarmerByNICLike(nic_query,LIMIT=5){
+        nic_query = '%'+nic_query+'%';
+        const farmers = await sql`SELECT uid,nic FROM farmer WHERE nic LIKE ${nic_query} ORDER BY nic DESC LIMIT ${LIMIT}`;
+        farmers['actor_type'] ='farmer';
+        return farmers;
+    }
+
     static async deleteFarmer(uid){
         const [farmer_id] = await sql.begin(async sql=>{
             await sql`DELETE FROM farmer WHERE uid=${uid}`;

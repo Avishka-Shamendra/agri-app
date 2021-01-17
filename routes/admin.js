@@ -16,7 +16,7 @@ router.get('/buyer/:uid/ban',ifLoggedIn,ifAdmin,AdminController.banUser)
 router.get('/buyer/:uid/unban',ifLoggedIn,ifAdmin,AdminController.unbanUser);
 router.get('/farmer/:uid/unban',ifLoggedIn,ifAdmin,AdminController.unbanUser);
 router.get('/stats',ifLoggedIn,ifAdmin,AdminController.statsPage);
-router.get('/')
+router.get('/find',ifLoggedIn,ifAdmin,AdminController.search);
 
 //POST Requests
 router.post('/signup',ifNotLoggedIn, AdminController.signup);

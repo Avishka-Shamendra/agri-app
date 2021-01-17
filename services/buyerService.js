@@ -20,6 +20,11 @@ class BuyerService{
         return buyer;
     }
 
+    static async getBuyerByNICLike(nic_query){
+        console.log(await Buyer.getBuyerByNICLike(nic_query));
+        return await Buyer.getBuyerByNICLike(nic_query);
+    }
+
     static async deleteBuyer(uid){
         const buyer = await Buyer.deleteBuyer(uid);
         if (!buyer){

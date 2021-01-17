@@ -58,6 +58,13 @@ class Buyer {
         return buyer_id;
     }
 
+    static async getBuyerByNICLike(nic_query, LIMIT=5){
+        nic_query = '%'+nic_query+'%';
+        const farmers = await sql`SELECT uid,nic FROM buyer WHERE nic LIKE ${nic_query} ORDER BY nic LIMIT ${LIMIT}`;
+        farmers['actor_type'] ='buyer';
+        return farmers;
+    }
+
 
 
     static async getBuyers(limit){

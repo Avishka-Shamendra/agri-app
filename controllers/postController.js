@@ -2,6 +2,8 @@
 const UserService = require('../services/userServices');
 const PostService = require('../services/postServices');
 const { addpostInfo } = require('./validators/postInfo');
+const postServices = require('../services/postServices');
+const BuyerRequest = require('../models/BuyerRequest');
 
 class PostController{
     static addPostPage(req, res){
@@ -29,6 +31,30 @@ class PostController{
         }catch (e) {
             res.redirect(`/farmer/addPost?error=${e}&title=${req.body.title}&product_name=${req.body.product_name}&expected_price=${req.body.expected_price}&quantity=${req.body.quantity}&phone_num=${req.body.phone_num}&description=${req.body.description}&product_category=${req.body.product_category}&address=${req.body.address}&district=${req.body.district}`);
         }
+    }
+
+    static async viewPost(req,res){
+        try{
+            const post= await PostService.getPost(req.params.postid);
+            const request = await BuyerRequest.checkAvailable(req.session.user.uid,req.params.postid);
+            res.render('buyerPostPage',{
+                error: req.query.error,
+                msg_error:req.query.msg_error,
+                msg_success:req.query.msg_success,
+                user: req.session.user,
+                post:post,
+                request:request,
+                request_title:req.query.request_title,
+                description:req.query.description
+            });
+            
+        }
+        catch(err){
+            res.redirect(`/buyer?error=${err}`);
+        }
+        
+        
+        
     }
 }
 

@@ -161,6 +161,10 @@ class UserService {
             throw new Errors.InternalServerError(' Error occured while removing the ban');
         }
     }
+
+    static async getUserNameLike(name_query){
+        return await User.getFarmerByNameLike(name_query);
+    }
 }
 
 module.exports = UserService;

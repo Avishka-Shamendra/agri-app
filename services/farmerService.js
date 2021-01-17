@@ -19,6 +19,19 @@ class FarmerService{
         return farmer;
     }
 
+    static async deleteFarmer(uid){
+        const farmer = await Farmer.deleteFarmer(uid);
+        if (!farmer){
+            throw new Errors.BadRequest(' Error ');
+        }
+        return farmer;
+    }
+
+    static async getFarmerByNICLike(nic_query){
+        console.log(await Farmer.getFarmerByNICLike(nic_query));
+        return await Farmer.getFarmerByNICLike(nic_query);
+    }
+
     
 }
 

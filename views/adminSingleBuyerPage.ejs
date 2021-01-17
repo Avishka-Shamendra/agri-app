@@ -47,9 +47,6 @@
                 <div class="col-sm-6 col-xs-12">
                     <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Joined on: <%=buyer.joined.getFullYear()+'/'+("0" + (buyer.joined.getMonth() + 1)).slice(-2)+'/'+("0" + buyer.joined.getDate()).slice(-2) %> </p>
                 </div>
-                <div class="col-sm-6 col-xs-12">
-                    <p><i class="fas fa-map-marked-alt" style="margin-right: 8px;"></i><%=buyer.address%> </p>
-                </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-sm-12 mb-3">
@@ -67,7 +64,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Note that it may take up to 24 hrs for ban/unban to be effective.However, You can later unban the user if you want.
+                                           The ban will stop user loging in only.All the posts and data will remain.You can later unban the user if you want.
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -81,7 +78,6 @@
                             <a class="btn btn-outline-success" href="<%=`/admin/buyer/${buyer.uid}/unban`%>" role="button">Unban User</a>
                     <% } %>
                     <br>
-                    <small>Note that it may take up to 24 hrs for ban/unban to be effective</small>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
@@ -99,7 +95,7 @@
                                 <div class="modal-body">
                                     All the data will be lost and no recovery possible
                                 </div>
-                                <form class="p-3 text-left" method="POST" action="">
+                                <form class="p-3 text-left" method="POST" action="/admin/buyer/delete/<%=buyer.uid%>">
                                     <div>
                                         <label for="del_password">Please Enter Your Password (required)</label>
                                         <input type="password" name="del_password" class="form-control" required/>

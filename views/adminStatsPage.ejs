@@ -1,0 +1,15 @@
+<%- include('_header',{user}) %>
+
+<div class="container py-4">
+    <div class="card p-3">
+        Number Of Buyers  <%=stats.num_buyers[0].count%>
+        Number Of Farmers <%=stats.num_farmers[0].count%>
+        Number Of Active Posts <%=stats.num_active_posts[0].count%>
+        Number Of Expired Posts <%=stats.num_expired_posts[0].count%>
+        Number Of Sold Posts <%=stats.num_sold_posts[0].count%>
+    </div>
+
+</div>
+
+
+<%- include('_footer') %>

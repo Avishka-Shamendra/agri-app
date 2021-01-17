@@ -14,16 +14,28 @@ const searchUsers = async searchText => {
             let outputHTML;
             if (response.type === 'name'){
                 outputHTML =  response.users.map(match=>{
+                    if(match.type!='admin'){
                     return(`
                                <div class="card card-body mb-1">
                                    <h6>${match.first_name} ${match.last_name}
-                                        <span class="text-primary">
-                                            ${match.type}
-                                        </span>
+                                        <small class="text-secondary">
+                                          <strong> (${match.type.toUpperCase()})</strong>
+                                        </small>
                                         <a class="card-block stretched-link text-decoration-none" href="/admin/${match.type}/${match.uid}"></a>
                                    </h6>
                                 </div>
                                `);
+                    }else{
+                        return(`
+                               <div class="card card-body mb-1">
+                                   <h6>${match.first_name} ${match.last_name}
+                                        <small class="text-danger">
+                                          <strong> (${match.type.toUpperCase()}) RESTRICTED</strong>
+                                        </small>
+                                   </h6>
+                                </div>
+                               `);
+                    }
                 }).join('');
 
 
@@ -33,9 +45,9 @@ const searchUsers = async searchText => {
                     return(`
                                <div class="card card-body mb-1">
                                    <h6>${match.nic}
-                                        <span class="text-primary">
-                                            Farmer
-                                        </span>
+                                   <small class="text-secondary">
+                                   <strong>(FARMER)</strong>
+                                 </small>
                                         <a class="card-block stretched-link text-decoration-none" href="/admin/farmer/${match.uid}"></a>
                                    </h6>
                                 </div>
@@ -44,9 +56,9 @@ const searchUsers = async searchText => {
                     return(`
                                <div class="card card-body mb-1">
                                    <h6>${match.nic}
-                                        <span class="text-primary">
-                                            Buyer
-                                        </span>
+                                   <small class="text-secondary">
+                                   <strong>(BUYER)</strong>
+                                 </small>
                                         <a class="card-block stretched-link text-decoration-none" href="/admin/Buyer/${match.uid}"></a>
                                    </h6>
                                 </div>
@@ -67,5 +79,8 @@ const searchUsers = async searchText => {
 }
 
 
-
+try{
 search.addEventListener('input',()=>searchUsers(search.value));
+}catch(e){
+    
+}

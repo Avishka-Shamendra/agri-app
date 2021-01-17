@@ -1,0 +1,136 @@
+<%- include('_header',{user}) %>
+<div class="container p-1">
+    <h2 class="p-3 text-center">Posts In The System</h1>
+        <% if(error) { %>
+            <div class="alert alert-danger text-center" role="alert">
+                <%=error%>
+            </div>
+        <%} %>
+        <% if(success) { %>
+            <div class="alert alert-success text-center" role="alert">
+                <%=success%>
+            </div>
+        <%} %>
+        <div class="card shadow rounded border-success">
+            <div class="nav-tabs-boxed">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#activeposts" role="tab"
+                            aria-controls="activeposts" aria-selected="true">Active Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#soldposts" role="tab"
+                        aria-controls="soldposts" aria-selected="false">Sold Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#expiredposts" role="tab"
+                        aria-controls="expiredposts" aria-selected="false">Expired Posts</a></li>
+    
+                </ul>
+                <div class="tab-content p-3">
+                    <div class="tab-pane active" id="activeposts" role="tabpanel">
+                        
+                        <div class="p-3">
+                            <% if(activePosts && activePosts.length!=0) {%>
+                                <% activePosts.forEach(function(post){%>
+                                    <%- include('componentAdminPost',{post})%>
+                                <%});%>
+                                <% }else{ %>
+                                    <div class="alert alert-warning text-center">
+                                        <strong>No Active Posts Available</strong>
+                                    </div>
+                                <%}%>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="soldposts" role="tabpanel">
+                        <div class="p-3">
+                            <% if(soldPosts && soldPosts.length!=0) {%>
+                                <div class="alert alert-warning text-center">
+                                    <strong>You may delete all sold posts if storage is an issue.However all the data related to those posts will be lost</strong>
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-outline-danger btn-small mb-1" data-toggle="modal" data-target="#deleteAllSoldPostModsal">
+                                        <i class="fas fa-trash-alt" style="margin-right: 6px;"></i>Delete All Sold Posts - Implement
+                                    </button>
+                                    <div class="modal fade" id="deleteAllSoldPostsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete all the sold posts?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    All the data,messages related to the posts will be lost to all and no recovery is possible!
+                                                </div>
+                                                <div class="modal-footer">
+                                                    
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <a class="btn btn-danger" href="/admin/deleteAllSoldPosts"  role="button">Delete Posts</a>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% soldPosts.forEach(function(post){%>
+                                    <%- include('componentAdminPost',{post})%>
+                                <%});%>
+                                <% }else{ %>
+                                    <div class="alert alert-warning text-center">
+                                        <strong>No Sold Posts</strong>
+                                    </div>
+                                <%}%>
+                            
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="expiredposts" role="tabpanel">
+                        <div class="p-3">
+                            <% if(expiredPosts && expiredPosts.length!=0) {%>
+                                <div class="alert alert-warning text-center">
+                                    <strong>You may delete all expired posts if storage is an issue.However all the data related to those posts will be lost</strong>
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-outline-danger btn-small mb-1" data-toggle="modal" data-target="#deleteAllExpiredPostsModal">
+                                        <i class="fas fa-trash-alt" style="margin-right: 6px;"></i>Delete All Expired Posts - Implement
+                                    </button>
+                                    <div class="modal fade" id="deleteAllExpiredPostsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete all the expired posts?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    All the data,messages related to the posts will be lost to all and no recovery is possible!
+                                                </div>
+                                                <div class="modal-footer">
+                                                    
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <a class="btn btn-danger" href="/admin/deleteAllExppiredPosts"  role="button">Delete Expired Posts</a>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% expiredPosts.forEach(function(post){%>
+                                    <%- include('componentAdminPost',{post})%>
+                                <%});%>
+                            <% }else{ %>
+                                <div class="alert alert-warning text-center">
+                                    <strong>No Expired Posts</strong>
+                                </div>
+                            <%}%>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+        
+
+</div>
+
+    
+
+<%- include('_footer',{user}) %>

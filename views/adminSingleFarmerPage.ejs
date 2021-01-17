@@ -67,7 +67,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Note that it may take up to 24 hrs for ban/unban to be effective.However, You can later unban the user if you want.
+                                            The ban will stop user loging in only.All the posts and data will remain.You can later unban the user if you want.
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -81,7 +81,6 @@
                             <a class="btn btn-outline-success" href="<%=`/admin/farmer/${farmer.uid}/unban`%>" role="button">Unban User</a>
                     <% } %>
                     <br>
-                    <small>Note that it may take up to 24 hrs for ban/unban to be effective</small>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
@@ -99,7 +98,7 @@
                                 <div class="modal-body">
                                     All the data will be lost and no recovery possible
                                 </div>
-                                <form class="p-3 text-left" method="POST" action="/">
+                                <form class="p-3 text-left" method="POST" action="/admin/farmer/delete/<%=farmer.uid%>">
                                     <div>
                                         <label for="del_password">Please Enter Your Password (required)</label>
                                         <input type="password" name="del_password" class="form-control" required/>
@@ -129,44 +128,7 @@
     <% if (posts.count>0) {%>
         <div class="p-3">
                 <% posts.forEach(function(post){%>
-                    <div class="card mb-3 border">
-                        <div class="row">
-                            <div class="col-lg-5 align center">
-                                <% if(post.img_data) {%>
-                                    <img class="d-block w-100" src="<%=post.encode%>" alt="vegetables">
-                                <%} else if(!post.img_data && post.product_category=='vegetable') {%>
-                                    <img class="d-block w-100" src="/assets/default_vegetables.jpg" alt="vegetables">
-                                <%} else if (!post.img_data && post.product_category=='fruit') {%>
-                                    <img class="d-block w-100 rounded border-success" src="/assets/default_fruits.jpg" alt="fruits">
-                                <%}%>
-                            </div>
-                            <div class="col-lg-7">
-                                <div class="card-block p-3">
-                                    <h5 class="card-title"><%=post.title%></h5>
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12 text-secondary">
-                                            <%if(post.status=='Active'){%>
-                                                <p class="text-success"><i class="fas fa-heartbeat" style="margin-right: 6px;"></i><b>State: <%=post.status%> </b></p>
-                                            <%}else if (post.status=='Sold'){%>
-                                                <p class="text-primary"><i class="fas fa-check" style="margin-right: 6px;"></i><b>State: <%=post.status%> </b></p>
-                                            <%}else{%>
-                                                <p class="text-warning"><i class="fas fa-stopwatch" style="margin-right: 6px;"></i><b>State: <%=post.status%> </b></p>
-                                            <%}%>
-                                            <p><i class="fas fa-balance-scale-right" style="margin-right: 6px;"></i>Qunatity : <%=post.quantity%> kg</p>
-                                            <p><i class="fas fa-tags" style="margin-right: 6px;"></i>Price : Rs. <%=post.expected_price%> </p>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12 text-secondary">
-                                            <p><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No : <%=post.contact_no%></p>
-                                            <p><i class="fas fa-thumbtack" style="margin-right: 6px;"></i>Available District : <%=post.available_district%> </p>
-                                            <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Added On : <%=post.added_day.getFullYear()+'/'+("0" + (post.added_day.getMonth() + 1)).slice(-2)+'/'+("0" + post.added_day.getDate()).slice(-2) %> </p>
-                                        </div>
-                                    </div>
-                                    <p class="text-secondary"><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i>Available Location : <%=post.available_address%> </p>
-                                    <a class="card-block stretched-link text-muted" href=''><i class="fas fa-edit" style="margin-right: 6px;"></i>View More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <%- include('componentAdminFarmerPost',{post})%>
                 <%});%>
             <% }else{ %>
                 <div class="alert alert-warning text-center">

@@ -73,16 +73,14 @@ class Farmer {
         return farmers;
     }
 
-    static async deleteFarmer(uid){
-        const [farmer_id] = await sql.begin(async sql=>{
-            await sql`DELETE FROM farmer WHERE uid=${uid}`;
-            const [farmer_id] = await  sql`DELETE FROM userinfo WHERE uid=${uid} RETURNING uid`;
+    // static async deleteFarmer(uid){
+    //     const [farmer_id] = await sql.begin(async sql=>{
+    //         await  sql`DELETE FROM userinfo WHERE uid=${uid} RETURNING uid`;
+    //         return farmer_id;
+    //     });
 
-            return farmer_id;
-        });
-
-        return farmer_id;
-    }
+    //     return farmer_id;
+    // }
 }
 
 module.exports = Farmer;

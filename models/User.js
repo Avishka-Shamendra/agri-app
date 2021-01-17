@@ -131,7 +131,7 @@ class User {
 
     static async getFarmerByNameLike(name_query,LIMIT=5){
         name_query = '%'+name_query+'%'
-        const users = await sql`SELECT uid,first_name,last_name,type FROM userinfo WHERE LOWER(first_name) LIKE LOWER(${name_query}) OR LOWER(last_name) LIKE LOWER(${name_query}) ORDER BY uid DESC LIMIT ${LIMIT}`;
+        const users = await sql`SELECT uid,first_name,last_name,type FROM userinfo WHERE LOWER(first_name) LIKE LOWER(${name_query}) OR LOWER(last_name) LIKE LOWER(${name_query}) ORDER BY first_name ASC,last_name DESC LIMIT ${LIMIT}`;
 
         return users;
     }

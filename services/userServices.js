@@ -22,7 +22,7 @@ class UserService {
     static async deleteAccount({ del_password },uid) {
         const user = await User.getUserById(uid);
         if (!user) {
-            throw new Errors.BadRequest('Email is not registered');
+            throw new Errors.BadRequest('OOPS could not delete user');
         }
         const hashedPassword = user.password;
         const isPasswordCorrect = await bcrypt.compare(del_password, hashedPassword);
@@ -30,6 +30,21 @@ class UserService {
             throw new Errors.BadRequest('Password Entered Not Valid');
         }
         await User.deleteAccount(uid);
+        return true;
+    }
+
+    static async deleteAccountAdmin({ del_password },admin_uid,profile_uid) {
+        const user = await User.getUserById(profile_uid);
+        const admin = await User.getUserById(admin_uid);
+        if (!user || !admin) {
+            throw new Errors.BadRequest('OOPS something went wrong could not delete account');
+        }
+        const hashedPassword = admin.password;
+        const isPasswordCorrect = await bcrypt.compare(del_password, hashedPassword);
+        if (!isPasswordCorrect) {
+            throw new Errors.BadRequest('Password Entered Not Valid');
+        }
+        await User.deleteAccount(profile_uid);
         return true;
     }
 

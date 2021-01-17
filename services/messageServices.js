@@ -29,6 +29,10 @@ class messageServices{
         static async deleteMsg(msg_id){
             return BuyerRequest.deleteMsg(msg_id);
         }
+
+        static async getAllMessagesForAdmin(){
+            return BuyerRequest.getAllMessagesForAdmin();
+        }
     }
 
     

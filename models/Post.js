@@ -14,7 +14,9 @@ class Post{
 
     static async getAllPost(){
         const posts = await sql`
-        SELECT * FROM post ORDER BY added_day DESC, title ASC;`
+        SELECT * FROM post 
+        INNER JOIN UserInfo ON post.farmer_id=userinfo.uid
+        ORDER BY added_day DESC, title ASC;`
         return posts;
     }
 
@@ -131,6 +133,7 @@ class Post{
         }
 
         return data;
+    }
 
     static async getPost(postid){
         const post=sql`
@@ -140,6 +143,11 @@ class Post{
         from post natural join userinfo where userinfo.uid=post.farmer_id and post_id=${postid} and status='Active';`
         return post;
 
+    }
+
+    static async deletePost(post_id){
+        await sql`DELETE FROM post WHERE post_id=${post_id}`;
+        return true;
     }
 }
 

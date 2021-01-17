@@ -23,7 +23,6 @@ class AdminController {
     }
 
     static async search(req, res){
-        console.log(req.query);
         try{
             const pattern = /[0-9]/g;
             let res_obj;
@@ -108,6 +107,7 @@ class AdminController {
 
             res.render('adminFarmersPage',{
                 error: req.query.error,
+                success:req.query.success,
                 user: req.session.user,
                 farmers:farmers
             });
@@ -122,6 +122,7 @@ class AdminController {
             const buyers = await BuyerService.getBuyers();
             res.render('adminBuyersPage',{
                 error: req.query.error,
+                success:req.query.success,
                 user: req.session.user,
                 buyers:buyers,
             });
@@ -230,30 +231,51 @@ class AdminController {
     static async statsPage(req, res){
         try{
             const stats_obj = await  AdminService.systemStats();
-            res.json(stats_obj);
-
+            res.render('adminStatsPage',{
+                error:req.query.error,
+                user:req.session.user,
+                stats:stats_obj,
+            });
         }catch (e) {
             res.redirect(`/admin?error=${e}`)
         }
     }
 
     static async deleteFarmer(req, res){
-        const uid = req.params.uid;
+        const account_uid = req.params.uid;
         try{
-            await FarmerService.deleteFarmer(uid);
-            res.redirect('/admin/allFarmers');
+            await UserService.deleteAccountAdmin(req.body,req.session.user.uid,account_uid);
+            res.redirect('/admin/allFarmers?success=Farmer Deleted Successfully');
         }catch (e) {
-            res.redirect(`/admin/farmer/${uid}`)
+            res.redirect(`/admin/farmer/${account_uid}?error=${e}`);
         }
     }
 
     static async deleteBuyer(req, res){
-        const uid = req.params.uid;
+        const account_uid = req.params.uid;
         try{
-            await BuyerService.deleteBuyer(uid);
-            res.redirect('/admin/allBuyers');
+            await UserService.deleteAccountAdmin(req.body,req.session.user.uid,account_uid);
+            res.redirect('/admin/allBuyers?success=Buyer Deleted Successfully');
         }catch (e) {
-            res.redirect(`/admin/buyer/${uid}`)
+            res.redirect(`/admin/buyer/${account_uid}?error=${e}`)
+        }
+    }
+
+    static async adminPostsPage(req,res){
+        try{
+            const posts=await PostService.getAllPosts();
+            res.render('adminPostsPage',
+            {
+                error:req.query.error,
+                success:req.query.success,
+                user:req.session.user,
+                activePosts:posts.filter((post)=>post.status=='Active'),
+                soldPosts:posts.filter((post)=>post.status=='Sold'),
+                expiredPosts:posts.filter((post)=>post.status=='Expired')
+            });
+
+        }catch(e){
+            res.redirect(`/admin?error=${e}`);
         }
     }
 }

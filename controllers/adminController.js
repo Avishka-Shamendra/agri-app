@@ -13,7 +13,52 @@ class AdminController {
             error: req.query.error, 
             user: req.session.user,
          });
-    } 
+    }
+
+    static async searchUser(req, res){
+        const search_param = req.body.search;
+        if(search_param.slice(0,4)){
+
+        }
+    }
+
+    static async search(req, res){
+        console.log(req.query);
+        try{
+            const pattern = /[0-9]/g;
+            let res_obj;
+            if (pattern.test(req.query.query)){
+                const farmer_alike = await FarmerService.getFarmerByNICLike(req.query.query);
+                const buyer_alike = await BuyerService.getBuyerByNICLike(req.query.query);
+
+                res_obj ={
+                    success:true,
+                    type:'nic',
+                    farmers:farmer_alike,
+                    buyers:buyer_alike
+                }
+
+                //console.log(farmer_alike);
+                //console.log(buyer_alike);
+            }else {
+                const user_alike = await UserService.getUserNameLike(req.query.query);
+                res_obj ={
+                    success:true,
+                    type:'name',
+                    users:user_alike
+                }
+                //console.log(user_alike)
+            }
+            res.json(res_obj);
+        }catch (e) {
+            //console.log(e);
+            res.json({
+                success:false,
+                error:e
+            });
+        }
+    }
+
     static signupPage(req,res){
         res.render('adminSignUp',{ 
             error: req.query.error, 

@@ -8,8 +8,69 @@
         Number Of Expired Posts <%=stats.num_expired_posts[0].count%>
         Number Of Sold Posts <%=stats.num_sold_posts[0].count%>
     </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="card shadow border-success rounded">
+                <canvas class="p-3 w-100" id="postCountChart" ></canvas>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="card">
+                <h3>Farmers <%=stats.num_farmers[0].count%></h3>
+
+            </div>
+
+        </div>
+    </div>
+    
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+    const createChart = (idx, title, labels, data) => {
+        const canvas = document.getElementById(idx);
+
+        return new Chart(canvas, {
+            type: 'doughnut',
+            options: {
+                aspectRatio:1,
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        fontSize: 16,
+                        usePointStyle: true,
+                    }
+                },
+                title: {
+                    fontSize: 22,
+                    display: true,
+                    position: 'top',
+                    padding: 12,
+                    text: title,
+                },
+                tooltips: {
+                    backgroundColor: '#FFF',
+                    bodyFontColor: '#000',
+                    bodyFontSize: 16,
+                    displayColors: false,
+                }
+            },
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: ['#00b51a', '#ffff00', '#ff2d21'],
+                }],
+            },
+        });
+    }
+
+    const postCountChart = createChart('postCountChart',
+        'Posts',
+        ['Active', 'Sold', 'Expired'],
+        [1,2,3]);
+</script>
+
 
 
 <%- include('_footer') %>

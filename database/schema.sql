@@ -12,7 +12,6 @@ DROP TABLE IF EXISTS session CASCADE;
 DROP TYPE IF EXISTS  Account_Type;
 DROP TYPE IF EXISTS  Buyer_Request_State;
 DROP TYPE IF EXISTS  Category;
-DROP TYPE IF EXISTS  Complain_State;
 DROP TYPE IF EXISTS  Post_State;
 DROP TYPE IF EXISTS  District_Name;
 DROP TYPE IF EXISTS  Gender_Type;
@@ -29,11 +28,6 @@ CREATE TYPE Account_Type As ENUM(
 CREATE TYPE Category AS ENUM(
 'vegetable',
 'fruit'
-);  
-
-CREATE TYPE Complain_State AS ENUM(
-'new',
-'handled'
 );  
 
 CREATE TYPE Post_State AS ENUM(
@@ -147,7 +141,6 @@ CREATE TABLE Complain (
   uid uuid4 not null,--person who the complain is about
   complainer_id uuid4 not null,-- person who is complaining
   body varchar(511) not null,-- message text
-  status Complain_State not null DEFAULT 'new',
   added_on timestamp not null DEFAULT NOW(),
   PRIMARY KEY (comp_id),
   FOREIGN KEY(uid) REFERENCES UserInfo(uid) ON DELETE CASCADE ON UPDATE CASCADE,

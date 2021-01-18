@@ -1,4 +1,5 @@
 const Errors = require('../helpers/error');
+const { getAllComplains } = require('../models/Complains');
 const Complains = require('../models/Complains');
 
 class ComplainServices{
@@ -11,7 +12,17 @@ class ComplainServices{
         
         return Complains.addComplain(complainer_id,complainee_id,reasons);
         }
+
+        static async getAllComplains(){
+            return Complains.getAllComplains();
+        }
+
+        static async delete(com_id){
+            return Complains.delete(com_id);
+        }
     }
+
+    
 
     
 module.exports=ComplainServices

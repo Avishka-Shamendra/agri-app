@@ -52,9 +52,24 @@ class PostController{
         catch(err){
             res.redirect(`/buyer?error=${err}`);
         }
-        
-        
-        
+    }
+
+    static async deletePostAdmin(req,res){
+        try{
+            await PostService.deletePost(req.params.post_id);
+            res.redirect(`/admin/allPosts?success=Post Deleted Successfully`);
+        }catch(e){
+            res.redirect(`/admin/allPosts?error=${e}`);
+        }
+    }
+
+    static async deleteFarmerPostAdmin(req,res){
+        try{
+            await PostService.deletePost(req.params.post_id);
+            res.redirect(`/admin/allFarmers?success=Post Deleted Successfully`);
+        }catch(e){
+            res.redirect(`/admin/allFarmers?error=${e}`);
+        }
     }
 }
 

@@ -48,6 +48,23 @@ class Buyer {
           return updatedUser;
     }
 
+    // static async deleteBuyer(uid){
+    //     const [buyer_id] = await sql.begin(async sql=>{
+    //        sql`DELETE FROM userinfo WHERE uid=${uid} RETURNING uid`;
+    //         return buyer_id;
+    //     });
+    //     return buyer_id;
+    // }
+
+    static async getBuyerByNICLike(nic_query, LIMIT=5){
+        nic_query = '%'+nic_query+'%';
+        const farmers = await sql`SELECT uid,nic FROM buyer WHERE nic LIKE ${nic_query} ORDER BY nic LIMIT ${LIMIT}`;
+        farmers['actor_type'] ='buyer';
+        return farmers;
+    }
+
+
+
     static async getBuyers(limit){
         let data;
 

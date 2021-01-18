@@ -1,0 +1,88 @@
+<%- include('_header',{user}) %>
+
+<div class="container py-4">
+    <h2 class="p-3 text-center">Complains</h2>
+    <hr>
+    <div class="container py-4">
+        <div class="text-center">
+            <% if (error) {%>
+            <div class="alert alert-danger" role="alert">
+                <%=error%>
+            </div>
+            <% } %>
+            <% if (success) {%>
+            <div class="alert alert-success" role="alert">
+                <%=success%>
+            </div>
+            <% } %>
+            <% if (complains.count <= 0) {%>
+                <div class="alert alert-warning" role="alert">
+                    <h5>There are no complains/reports</h5>
+                </div>
+            <% } %>
+        </div>
+            
+            <% if (complains.count > 0) {%>
+                <%complains.forEach(function(complain) { %>
+
+                <div class="card mb-2 shadow border-success rounded">
+                   
+                    <div class="card-body"> 
+                        <h5 class="card-title">
+                            Complain
+                        </h5>
+                            <div class="row text-secondary" style="letter-spacing: 3;">
+                                <div class="col-md-4 col-xs-12">
+                                    <a href="/admin/<%=complain.n_type%>/<%=complain.uid%>" class="text-success"><i class="fas fa-user" style="margin-right: 6px;"></i>About User: <%=complain.n_first%> <%=complain.r_last%></a>
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <a href="/admin/<%=complain.r_type%>/<%=complain.complainer_id%>" class="text-success"><i i class="fas fa-user" style="margin-right: 6px;"></i>From User: <%=complain.r_first%> <%=complain.r_last%></a>
+                                    
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <p class="card-text text-success"><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Sent On: <%=complain.added_on.getFullYear()+'/'+("0" + (complain.added_on.getMonth() + 1)).slice(-2)+'/'+("0" + complain.added_on.getDate()).slice(-2) %> </p>
+                                </div>
+                            </div>   
+                            <div class="mt-1 text-justify">
+                                <p class="card-text"><i class="fas fa-comment" style="margin-right: 6px;"></i>Reasons:</p>
+                                <p class="card-text"><%=complain.body%> </p>
+                            </div>
+                            <div class="text-center text-secondary mt-1" style="letter-spacing: 3;">
+                                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
+                                        Delete Complain
+                                    </button>
+                                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the complain?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    You can not recover the deleted complains
+                                                </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <a class="btn btn-danger" href="/admin/deleteComplain/<%=complain.comp_id%>"  role="button">Delete</a>
+                                                    </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>  
+                    </div>
+                    
+                    
+
+                </div>
+
+                
+                <% }); %>
+            <% } %>
+    </div>
+</div>
+
+
+<%- include('_footer') %>

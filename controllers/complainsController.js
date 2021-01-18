@@ -15,6 +15,32 @@ class ComplainController{
         }
 
     }  
+
+    static async adminComplainsPage(req,res){
+
+        try{
+            const complains=await ComplainServices.getAllComplains();
+            res.render('adminComplainsPage',
+            {
+                user:req.session.user,
+                error:req.query.error,
+                success:req.query.success,
+                complains:complains,
+            });
+
+        }catch(e){
+            res.redirect(`/admin?error=${e}`);
+        }
+    }
+
+    static async delete(req,res){
+        try{
+            await ComplainServices.delete(req.params.comp_id);
+            res.redirect('/admin/complains?success=Complain Deleted Successfully');
+        }catch(e){
+            res.redirect(`/admin/complains?error=${e}`);
+        }
+    }
 }
 
 module.exports = ComplainController;

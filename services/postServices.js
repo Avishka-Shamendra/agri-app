@@ -54,6 +54,14 @@ class postServices{
     static async getPost(postid){
         return Post.getPost(postid);
     }
+
+    static async getAllPosts(){
+        return Post.getAllPost();
+    }
+
+    static async deletePost(post_id){
+        return Post.deletePost(post_id);
+    }
 }
 
 module.exports = postServices;

@@ -1,0 +1,95 @@
+<%- include('_header',{user}) %>
+
+<div class="container py-4">
+    <h2 class="p-3 text-center">Request Messages</h2>
+    <hr>
+    <div class="container py-4">
+        <div class="text-center">
+            <% if (error) {%>
+            <div class="alert alert-danger" role="alert">
+                <%=error%>
+            </div>
+            <% } %>
+            <% if (success) {%>
+            <div class="alert alert-success" role="alert">
+                <%=success%>
+            </div>
+            <% } %>
+            <% if (requests.count <= 0) {%>
+                <div class="alert alert-warning" role="alert">
+                    <h5>There are no buyer request messages</h5>
+                </div>
+            <% } %>
+        </div>
+            
+            <% if (requests.count > 0) {%>
+                <% requests.forEach(function(request) { %>
+
+                <div class="card mb-2 shadow border-success rounded">
+                   
+                    <div class="card-body">
+                            <h5 class="card-title">
+                                <%=request.request_title%>
+                                <% if (request.req_state==='New') {%>
+                                    <span class="text-warning" style="font-size: 13px;">(New)</span>
+                                <% } else if(request.req_state==='Interested'){%>
+                                    <span class="text-success" style="font-size: 13px;">(Seller Interested)</span>
+                                <%}else{%>
+                                    <span class="text-danger" style="font-size: 13px;">(Seller Not Interested)</span>
+                                <%}%>
+                            </h5>  
+                            <div class="row text-secondary" style="letter-spacing: 3;">
+                                <div class="col-md-4 col-xs-12">
+                                    <a href="/admin/farmer/<%=request.farmer_id%>" class="text-success"><i class="fas fa-user" style="margin-right: 6px;"></i>To Seller: <%=request.seller_first%> <%=request.seller_last%></a>
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <a href="/admin/buyer/<%=request.buyer_id%>" class="text-success"><i i class="fas fa-user" style="margin-right: 6px;"></i>From Buyer: <%=request.buyer_first%> <%=request.buyer_last%></a>
+                                    
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <p class="card-text text-success"><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Sent On: <%=request.added_on.getFullYear()+'/'+("0" + (request.added_on.getMonth() + 1)).slice(-2)+'/'+("0" + request.added_on.getDate()).slice(-2) %> </p>
+                                </div>
+                            </div>   
+                            <div class="mt-1 text-justify">
+                                <p class="card-text"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message:</p>
+                                <p class="card-text"><%=request.description%> </p>
+                            </div>
+                            <div class="text-center text-secondary mt-1" style="letter-spacing: 3;">
+                                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
+                                        Delete Message
+                                    </button>
+                                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the request?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Admin may only delete any innapropriate messages or requests that are marked as "Not Interested"
+                                                </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <a class="btn btn-danger" href="/admin/deleteRequest/<%=request.req_msg_id%>"  role="button">Delete</a>
+                                                    </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>  
+                    </div>
+                    
+                    
+
+                </div>
+
+                
+                <% }); %>
+            <% } %>
+    </div>
+</div>
+
+
+<%- include('_footer') %>

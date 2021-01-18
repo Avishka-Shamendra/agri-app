@@ -31,6 +31,29 @@ class MessageController{
             res.redirect(`/buyer?error=${e}`);
         }
     } 
+
+    static async deleteMsgAdmin(req,res){
+        try{
+            await messageServices.deleteMsg(req.params.req_msg_id);
+            res.redirect(`/admin/buyerRequests?success=Message Deleted from the System Successfully`);
+        }catch(e){
+            res.redirect(`/admin/buyerRequests?error=${e}`);
+        }
+    } 
+
+    static async adminMessagesPage(req,res){
+        try{
+            const messages=await messageServices.getAllMessagesForAdmin();
+            res.render('adminBuyerRequestPage',{
+                error:req.query.error,
+                success:req.query.success,
+                user:req.session.user,
+                requests:messages,
+            })
+        }catch(e){
+            res.redirect(`/admin?error=${e}`);
+        }
+    }
 }
 
 module.exports=MessageController;

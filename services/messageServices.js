@@ -33,6 +33,10 @@ class messageServices{
         static async getAllMessagesForAdmin(){
             return BuyerRequest.getAllMessagesForAdmin();
         }
+
+        static async getFarmerAllMessagesForAPos(post_id){
+            return BuyerRequest.getFarmerAllMessagesForAPost(post_id);
+        }
     }
 
     

@@ -62,6 +62,14 @@ class postServices{
     static async deletePost(post_id){
         return Post.deletePost(post_id);
     }
+
+    static async getPostFarmerView(post_id){
+        return Post.getPostFarmerView(post_id)
+    }
+
+    static async markAsSold(post_id){
+        return Post.markAsSold(post_id);
+    }
 }
 
 module.exports = postServices;

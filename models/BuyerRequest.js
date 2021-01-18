@@ -49,5 +49,17 @@ class BuyerRequest{
         `;
         return messages;
     }
+
+    static async getFarmerAllMessagesForAPost(post_id){
+        const messages = await sql`
+        SELECT buyer_request.*,userinfo.uid,userinfo.first_name,userinfo.last_name,buyer.contact_no
+        FROM buyer_request
+        INNER JOIN buyer ON buyer_request.buyer_id=buyer.uid
+        INNER JOIN userinfo ON userinfo.uid=buyer.uid
+        WHERE (req_state='New' OR req_state='Interested') AND post_id=${post_id}
+        ORDER BY added_on DESC,req_state DESC
+        `;
+        return messages;
+    }
 }
 module.exports=BuyerRequest

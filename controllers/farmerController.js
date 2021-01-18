@@ -14,13 +14,14 @@ class FarmerController {
 
     static async myPostsPage(req,res){
         try{
-        const posts = await PostService.getFarmerPostsById(req.params.uid);
+        const posts = await PostService.getFarmerPostsById(req.session.user.uid);
         res.render('farmerMyPosts',{
             user:req.session.user,
             error:req.query.error,
             posts:posts,
             activePosts:posts.filter((post)=>post.status=='Active'),
             soldPosts:posts.filter((post)=>post.status=='Sold'),
+            expiredPosts:posts.filter((post)=>post.status=='Expired'),
         });
         }catch(err){
             res.redirect(`/farmer?error=${err}`);

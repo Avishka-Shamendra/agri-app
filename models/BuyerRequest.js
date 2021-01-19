@@ -49,5 +49,10 @@ class BuyerRequest{
         `;
         return messages;
     }
+
+    static async count_uid(UID){
+        const num_obj = await sql`SELECT buyer_id,COUNT(buyer_id) FROM buyer_request WHERE buyer_id = ${UID} GROUP BY buyer_id;`;
+        return num_obj;
+    }
 }
 module.exports=BuyerRequest

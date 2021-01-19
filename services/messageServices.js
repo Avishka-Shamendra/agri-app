@@ -33,6 +33,15 @@ class messageServices{
         static async getAllMessagesForAdmin(){
             return BuyerRequest.getAllMessagesForAdmin();
         }
+
+    static async numPostsForBuyer(uid) {
+        const num = await BuyerRequest.count_uid(uid);
+        if (!num) {
+            throw new Errors.Unauthorized('User ID is wrong');
+        }
+
+        return num[0];
+    }
     }
 
     

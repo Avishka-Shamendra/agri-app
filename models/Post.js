@@ -153,6 +153,11 @@ class Post{
     static async deleteSoldExpiredPost(){
         await sql`DELETE FROM post WHERE status='Sold' OR status='Expired'`;
     }
+
+    static async count_uid(UID){
+        const num_obj = await sql`SELECT farmer_id,COUNT(farmer_id) FROM post WHERE farmer_id = ${UID} GROUP BY farmer_id;`;
+        return num_obj;
+    }
 }
 
 module.exports = Post;

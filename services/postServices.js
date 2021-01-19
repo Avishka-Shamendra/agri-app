@@ -66,6 +66,16 @@ class postServices{
     static async deleteSoldExpiredPosts(){
         await Post.deleteSoldExpiredPost();
     }
+
+    static async numPostsForFarmer(uid) {
+        const num = await Post.count_uid(uid);
+        if (!num) {
+            throw new Errors.Unauthorized('User ID is wrong');
+        }
+
+        return num[0];
+    }
+
 }
 
 module.exports = postServices;

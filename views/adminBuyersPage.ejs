@@ -6,15 +6,20 @@
     <div class="container py-4">
         <div class="text-center">
             <% if (error) {%>
-                <div class="alert alert-danger" role="alert">
-                    <%=error%>
+            <div class="alert alert-danger" role="alert">
+                <%=error%>
+            </div>
+            <% } %>
+            <% if (success) {%>
+                <div class="alert alert-success" role="alert">
+                    <%=success%>
                 </div>
                 <% } %>
-                <% if (buyers.count <= 0) {%>
-                    <div class="alert alert-warning" role="alert">
-                        <h5>There are no registered farmers</h5>
-                    </div>
-                <% } %>
+            <% if (buyers.count <= 0) {%>
+                <div class="alert alert-warning" role="alert">
+                    <h5>There are no registered farmers</h5>
+                </div>
+            <% } %>
         </div>
             
             <% if (buyers.count > 0) {%>

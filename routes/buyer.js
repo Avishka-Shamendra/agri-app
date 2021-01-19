@@ -23,4 +23,5 @@ router.post('/signup', ifNotLoggedIn, BuyerController.signup);
 router.post('/editProfile/:uid',ifLoggedIn,ifBuyer, BuyerController.editProfile );
 router.post('/message/buyerRequest/:postid', ifLoggedIn,ifBuyer, MessageController.buyerRequest);
 router.post('/reportFarmer/:farmer_id',ifLoggedIn,ifBuyer, ComplainController.farmerReport);
+
 module.exports=router;

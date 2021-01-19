@@ -1,5 +1,6 @@
 const {buyerRequestInfo} =require('./validators/buyerRequestInfo');
-const messageServices =require('../services/messageServices')
+const messageServices =require('../services/messageServices');
+const BuyerRequest = require('../models/BuyerRequest');
 
 class MessageController{
     static async buyerRequest(req,res){
@@ -52,6 +53,32 @@ class MessageController{
             })
         }catch(e){
             res.redirect(`/admin?error=${e}`);
+        }
+    }
+
+    static async markAsInterested(req,res){
+        try{
+            const post = await BuyerRequest.markAsInterested(req.params.req_id);
+            if(!post)  res.redirect(`/farmer/post/${req.params.post_id}?req_error=Could not change state to Interested.Please try again later#requests`)
+            else{
+            res.redirect(`/farmer/post/${req.params.post_id}?req_success=Request Message Sucessfully Marked as Interested#requests`)
+            }
+
+        }catch(e){
+            res.redirect(`/farmer/post/${req.params.post_id}?req_error=${e}#requests`)
+        }
+    }
+
+    static async markAsNotInterested(req,res){
+        try{
+            const post = await BuyerRequest.markAsNotInterested(req.params.req_id+'1');
+            if(!post)  res.redirect(`/farmer/post/${req.params.post_id}?req_error=Could not change state to Not Interested.Please try again later#requests`)
+            else{
+            res.redirect(`/farmer/post/${req.params.post_id}?req_success=Request Message Sucessfully Marked as Not Interested#requests`)
+            }
+
+        }catch(e){
+            res.redirect(`/farmer/post/${req.params.post_id}?req_error=${e}#requests`)
         }
     }
 }

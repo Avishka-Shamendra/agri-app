@@ -278,6 +278,16 @@ class AdminController {
             res.redirect(`/admin?error=${e}`);
         }
     }
+
+    static async deleteSoldExpiredPosts(req, res){
+        try{
+            await PostService.deleteSoldExpiredPosts();
+            res.redirect('')
+
+        }catch (e) {
+            res.redirect(`/admin?error=${e}`);
+        }
+    }
 }
 
 module.exports = AdminController;

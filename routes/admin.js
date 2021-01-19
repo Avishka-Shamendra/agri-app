@@ -27,7 +27,7 @@ router.get('/deletePost/:post_id',ifLoggedIn,ifAdmin,PostController.deletePostAd
 router.get('/deleteFarmerPost/:post_id',ifLoggedIn,ifAdmin,PostController.deleteFarmerPostAdmin);
 router.get('/deleteRequest/:req_msg_id',ifLoggedIn,ifAdmin,MessageController.deleteMsgAdmin);
 router.get('/deleteComplain/:comp_id',ifLoggedIn,ifAdmin,ComplainsController.delete);
-
+router.get('/deleteSoldExpiredPosts',ifLoggedIn,ifAdmin,AdminController.deleteSoldExpiredPosts);
 
 
 //POST Requests

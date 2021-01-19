@@ -149,6 +149,10 @@ class Post{
         await sql`DELETE FROM post WHERE post_id=${post_id}`;
         return true;
     }
+
+    static async deleteSoldExpiredPost(){
+        await sql`DELETE FROM post WHERE status='Sold' OR status='Expired'`;
+    }
 }
 
 module.exports = Post;

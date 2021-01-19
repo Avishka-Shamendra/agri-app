@@ -52,15 +52,19 @@ class postServices{
     }
 
     static async getPost(postid){
-        return Post.getPost(postid);
+        return await Post.getPost(postid);
     }
 
     static async getAllPosts(){
-        return Post.getAllPost();
+        return await Post.getAllPost();
     }
 
     static async deletePost(post_id){
-        return Post.deletePost(post_id);
+        return await Post.deletePost(post_id);
+    }
+
+    static async deleteSoldExpiredPosts(){
+        await Post.deleteSoldExpiredPost();
     }
 }
 

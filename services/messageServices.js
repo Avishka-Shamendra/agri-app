@@ -42,7 +42,12 @@ class messageServices{
 
         return num[0];
     }
+
+    static async numofMessage(){
+        const num = await BuyerRequest.count();
+        return num;
     }
+}
 
     
 module.exports=messageServices

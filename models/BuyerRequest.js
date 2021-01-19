@@ -50,9 +50,22 @@ class BuyerRequest{
         return messages;
     }
 
-    static async count_uid(UID){
-        const num_obj = await sql`SELECT buyer_id,COUNT(buyer_id) FROM buyer_request WHERE buyer_id = ${UID} GROUP BY buyer_id;`;
+    static async count_uid(UID ,all=false){
+        let num_obj;
+        if (!all){
+            num_obj = await sql`SELECT buyer_id,COUNT(buyer_id) FROM buyer_request WHERE buyer_id = ${UID} GROUP BY buyer_id;`;
+
+        }else {
+            num_obj = await sql`SELECT buyer_id,COUNT(buyer_id) FROM buyer_request GROUP BY buyer_id;`;
+        }
+
         return num_obj;
+    }
+
+    static async count(){
+        let num;
+        num = await sql`SELECT COUNT(*) AS count FROM post`;
+        return num;
     }
 }
 module.exports=BuyerRequest

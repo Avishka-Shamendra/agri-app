@@ -135,12 +135,12 @@ class BuyerController {
                 user: req.session.user,
                 report_success:req.query.report_success,
                 reasons:req.query.reasons,
-                posts:posts,
+                posts:posts.filter((post)=>post.status=='Active'),
                 farmer:farmer,
             });
 
         }catch(e){
-            res.redirect(`buyer/?error=${e}`)
+            res.redirect(`/buyer/?error=${e}`)
         }
     }
 }

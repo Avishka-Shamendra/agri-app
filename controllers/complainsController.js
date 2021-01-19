@@ -16,6 +16,20 @@ class ComplainController{
 
     }  
 
+    static async buyerReport(req,res){
+        try{
+            const {value, error}= await complainInfo.validate(req.body)
+            if(error) throw error
+            await ComplainServices.addComplain(value,req.session.user.uid, req.params.buyer_id)
+            res.redirect(`/farmer/buyerProfile/${req.params.buyer_id}?report_success=Successfully Reported User To Admin`);
+
+        }
+        catch(e){
+            res.redirect(`/farmer/buyerProfile/${req.params.buyer_id}?error=${e}&reasons=${req.body.reasons}`);
+        }
+
+    }
+
     static async adminComplainsPage(req,res){
 
         try{

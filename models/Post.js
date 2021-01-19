@@ -22,7 +22,7 @@ class Post{
 
     static async getRecentPosts(){
         const posts = sql`
-        SELECT * FROM post ORDER BY added_day DESC, title ASC LIMIT 10;`
+        SELECT * FROM post WHERE status='Active' ORDER BY added_day DESC, title ASC LIMIT 10;`
         return posts;
     }
 
@@ -135,10 +135,20 @@ class Post{
         return data;
     }
 
+    static async getPostFarmerView(post_id){
+        const [post]= await sql`
+        select 
+        post.*,
+        userinfo.email, userinfo.first_name, userinfo.last_name 
+        from post natural join userinfo where userinfo.uid=post.farmer_id and post_id=${post_id};`
+        return post;
+
+    }
+
     static async getPost(postid){
         const post=sql`
         select 
-        post.post_id,post.farmer_id, post.product_name, post.title, post.description, post.product_category, post.quantity, post.expected_price, post.available_district,post.available_address, post.contact_no,post.added_day,post.img_data, 
+        post.*,
         userinfo.email, userinfo.first_name, userinfo.last_name 
         from post natural join userinfo where userinfo.uid=post.farmer_id and post_id=${postid} and status='Active';`
         return post;
@@ -146,7 +156,24 @@ class Post{
     }
 
     static async deletePost(post_id){
-        await sql`DELETE FROM post WHERE post_id=${post_id}`;
+        const [post]=await sql`DELETE FROM post WHERE post_id=${post_id} RETURNING *`;
+        return post;
+    }
+
+    static async markAsSold(post_id){
+        const [post]=await sql`
+        UPDATE post 
+        SET status='Sold' WHERE post_id=${post_id}
+        RETURNING *
+        `;
+        return post;
+    }
+
+    static async updateExpired(){
+        await sql`
+        UPDATE post SET status='Expired'
+        WHERE exp_day<NOW()
+        `;
         return true;
     }
 }

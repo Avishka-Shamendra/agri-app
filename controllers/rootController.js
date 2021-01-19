@@ -8,6 +8,11 @@ class RootController {
     static async indexPage(req,res){
         try{
             const recentPosts = await PostService.getRecentPosts();
+            try{
+                await PostService.updateExpired();
+            }catch(e){
+                console.log(e);
+            }
             res.render('index',
             { error: req.query.error,
                 user: req.session.user,
@@ -45,7 +50,7 @@ class RootController {
     }
 
     static creditPage(req,res){
-        res.render('_credits',{
+        res.render('_credits_aboutus',{
             error:req.query.error,
             user:req.session.user
         });

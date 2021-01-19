@@ -70,6 +70,10 @@ class postServices{
     static async markAsSold(post_id){
         return Post.markAsSold(post_id);
     }
+
+    static async updateExpired(){
+        return Post.updateExpired();
+    }
 }
 
 module.exports = postServices;

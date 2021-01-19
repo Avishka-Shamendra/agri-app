@@ -40,7 +40,6 @@
                                         <img src="/assets/my_posts_all.jpg"
                                             class="img-fluid" alt="All Posts" width="40%" />
                                             <br>
-                                <small><a href="https://www.freepik.com/vectors/nature" class="text-success">Nature vector created by freepik - www.freepik.com</a></small>
                                     </div>
                                     <div class="alert alert-warning text-center">
                                         <strong>No Posts Available</strong>
@@ -62,7 +61,6 @@
                                         <img src="/assets/my_posts_all.jpg"
                                             class="img-fluid" alt="All Posts" width="40%" />
                                             <br>
-                                <small><a href="https://www.freepik.com/vectors/nature" class="text-success">Nature vector created by freepik - www.freepik.com</a></small>
                                     </div>
                                     <div class="alert alert-warning text-center">
                                         <strong>No Active Posts</strong>
@@ -75,6 +73,9 @@
                     <div class="tab-pane" id="soldposts" role="tabpanel">
                         <div class="p-3">
                             <% if(soldPosts && soldPosts.length!=0) {%>
+                                <div class="alert alert-warning text-center">
+                                    <strong>You may delete "Sold Posts" as they are no longer visible to buyers</strong>
+                                </div>
                                 <% soldPosts.forEach(function(post){%>
                                   <%- include('componentFarmerPost',{post})%>
                                 <%});%>
@@ -83,7 +84,6 @@
                                     <img src="/assets/my_posts_all.jpg"
                                         class="img-fluid" alt="All Posts" width="40%" />
                                         <br>
-                            <small><a href="https://www.freepik.com/vectors/nature" class="text-success">Nature vector created by freepik - www.freepik.com</a></small>
                                 </div>
                                 <div class="alert alert-warning text-center">
                                     <strong>No Sold Posts</strong>
@@ -96,6 +96,9 @@
                     <div class="tab-pane" id="expiredposts" role="tabpanel">
                         <div class="p-3">
                             <% if(expiredPosts && expiredPosts.length!=0) {%>
+                                <div class="alert alert-warning text-center">
+                                    <strong>You may delete "Expired Posts" as they are no longer visible to buyers</strong>
+                                </div>
                                 <% expiredPosts.forEach(function(post){%>
                                   <%- include('componentFarmerPost',{post})%>
                                 <%});%>
@@ -104,7 +107,6 @@
                                     <img src="/assets/my_posts_all.jpg"
                                         class="img-fluid" alt="All Posts" width="40%" />
                                         <br>
-                            <small><a href="https://www.freepik.com/vectors/nature" class="text-success">Nature vector created by freepik - www.freepik.com</a></small>
                                 </div>
                                 <div class="alert alert-warning text-center">
                                     <strong>No Expired Posts</strong>

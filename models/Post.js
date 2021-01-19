@@ -168,6 +168,14 @@ class Post{
         `;
         return post;
     }
+
+    static async updateExpired(){
+        await sql`
+        UPDATE post SET status='Expired'
+        WHERE exp_day<NOW()
+        `;
+        return true;
+    }
 }
 
 module.exports = Post;

@@ -33,8 +33,11 @@ class messageServices{
         static async getAllMessagesForAdmin(){
             return BuyerRequest.getAllMessagesForAdmin();
         }
+        static async getAllNewMessagesForAFarmer(farmer_id){
+            return BuyerRequest.getAllNewMessagesForAFarmer(farmer_id);
+        }
 
-        static async getFarmerAllMessagesForAPos(post_id){
+        static async getFarmerAllMessagesForAPost(post_id){
             return BuyerRequest.getFarmerAllMessagesForAPost(post_id);
         }
     }

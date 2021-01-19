@@ -1,4 +1,3 @@
-const { post } = require('jquery');
 const sql = require('../config/db');
 
 class Post{
@@ -157,8 +156,8 @@ class Post{
     }
 
     static async deletePost(post_id){
-        await sql`DELETE FROM post WHERE post_id=${post_id}`;
-        return true;
+        const [post]=await sql`DELETE FROM post WHERE post_id=${post_id} RETURNING *`;
+        return post;
     }
 
     static async markAsSold(post_id){

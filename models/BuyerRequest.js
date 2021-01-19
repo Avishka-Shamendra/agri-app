@@ -61,5 +61,38 @@ class BuyerRequest{
         `;
         return messages;
     }
+
+    static async getAllNewMessagesForAFarmer(farmer_id){
+        const messages = await sql`
+        SELECT buyer_request.*,userinfo.uid,userinfo.first_name,userinfo.last_name,buyer.contact_no
+        FROM buyer_request
+        INNER JOIN post ON buyer_request.post_id=post.post_id
+        INNER JOIN buyer ON buyer_request.buyer_id=buyer.uid
+        INNER JOIN userinfo ON userinfo.uid=buyer.uid
+        WHERE req_state='New' AND post.farmer_id=${farmer_id}
+        ORDER BY added_on DESC
+        `;
+        return messages;
+    }
+
+    static async markAsInterested(req_id){
+        const [post]=await sql`
+        UPDATE buyer_request 
+        SET req_state='Interested'
+        WHERE req_msg_id=${req_id}
+        RETURNING *
+        `;
+        return post;
+    }
+
+    static async markAsNotInterested(req_id){
+        const [post]=await sql`
+        UPDATE buyer_request 
+        SET req_state='NotInterested'
+        WHERE req_msg_id=${req_id}
+        RETURNING *
+        `;
+        return post;
+    }
 }
 module.exports=BuyerRequest

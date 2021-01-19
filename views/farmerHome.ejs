@@ -1,5 +1,5 @@
 <%- include('_header',{user}) %>
-<div class="container py-4">
+<div class="container py-4 text-center">
     <h1 class="p-3 display-4" style="font-size:4vw;">Welcome <%=user.name.toUpperCase()%></h1>
     <hr>
     <% if(error) { %>
@@ -12,7 +12,7 @@
             <%=new_post_success%>
         </div>
     <% } %>
-    <div class="row p-3" >
+    <div class="row p-3 justify-content-center" >
         <div class="card p-3 m-2 text-center col-md-3 col-sm-12 rouned-lg shadow border-success">
             <div class="card-body">
                 <a class="card-block stretched-link text-decoration-none" href='/farmer/addPost'></a>
@@ -30,7 +30,59 @@
         </div>
 
     </div>
+    <hr>
+    <h4>New Buyer Request Messages</h4>
+    <hr>
+    <% if (requests && requests.count > 0) {%>
+        <% requests.forEach(function(request) { %>
+
+        <div class="card mb-2 shadow border-secondary rounded text-left">
         
+            <div class="card-body">
+                    <h5 class="card-title">
+                        <%=request.request_title%>
+                        <% if (request.req_state==='New') {%>
+                            <span class="text-primary" style="font-size: 13px;">(New)</span>
+                        <% } else if(request.req_state==='Interested'){%>
+                            <span class="text-success" style="font-size: 13px;">(Seller Interested)</span>
+                        <%}else{%>
+                            <span class="text-danger" style="font-size: 13px;">(Seller Not Interested)</span>
+                        <%}%>
+                    </h5>  
+                    <div class="row" style="letter-spacing: 3;">
+                        <div class="col-md-5 col-xs-12">
+                            <a href="/farmer/buyerProfile/<%=request.buyer_id%>" style="color: black;"><i i class="fas fa-user" style="margin-right: 6px;"></i>From Buyer: <%=request.first_name%> <%=request.last_name%> (Visit)</a>
+                            
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                            <p class="card-text"><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No: <%=request.contact_no%> </p>
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                            <p class="card-text"><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Sent On: <%=request.added_on.getFullYear()+'/'+("0" + (request.added_on.getMonth() + 1)).slice(-2)+'/'+("0" + request.added_on.getDate()).slice(-2) %> </p>
+                        </div>
+                    </div>   
+                    <div class="mt-1 text-justify">
+                        <p class="card-text"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message:</p>
+                        <p class="card-text"><%=request.description%> </p>
+                    </div>
+                    <div class="text-center">
+                        <a href="/farmer/post/<%=request.post_id%>" class="btn btn-small btn-success" role="btn">Go To Post</a>
+
+                    </div>
+                    
+            </div>
+            
+            
+
+        </div>
+
+        
+        <% }); %>
+    <% }else{ %>
+        <div class="alert alert-warning text-center" role="alert">
+            <p>There are no buyer request messages</p>
+        </div>
+    <%}%>
 
 </div>
 

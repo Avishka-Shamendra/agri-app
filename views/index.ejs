@@ -42,7 +42,7 @@
          <h6 class="text-center">Log In to See More!</h6>
          <hr>
          <div class="p-3 text-left">
-            <% if(posts) {%>
+            <% if(posts && posts.length>0) {%>
                 <% posts.forEach(function(post){%>
                   <div class="card mb-2 shadow rounded border-success">
                     <div class="row">

@@ -19,7 +19,7 @@ class BuyerController {
                     min_price:req.query.min_price,
                     max_price:req.query.max_price,
                     min_quantity:req.query.min_quantity,
-                    max_quantity:req.query.max_qunatity,
+                    max_quantity:req.query.max_quantity,
                 });
             }catch(err){
                 res.render('buyerHome',{ 
@@ -32,7 +32,7 @@ class BuyerController {
                     min_price:req.query.min_price,
                     max_price:req.query.max_price,
                     min_quantity:req.query.min_quantity,
-                    max_quantity:req.query.max_qunatity,
+                    max_quantity:req.query.max_quantity,
                 });
             }
             

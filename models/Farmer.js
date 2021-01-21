@@ -52,9 +52,17 @@ class Farmer {
         let data;
 
         if(!limit){
-            data = await sql` SELECT U.uid,nic,contact_no,district,address,email,first_name,last_name,gender,banned FROM farmer AS F NATURAL JOIN userinfo AS U WHERE F.uid = U.uid ORDER BY U.first_name ASC, U.last_name ASC, U.banned ASC,U.joined DESC`;
+            data = await sql` SELECT U.uid,nic,contact_no,district,address,email,first_name,last_name,gender,banned
+             FROM farmer AS F 
+             NATURAL JOIN userinfo AS U 
+             WHERE
+              F.uid = U.uid ORDER BY U.first_name ASC, U.last_name ASC, U.banned ASC,U.joined DESC`;
         }else{
-            data = await sql` SELECT U.uid,nic,contact_no,district,address,email,first_name,last_name,gender,banned FROM farmer AS F NATURAL JOIN userinfo AS U WHERE F.uid = U.uid ORDER BY U.first_name ASC, U.last_name ASC, U.banned ASC,U.joined DESC LIMIT ${limit}`;
+            data = await sql` SELECT U.uid,nic,contact_no,district,address,email,first_name,last_name,gender,banned
+             FROM farmer AS F 
+             NATURAL JOIN userinfo AS U
+              WHERE
+              F.uid = U.uid ORDER BY U.first_name ASC, U.last_name ASC, U.banned ASC,U.joined DESC LIMIT ${limit}`;
         }
 
         return data;

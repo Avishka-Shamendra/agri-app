@@ -47,9 +47,11 @@
                   <div class="card mb-2 shadow rounded border-success">
                     <div class="row">
                       <div class="col-lg-4 align center">
-                        <% if(!post.image_data && post.product_category=='vegetable') {%>
+                        <% if(post.img_data) {%>
+                            <img class="d-block w-100" src="<%=post.img_b64%>" alt="post_img">
+                        <%}else if(!post.img_data && post.product_category=='vegetable') {%>
                             <img class="d-block w-100" src="/assets/default_vegetables.jpg" alt="vegetables">
-                        <%} else if (!post.image_data && post.product_category=='fruit') {%>
+                        <%} else if (!post.img_data && post.product_category=='fruit') {%>
                             <img class="d-block w-100 rounded border-success" src="/assets/default_fruits.jpg" alt="">
                         <%}%>
                       </div>

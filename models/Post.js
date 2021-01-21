@@ -12,31 +12,45 @@ class Post{
         return createdPost;
     }
 
+    //added image
     static async getAllPost(){
         const posts = await sql`
-        SELECT * FROM post 
+        SELECT post.*,encode(post_image.data, 'base64') AS img_b64
+        FROM post 
+        LEFT JOIN post_image ON(post.post_id=post_image.post_id)
         INNER JOIN UserInfo ON post.farmer_id=userinfo.uid
         ORDER BY added_day DESC, title ASC;`
         return posts;
     }
 
+    //added image
     static async getRecentPosts(){
         const posts = sql`
-        SELECT * FROM post WHERE status='Active' ORDER BY added_day DESC, title ASC LIMIT 10;`
+        SELECT post.*,encode(post_image.data, 'base64') AS img_b64
+        FROM post
+        LEFT JOIN post_image ON(post.post_id=post_image.post_id)
+        WHERE status='Active' ORDER BY added_day DESC, title ASC LIMIT 10;`
         return posts;
     }
 
     //get all posts belong to a farmer
+    //added image
     static async getFarmerPostsById(uid){
         const posts = await sql`
-        SELECT * FROM post WHERE farmer_id=${uid} ORDER BY added_day DESC, title ASC;`
+        SELECT post.*,encode(post_image.data, 'base64') AS img_b64 
+        FROM post
+        LEFT JOIN post_image ON(post.post_id=post_image.post_id)
+         WHERE farmer_id=${uid} ORDER BY added_day DESC, title ASC;`
         return posts; 
     }
 
+    //added image
     static async getFilteredPosts(min_price,max_price,min_quantity,max_quantity,filter_category,filter_district,buyer_id){
         if(filter_category && filter_district){
             const posts = await sql`
-            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post INNER JOIN UserInfo 
+            SELECT post.*,encode(post_image.data, 'base64') AS img_b64 ,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post
+            LEFT JOIN post_image ON(post.post_id=post_image.post_id)
+             INNER JOIN UserInfo 
             ON UserInfo.uid=Post.farmer_id
             LEFT JOIN buyer_request ON (buyer_request.buyer_id,buyer_request.post_id)=(${buyer_id},post.post_id)
             WHERE status='Active'
@@ -48,7 +62,9 @@ class Post{
         }
         if(filter_category){
             const posts = await sql`
-            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post INNER JOIN UserInfo 
+            SELECT post.*,encode(post_image.data, 'base64') AS img_b64 ,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post
+            LEFT JOIN post_image ON(post.post_id=post_image.post_id)
+             INNER JOIN UserInfo 
             ON UserInfo.uid=Post.farmer_id
             LEFT JOIN buyer_request ON (buyer_request.buyer_id,buyer_request.post_id)=(${buyer_id},post.post_id)
             WHERE status='Active' AND product_category=${filter_category}
@@ -59,7 +75,9 @@ class Post{
         }
         if(filter_district){
             const posts = await sql`
-            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post INNER JOIN UserInfo 
+            SELECT post.*,encode(post_image.data, 'base64') AS img_b64 ,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post 
+            LEFT JOIN post_image ON(post.post_id=post_image.post_id)
+            INNER JOIN UserInfo 
             ON UserInfo.uid=Post.farmer_id
             LEFT JOIN buyer_request ON (buyer_request.buyer_id,buyer_request.post_id)=(${buyer_id},post.post_id)
             WHERE status='Active' AND available_district=${filter_district}
@@ -70,7 +88,9 @@ class Post{
         }
         else{
             const posts = await sql`
-            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post INNER JOIN UserInfo 
+            SELECT post.*,encode(post_image.data, 'base64') AS img_b64 ,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post 
+            LEFT JOIN post_image ON(post.post_id=post_image.post_id)
+            INNER JOIN UserInfo 
             ON UserInfo.uid=Post.farmer_id
             LEFT JOIN buyer_request ON (buyer_request.buyer_id,buyer_request.post_id)=(${buyer_id},post.post_id)
             WHERE status='Active'
@@ -82,30 +102,46 @@ class Post{
        
     }
 
+    //added image
     static async getAllActivePosts(){
         const posts = await sql`
-             SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name FROM post INNER JOIN UserInfo 
+            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name,encode(post_image.data, 'base64') AS img_b64 
+            FROM post 
+            LEFT JOIN post_image ON(post.post_id=post_image.post_id)
+            INNER JOIN UserInfo 
             ON UserInfo.uid=Post.farmer_id
             WHERE status='Active' ORDER BY added_day DESC, title ASC LIMIT 30;`
             return posts; 
     }
 
+    //added image
     static async getAllActivePostsWithMsgState(buyer_id){
         const posts = await sql`
-             SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post INNER JOIN UserInfo 
-            ON UserInfo.uid=Post.farmer_id
+             SELECT post.*,encode(post_image.data, 'base64') AS img_b64 , UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id
+            FROM post
+            LEFT JOIN post_image ON(post.post_id=post_image.post_id)
+            INNER JOIN UserInfo ON UserInfo.uid=Post.farmer_id
             LEFT JOIN buyer_request ON (buyer_request.buyer_id,buyer_request.post_id)=(${buyer_id},post.post_id)
             WHERE status='Active' ORDER BY added_day DESC, title ASC LIMIT 30;`
             return posts; 
     }
 
+    //added image
     static async getPostsofFarmer(uid,limit){
         let data ;
             if(!limit){
-                data = await sql`SELECT * FROM farmer INNER JOIN post AS P ON P.farmer_id=farmer.uid WHERE P.farmer_id = ${uid} ORDER BY added_day DESC,title ASC`;
+                data = await sql`SELECT farmer.*,P.*,encode(post_image.data, 'base64') AS img_b64 
+                FROM farmer
+                INNER JOIN post AS P ON P.farmer_id=farmer.uid
+                LEFT JOIN post_image ON(P.post_id=post_image.post_id)
+                WHERE P.farmer_id = ${uid} ORDER BY added_day DESC,title ASC`;
             }
             else{
-                data = await sql`SELECT * farmer INNER JOIN FROM post AS P ON P.farmer_id=farmer.uid WHERE P.farmer_id = ${uid} ORDER BY added_day DESC,title ASC LIMIT ${limit}`;
+                data = await sql`SELECT farmer.*,P.*,encode(post_image.data, 'base64') AS img_b64 
+                FROM farmer
+                INNER JOIN FROM post AS P ON P.farmer_id=farmer.uid
+                LEFT JOIN post_image ON(P.post_id=post_image.post_id)
+                WHERE P.farmer_id = ${uid} ORDER BY added_day DESC,title ASC LIMIT ${limit}`;
             }
         return data;
     }
@@ -124,9 +160,6 @@ class Post{
             case 'Sold':
                 data = await sql`SELECT COUNT(*) FROM (SELECT post_id FROM post WHERE status='Sold') AS P`;
                 break
-            case 'Deleted':
-                data = await sql`SELECT COUNT(*) FROM (SELECT post_id FROM post WHERE status='Deleted') AS P`;
-                break
             default:
                 data = await sql`SELECT COUNT(*) FROM post`;
                 break
@@ -135,22 +168,30 @@ class Post{
         return data;
     }
 
+    //added image
     static async getPostFarmerView(post_id){
         const [post]= await sql`
         select 
         post.*,
+        encode(post_image.data, 'base64') AS img_b64,
         userinfo.email, userinfo.first_name, userinfo.last_name 
-        from post natural join userinfo where userinfo.uid=post.farmer_id and post_id=${post_id};`
+        FROM post 
+        LEFT JOIN post_image ON(post.post_id=post_image.post_id)
+        natural join userinfo
+        where userinfo.uid=post.farmer_id and post.post_id=${post_id}`;
         return post;
 
     }
 
+    //added image
     static async getPost(postid){
-        const post=sql`
+        const [post]= await sql`
         select 
-        post.*,
+        post.*,encode(post_image.data, 'base64') AS img_b64,
         userinfo.email, userinfo.first_name, userinfo.last_name 
-        from post natural join userinfo where userinfo.uid=post.farmer_id and post_id=${postid} and status='Active';`
+        from post 
+        LEFT JOIN post_image ON(post.post_id=post_image.post_id)
+        natural join userinfo where userinfo.uid=post.farmer_id and post.post_id=${postid} and status='Active'`;
         return post;
 
     }

@@ -11,7 +11,6 @@ class RootController {
             try{
                 await PostService.updateExpired();
             }catch(e){
-                console.log(e);
             }
             res.render('index',
             { error: req.query.error,

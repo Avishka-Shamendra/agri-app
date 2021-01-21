@@ -18,9 +18,11 @@
                                 </div>
                             <%} %> 
                             <div class="mb-3">
-                                <% if(!post.image_data && post.product_category=='vegetable') {%>
+                                <% if(post.img_data) {%>
+                                    <img class="center rounded border-success" src="<%=post.img_b64%>" alt="post_img" width="275px">
+                                <% } else if(!post.img_data && post.product_category=='vegetable') {%>
                                     <img class="center rounded border-success" src="/assets/default_vegetables.jpg" alt="vegetables" width="275px">
-                                <%} else if (!post.image_data && post.product_category=='fruit') {%>
+                                <%} else if (!post.img_data && post.product_category=='fruit') {%>
                                     <img class="center rounded border-success" src="/assets/default_fruits.jpg" alt="fruits" width="275px">
                                 <%}%>
                             </div>
@@ -75,7 +77,37 @@
                         
                         <div class="row">
                             <div class="col-md-6 col-sm-12 mb-2">
-                                <a class="btn btn-outline-primary btn-sm" role="btn" href=""><i class="fas fa-image" style="margin-right: 6px;"></i>Change Display Image</a>
+                                
+                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#postImageModal">
+                                    <i class="fas fa-image" style="margin-right: 6px;"></i>Change Display Image
+                                </button>
+                                <div class="modal fade" id="postImageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Add New Display Image</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Attach an image file less than 5MB.
+                                            </div>
+                                            <form class="p-3 text-left" method="POST" action="/farmer/addPostImage/<%=post.post_id%>" enctype="multipart/form-data">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="imgFile" name="imgFile" required onchange="">
+                                                    <label class="custom-file-label text left" for="imgFile">Attach Image File</label>
+                                                </div>
+                                              
+                                                <img src="" alt="post img" width='300px' height="200px" id="post-img">
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save Image</button>
+                                                </div>
+                                            </form> 
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteModal">
@@ -216,6 +248,29 @@
 
 
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    // Show file Name
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#post-img').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imgFile").change(function() {
+        readURL(this);
+    });
+</script>
 
 
 <%- include('_footer') %>

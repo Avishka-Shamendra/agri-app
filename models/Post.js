@@ -48,7 +48,7 @@ class Post{
         }
         if(filter_category){
             const posts = await sql`
-            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name FROM,buyer_request.req_msg_id post INNER JOIN UserInfo 
+            SELECT post.*,UserInfo.email,UserInfo.first_name,UserInfo.last_name,buyer_request.req_msg_id FROM post INNER JOIN UserInfo 
             ON UserInfo.uid=Post.farmer_id
             LEFT JOIN buyer_request ON (buyer_request.buyer_id,buyer_request.post_id)=(${buyer_id},post.post_id)
             WHERE status='Active' AND product_category=${filter_category}
@@ -174,6 +174,16 @@ class Post{
         UPDATE post SET status='Expired'
         WHERE exp_day<NOW()
         `;
+        return true;
+    }
+
+    static async deleteAllSoldPost(){
+        await sql`DELETE FROM post WHERE status='Sold'`;
+        return true;
+    }
+
+    static async deleteAllExpiredPost(){
+        await sql`DELETE FROM post WHERE status='Expired'`;
         return true;
     }
 }

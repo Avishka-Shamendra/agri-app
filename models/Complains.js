@@ -39,6 +39,11 @@ class Complain{
         return true;
     }
 
+    static async getCount(){
+        const count= await sql`SELECT COUNT(*) FROm complain`;
+        return count;
+       }
+
 
 }
 module.exports=Complain

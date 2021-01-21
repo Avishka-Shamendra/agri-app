@@ -81,7 +81,7 @@
     <h4 class="text-center">Posts By Farmer</h4>
     <hr> 
 
-        <% if (posts.count>0) {%>
+        <% if (posts && posts.length>0) {%>
                 <% posts.forEach(function(post){%>
                     <div class="card mb-2 shadow rounded border-success text-left">
                         <div class="row">

@@ -1,3 +1,221 @@
 <%- include('_header',{user}) %>
+<div class="container py-4">
+    
+    <div class="p-3">
+        <% if(post && post.length!=0) { %>
+            <div class="card mb-2 shadow rounded border-secondary">
+                    <div class="text-center">
+                        <div class="card-block p-3">
+                            <h5 class="card-title"><%=post.title%></h5>
+                            <% if(error) { %>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <%=error%>
+                                </div>
+                                <%} %>
+                            <% if(success) { %>
+                                <div class="alert alert-success text-center" role="alert">
+                                    <%=success%>
+                                </div>
+                            <%} %> 
+                            <div class="mb-3">
+                                <% if(!post.image_data && post.product_category=='vegetable') {%>
+                                    <img class="center rounded border-success" src="/assets/default_vegetables.jpg" alt="vegetables" width="275px">
+                                <%} else if (!post.image_data && post.product_category=='fruit') {%>
+                                    <img class="center rounded border-success" src="/assets/default_fruits.jpg" alt="fruits" width="275px">
+                                <%}%>
+                            </div>
+                            <%if(post.status=='Active'){%>
+                                <p class="text-success"><i class="fas fa-heartbeat" style="margin-right: 6px;"></i><b>State: <%=post.status%> </b></p>
+                                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#soldModal">
+                                    <i class="fas fa-check" style="margin-right: 6px;"></i>Mark As Sold
+                                </button>
+                                <div class="modal fade" id="soldModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to mark the post "SOLD"?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Once you marked the post sold buyers will not be able to see the post and you can not change the state back.
+                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <a class="btn btn-success" href="/farmer/markPostSold/<%=post.post_id%>"  role="button">Mark As Sold</a>
+                                                </div>  
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}else if (post.status=='Sold'){%>
+                                <p class="text-primary"><i class="fas fa-check" style="margin-right: 6px;"></i><b>State: <%=post.status%> </b></p>
+                            <%}else{%>
+                                <p class="text-warning"><i class="fas fa-stopwatch" style="margin-right: 6px;"></i><b>State: <%=post.status%> </b></p>
+                            <%}%>
+                            <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <p><strong><i class="fas fa-balance-scale-right" style="margin-right: 6px;"></i>Qunatity : <%=post.quantity%> kg</strong></p>
+                                <p><strong><i class="fas fa-tags" style="margin-right: 6px;"></i>Unit Price : Rs. <%=post.expected_price%></strong> </p>
+                                <p ><i class="fa fa-envelope" style="margin-right: 6px;"></i>email : <%=post.email%> </p>
+                            
+                                
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <p><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No : <%=post.contact_no%></p>
+                                
+                                <p><i class="fas fa-thumbtack" style="margin-right: 6px;"></i>Available District : <%=post.available_district%> </p>
+                                <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Added On : <%=post.added_day.getFullYear()+'/'+("0" + (post.added_day.getMonth() + 1)).slice(-2)+'/'+("0" + post.added_day.getDate()).slice(-2) %> </p>
+                            </div>
+                        </div>
+                        <p><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i>Available Location : <%=post.available_address%> </p>
+                        <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Description : <%=post.description%> </p>
+                        
+                        <hr>
+                        
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 mb-2">
+                                <a class="btn btn-outline-primary btn-sm" role="btn" href=""><i class="fas fa-image" style="margin-right: 6px;"></i>Change Display Image</a>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteModal">
+                                    <i class="fas fa-trash" style="margin-right: 6px;"></i> Delete Post
+                                </button>
+                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the post?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                No recovery will be possible.All data related to the post will be lost
+                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <a class="btn btn-danger" href="/farmer/deletePost/<%=post.post_id%>"  role="button">Delete Post</a>
+                                                </div>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+            
+            </div>
+            <hr>
+            <h5 class="text-center">
+                Buyer Requests For This Post
+            </h5>
+            <hr>
+            
+            <a name="requests"></a>
+            <% if(req_error) { %>
+                <div class="alert alert-danger text-center" role="alert">
+                    <%=req_error%>
+                </div>
+                <%} %>
+            <% if(req_success) { %>
+                <div class="alert alert-success text-center" role="alert">
+                    <%=req_success%>
+                </div>
+            <%} %> 
+            <% if (requests.count > 0) {%>
+                <% requests.forEach(function(request) { %>
+
+                <div class="card mb-2 shadow border-secondary rounded">
+                
+                    <div class="card-body">
+                            <h5 class="card-title">
+                                <%=request.request_title%>
+                                <% if (request.req_state==='New') {%>
+                                    <span class="text-primary" style="font-size: 13px;">(New)</span>
+                                <% } else if(request.req_state==='Interested'){%>
+                                    <span class="text-success" style="font-size: 13px;">(Seller Interested)</span>
+                                <%}else{%>
+                                    <span class="text-danger" style="font-size: 13px;">(Seller Not Interested)</span>
+                                <%}%>
+                            </h5>  
+                            <div class="row" style="letter-spacing: 3;">
+                                <div class="col-md-5 col-xs-12">
+                                    <a href="/farmer/buyerProfile/<%=request.buyer_id%>" style="color: black;"><i i class="fas fa-user" style="margin-right: 6px;"></i>From Buyer: <%=request.first_name%> <%=request.last_name%> (Visit)</a>
+                                    
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <p class="card-text"><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No: <%=request.contact_no%> </p>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <p class="card-text"><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Sent On: <%=request.added_on.getFullYear()+'/'+("0" + (request.added_on.getMonth() + 1)).slice(-2)+'/'+("0" + request.added_on.getDate()).slice(-2) %> </p>
+                                </div>
+                            </div>   
+                            <div class="mt-1 text-justify">
+                                <p class="card-text"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message:</p>
+                                <p class="card-text"><%=request.description%> </p>
+                            </div>
+                            <%if(request.req_state=='New' && post.status=='Active'){%>
+                            <div class="row text-center text-secondary mt-1" style="letter-spacing: 3;">
+                                    <div class="col-sm-6 col-xs-12 mb-2">
+                                        <a class="btn btn-success btn-sm" role="btn" href="/farmer/markReqInterested/<%=post.post_id%>/<%=request.req_msg_id%>"><i class="fas fa-check" style="margin-right: 6px;"></i>Interested</a>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 mb-2">
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#markNotInterestedModal">
+                                            <i class="fas fa-times" style="margin-right: 6px;"></i>Not Interested
+                                        </button>
+                                        <div class="modal fade" id="markNotInterestedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to mark not interested?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        You will not be able to see the request no mre
+                                                    </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <a class="btn btn-danger" href="/farmer/markReqNotInterested/<%=post.post_id%>/<%=request.req_msg_id%>"  role="button">Mark Not Interested</a>
+                                                        </div>  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>  
+                            <%}%>
+                    </div>
+                    
+                    
+
+                </div>
+
+                
+                <% }); %>
+            <% }else{ %>
+                <div class="alert alert-warning text-center" role="alert">
+                    <p>There are no buyer request messages</p>
+                </div>
+            <%}%>
+
+
+
+        <% }
+        else{ %>
+            <div class="alert alert-danger text-center" role="alert">
+                No Such Post 
+            </div>
+        <% }%>
+
+
+    </div>
+
+
+</div>
+
 
 <%- include('_footer') %>

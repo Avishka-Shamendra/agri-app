@@ -6,6 +6,11 @@
                 <%=error%>
             </div>
         <%} %>
+        <% if(success) { %>
+            <div class="alert alert-success text-center" role="alert">
+                <%=success%>
+            </div>
+        <%} %>
         <div class="card shadow rounded border-success">
             <div class="nav-tabs-boxed">
                 <ul class="nav nav-tabs" role="tablist">
@@ -15,59 +20,27 @@
                         aria-controls="activeposts" aria-selected="false">Active Posts</a></li>
                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#soldposts" role="tab"
                         aria-controls="soldposts" aria-selected="false">Sold Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#expiredposts" role="tab"
+                        aria-controls="expiredposts" aria-selected="false">Expired Posts</a></li>
     
                 </ul>
                 <div class="tab-content p-3">
                     <div class="tab-pane active" id="allposts" role="tabpanel">
-                        <div class="text-center">
-                            <img src="/assets/my_posts_all.jpg"
-                                class="img-fluid" alt="All Posts" />
-                                <br>
-                    <small><a href="https://www.freepik.com/vectors/nature" class="text-success">Nature vector created by freepik - www.freepik.com</a></small>
-                        </div>
+                        
                         <div class="p-3">
                             <% if(posts && posts.length!=0) {%>
                                 <% posts.forEach(function(post){%>
-                                   
-                                  
-                                  <div class="card mb-2 border">
-                                    <div class="row">
-                                      <div class="col-lg-5 align center">
-                                        <% if(!post.image_data && post.product_category=='vegetable') {%>
-                                            <img class="d-block w-100" src="/assets/default_vegetables.jpg" alt="vegetables">
-                                        <%} else if (!post.image_data && post.product_category=='fruit') {%>
-                                            <img class="d-block w-100 rounded border-success" src="/assets/default_fruits.jpg" alt="">
-                                        <%}%>
-                                      </div>
-                                      <div class="col-lg-7">
-                                        <div class="card-block p-3">
-                                            <h5 class="card-title"><%=post.title%></h5>
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-12 text-secondary">
-                                                    <p class="text-success"><i class="fas fa-heartbeat" style="margin-right: 6px;"></i><b>State: <%=post.status%> </b></p>
-                                                    <p><i class="fas fa-balance-scale-right" style="margin-right: 6px;"></i>Qunatity : <%=post.quantity%> kg</p>
-                                                    <p><i class="fas fa-tags" style="margin-right: 6px;"></i>Price : Rs. <%=post.expected_price%> </p>
-                                                    
-                                                </div>
-                                                <div class="col-md-6 col-sm-12 text-secondary">
-                                                    <p><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No : <%=post.contact_no%></p>
-                                                    <p><i class="fas fa-thumbtack" style="margin-right: 6px;"></i>Available District : <%=post.available_district%> </p>
-                                                    <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Added On : <%=post.added_day.getFullYear()+'/'+("0" + (post.added_day.getMonth() + 1)).slice(-2)+'/'+("0" + post.added_day.getDate()).slice(-2) %> </p>
-                                                </div>
-                                            </div>
-                                            <p class="text-secondary"><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i>Available Location : <%=post.available_address%> </p>
-                                            <a class="card-block stretched-link text-muted" href=''><i class="fas fa-edit" style="margin-right: 6px;"></i>Edit Post</a>
-                                            
-                                        </div>
-                                      </div>
-                               
-                                    </div>
-                                  </div>
+                                    <%- include('componentFarmerPost',{post})%>
                                 <%});%>
 
                                 
                 
                                 <% }else{ %>
+                                    <div class="text-center">
+                                        <img src="/assets/my_posts_all.jpg"
+                                            class="img-fluid" alt="All Posts" width="40%" />
+                                            <br>
+                                    </div>
                                     <div class="alert alert-warning text-center">
                                         <strong>No Posts Available</strong>
                                     </div>
@@ -75,53 +48,20 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="activeposts" role="tabpanel">
-                        <div class="text-center">
-                            <img src="/assets/my_posts_active.jpg"
-                                class="img-fluid" alt="Active Posts" height="20%" />
-                                <br>
-                                <small><a href="https://www.freepik.com/vectors/business" class="text-success">Business vector created by freepik - www.freepik.com</a></small>
-                        </div>
                         <div class="p-3">
                             <% if(activePosts && activePosts.length!=0) {%>
                                 <% activePosts.forEach(function(post){%>
-                                  <div class="card mb-2 border">
-                                    <div class="row">
-                                      <div class="col-lg-5 align center">
-                                        <% if(!post.image_data && post.product_category=='vegetable') {%>
-                                            <img class="d-block w-100" src="/assets/default_vegetables.jpg" alt="vegetables">
-                                        <%} else if (!post.image_data && post.product_category=='fruit') {%>
-                                            <img class="d-block w-100 rounded border-success" src="/assets/default_fruits.jpg" alt="">
-                                        <%}%>
-                                      </div>
-                                      <div class="col-lg-7">
-                                        <div class="card-block p-3">
-                                            <h5 class="card-title"><%=post.title%></h5>
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-12 text-secondary">
-                                                    <p class="text-success"><i class="fas fa-heartbeat" style="margin-right: 6px;"></i><b>State: <%=post.status%> </b></p>
-                                                    <p><i class="fas fa-balance-scale-right" style="margin-right: 6px;"></i>Qunatity : <%=post.quantity%> kg</p>
-                                                    <p><i class="fas fa-tags" style="margin-right: 6px;"></i>Price : Rs. <%=post.expected_price%> </p>
-                                                    
-                                                </div>
-                                                <div class="col-md-6 col-sm-12 text-secondary">
-                                                    <p><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No : <%=post.contact_no%></p>
-                                                    <p><i class="fas fa-thumbtack" style="margin-right: 6px;"></i>Available District : <%=post.available_district%> </p>
-                                                    <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Added On : <%=post.added_day.getFullYear()+'/'+("0" + (post.added_day.getMonth() + 1)).slice(-2)+'/'+("0" + post.added_day.getDate()).slice(-2) %> </p>
-                                                </div>
-                                            </div>
-                                            <p class="text-secondary"><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i>Available Location : <%=post.available_address%> </p>
-                                            <a class="card-block stretched-link text-muted" href=''><i class="fas fa-edit" style="margin-right: 6px;"></i>Edit Post</a>
-                                            
-                                        </div>
-                                      </div>
-                               
-                                    </div>
-                                  </div>
+                                    <%- include('componentFarmerPost',{post})%>
                                 <%});%>
 
                                 
                 
                                 <% }else{ %>
+                                    <div class="text-center">
+                                        <img src="/assets/my_posts_all.jpg"
+                                            class="img-fluid" alt="All Posts" width="40%" />
+                                            <br>
+                                    </div>
                                     <div class="alert alert-warning text-center">
                                         <strong>No Active Posts</strong>
                                     </div>
@@ -131,50 +71,20 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="soldposts" role="tabpanel">
-                        <div class="text-center">
-                            <img src="/assets/my_posts_all.jpg"
-                                class="img-fluid" alt="Sold Posts" height="20%" />
-                                <br>
-                                <small><a href="https://www.freepik.com/vectors/business" class="text-success">Business vector created by freepik - www.freepik.com</a></small>
-                        </div>
                         <div class="p-3">
                             <% if(soldPosts && soldPosts.length!=0) {%>
+                                <div class="alert alert-warning text-center">
+                                    <strong>You may delete "Sold Posts" as they are no longer visible to buyers</strong>
+                                </div>
                                 <% soldPosts.forEach(function(post){%>
-                                  <div class="card mb-2 border">
-                                    <div class="row">
-                                      <div class="col-lg-5 align center">
-                                        <% if(!post.image_data && post.product_category=='vegetable') {%>
-                                            <img class="d-block w-100" src="/assets/default_vegetables.jpg" alt="vegetables">
-                                        <%} else if (!post.image_data && post.product_category=='fruit') {%>
-                                            <img class="d-block w-100 rounded border-success" src="/assets/default_fruits.jpg" alt="">
-                                        <%}%>
-                                      </div>
-                                      <div class="col-lg-7">
-                                        <div class="card-block p-3">
-                                            <h5 class="card-title"><%=post.title%></h5>
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-12 text-secondary">
-                                                    <p class="text-success"><i class="fas fa-heartbeat" style="margin-right: 6px;"></i><b>State: <%=post.status%> </b></p>
-                                                    <p><i class="fas fa-balance-scale-right" style="margin-right: 6px;"></i>Qunatity : <%=post.quantity%> kg</p>
-                                                    <p><i class="fas fa-tags" style="margin-right: 6px;"></i>Price : Rs. <%=post.expected_price%> </p>
-                                                    
-                                                </div>
-                                                <div class="col-md-6 col-sm-12 text-secondary">
-                                                    <p><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No : <%=post.contact_no%></p>
-                                                    <p><i class="fas fa-thumbtack" style="margin-right: 6px;"></i>Available District : <%=post.available_district%> </p>
-                                                    <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Added On : <%=post.added_day.getFullYear()+'/'+("0" + (post.added_day.getMonth() + 1)).slice(-2)+'/'+("0" + post.added_day.getDate()).slice(-2) %> </p>
-                                                </div>
-                                            </div>
-                                            <p class="text-secondary"><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i>Available Location : <%=post.available_address%> </p>
-                                            <a class="card-block stretched-link text-muted" href=''><i class="fas fa-edit" style="margin-right: 6px;"></i>Edit Post</a>
-                                            
-                                        </div>
-                                      </div>
-                               
-                                    </div>
-                                  </div>
+                                  <%- include('componentFarmerPost',{post})%>
                                 <%});%>
                             <% }else{ %>
+                                <div class="text-center">
+                                    <img src="/assets/my_posts_all.jpg"
+                                        class="img-fluid" alt="All Posts" width="40%" />
+                                        <br>
+                                </div>
                                 <div class="alert alert-warning text-center">
                                     <strong>No Sold Posts</strong>
                                 </div>
@@ -183,6 +93,29 @@
                             
                         </div>
                     </div>
+                    <div class="tab-pane" id="expiredposts" role="tabpanel">
+                        <div class="p-3">
+                            <% if(expiredPosts && expiredPosts.length!=0) {%>
+                                <div class="alert alert-warning text-center">
+                                    <strong>You may delete "Expired Posts" as they are no longer visible to buyers</strong>
+                                </div>
+                                <% expiredPosts.forEach(function(post){%>
+                                  <%- include('componentFarmerPost',{post})%>
+                                <%});%>
+                            <% }else{ %>
+                                <div class="text-center">
+                                    <img src="/assets/my_posts_all.jpg"
+                                        class="img-fluid" alt="All Posts" width="40%" />
+                                        <br>
+                                </div>
+                                <div class="alert alert-warning text-center">
+                                    <strong>No Expired Posts</strong>
+                                </div>
+
+                            <%}%>
+                            
+                        </div>
+                    </expired
                 </div>
             </div>
     

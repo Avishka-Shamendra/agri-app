@@ -24,13 +24,7 @@ class BuyerService{
         return await Buyer.getBuyerByNICLike(nic_query);
     }
 
-    // static async deleteBuyer(uid){
-    //     const buyer = await Buyer.deleteBuyer(uid);
-    //     if (!buyer){
-    //         throw new Errors.BadRequest(' Error ');
-    //     }
-    //     return buyer;
-    // }
+    
 }
 
 module.exports = BuyerService;

@@ -30,10 +30,10 @@
                         <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Added On : <%=post.added_day.getFullYear()+'/'+("0" + (post.added_day.getMonth() + 1)).slice(-2)+'/'+("0" + post.added_day.getDate()).slice(-2) %> </p>
                     </div>
                 </div>
-                <button type="button" class="btn btn-outline-danger btn-small" data-toggle="modal" data-target="#deletePostModal">
+                <button type="button" class="btn btn-outline-danger btn-small" data-toggle="modal" data-target="#deletePost<%=post.status%><%=post.post_id%>Modal">
                     <i class="fas fa-trash-alt" style="margin-right: 6px;"></i>Delete Post
                 </button>
-                <div class="modal fade" id="deletePostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="deletePost<%=post.status%><%=post.post_id%>Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">

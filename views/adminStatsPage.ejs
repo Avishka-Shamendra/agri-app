@@ -1,25 +1,66 @@
 <%- include('_header',{user}) %>
 
 <div class="container py-4">
-    <div class="card p-3">
-        Number Of Buyers  <%=stats.num_buyers[0].count%>
-        Number Of Farmers <%=stats.num_farmers[0].count%>
-        Number Of Active Posts <%=stats.num_active_posts[0].count%>
-        Number Of Expired Posts <%=stats.num_expired_posts[0].count%>
-        Number Of Sold Posts <%=stats.num_sold_posts[0].count%>
-    </div>
+    <h3 class="text-center">SYSTEM STATS</h3>
+    <hr>
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="card shadow border-success rounded">
                 <canvas class="p-3 w-100" id="postCountChart" ></canvas>
             </div>
         </div>
+        
         <div class="col-md-6 col-sm-12">
-            <div class="card">
-                <h3>Farmers <%=stats.num_farmers[0].count%></h3>
-
+            <div class="card p-3 mt-4 shadow border-rounded border-success">
+                <div class="row text-center">
+                    <div class="col-md-9 col-sm-12">
+                        <h4><i class="fas fa-chart-pie mr-4"></i>Total Posts</h4>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <h4><%=String(stats.num_active_posts[0].count+stats.num_expired_posts[0].count+stats.num_sold_posts[0].count).padStart(2, '0')%></h4>
+                    </div>
+                </div>
             </div>
-
+            <div class="card p-3 mt-4 shadow border-rounded border-success">
+                <div class="row text-center">
+                    <div class="col-md-9 col-sm-12">
+                        <h4><i class="fas fa-users mr-4"></i>Registered Farmers</h4>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <h4><%=String(stats.num_farmers[0].count).padStart(2, '0')%></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card p-3 mt-4 shadow border-rounded border-success">
+                <div class="row text-center">
+                    <div class="col-md-9 col-sm-12">
+                        <h4><i class="fas fa-user-friends mr-4"></i>Registered Buyers</h4>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <h4><%=String(stats.num_buyers[0].count).padStart(2, '0')%></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card p-3 mt-4 shadow border-rounded border-success">
+                <div class="row text-center">
+                    <div class="col-md-9 col-sm-12">
+                        <h4><i class="fas fa-comment-dots mr-4"></i>Buyer Requests</h4>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <h4><%=String(stats.num_buyer_reqs[0].count).padStart(2, '0')%></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card p-3 mt-4 shadow border-rounded border-success">
+                <div class="row text-center">
+                    <div class="col-md-9 col-sm-12">
+                        <h4><i class="fas fa-exclamation-triangle mr-4"></i>Active Complains</h4>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <h4><%=String(stats.num_complains[0].count).padStart(2, '0')%></h4>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -59,7 +100,7 @@
                 labels: labels,
                 datasets: [{
                     data: data,
-                    backgroundColor: ['#00b51a', '#ffff00', '#ff2d21'],
+                    backgroundColor: ['#00c851', '#0275d8', '#f0ad4e'],
                 }],
             },
         });
@@ -68,7 +109,7 @@
     const postCountChart = createChart('postCountChart',
         'Posts',
         ['Active', 'Sold', 'Expired'],
-        [1,2,3]);
+        ["<%=stats.num_active_posts[0].count%>","<%= stats.num_sold_posts[0].count %>","<%=stats.num_expired_posts[0].count%>"]);
 </script>
 
 

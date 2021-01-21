@@ -278,6 +278,24 @@ class AdminController {
             res.redirect(`/admin?error=${e}`);
         }
     }
+
+    static async deleteAllSoldPosts(req,res){
+        try{
+            await AdminService.deleteAllSoldPost();
+            res.redirect('/admin/allPosts?success=All SOLD posts deleted');
+        }catch(e){
+            res.redirect(`/admin/allPosts?error=${e}`);
+        }
+    }
+
+    static async deleteAllExpiredPosts(req,res){
+        try{
+            await AdminService.deleteAllExpiredPost();
+            res.redirect('/admin/allPosts?success=All EXPIRED posts deleted');
+        }catch(e){
+            res.redirect(`/admin/allPosts?error=${e}`);
+        }
+    }
 }
 
 module.exports = AdminController;

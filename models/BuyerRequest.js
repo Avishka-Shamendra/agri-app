@@ -94,5 +94,10 @@ class BuyerRequest{
         `;
         return post;
     }
+
+    static async getCount(){
+     const count= await sql`SELECT COUNT(*) FROm buyer_request`;
+     return count;
+    }
 }
 module.exports=BuyerRequest

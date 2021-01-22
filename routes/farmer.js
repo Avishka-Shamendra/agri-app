@@ -4,9 +4,11 @@ const FarmerController = require('../controllers/farmerController');
 const PostController = require('../controllers/postController');
 const MessageController = require('../controllers/messageController');
 const ComplainController = require('../controllers/complainsController');
+const ImageController = require('../controllers/imageController');
 const ifLoggedIn = require('../middleware/ifLoggedIn');
 const ifNotLoggedIn = require('../middleware/ifNotLoggedIn');
 const ifFarmer =require('../middleware/ifFarmer');
+const uploadFileMiddleware = require('../middleware/upload');
 
 //GET Reqs
 router.get('/',ifLoggedIn, ifFarmer, FarmerController.homePage);
@@ -25,5 +27,6 @@ router.post('/signup', ifNotLoggedIn, FarmerController.signup);
 router.post('/editProfile/:uid',ifLoggedIn,ifFarmer, FarmerController.editProfile );
 router.post('/addPost',ifLoggedIn,ifFarmer,PostController.addPost);
 router.post('/reportBuyer/:buyer_id',ifLoggedIn,ifFarmer, ComplainController.buyerReport);
+router.post('/addPostImage/:post_id',ifLoggedIn,ifFarmer,uploadFileMiddleware,ImageController.addPostImage);
 
 module.exports=router;

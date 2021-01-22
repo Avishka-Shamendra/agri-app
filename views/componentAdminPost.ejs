@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-5 align center">
             <% if(post.img_data) {%>
-                <img class="d-block w-100" src="<%=post.encode%>" alt="vegetables">
+                <img class="d-block w-100" src="<%=post.img_b64%>" alt="vegetables">
             <%} else if(!post.img_data && post.product_category=='vegetable') {%>
                 <img class="d-block w-100" src="/assets/default_vegetables.jpg" alt="vegetables">
             <%} else if (!post.img_data && post.product_category=='fruit') {%>

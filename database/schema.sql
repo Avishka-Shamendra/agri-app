@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS Buyer CASCADE;
 DROP TABLE IF EXISTS Post CASCADE;
 DROP TABLE IF EXISTS Complain CASCADE;
 DROP TABLE IF EXISTS Buyer_Request CASCADE;
+DROP TABLE IF EXISTS Post_Image CASCADE;
 DROP TABLE IF EXISTS session CASCADE;
 
 DROP TYPE IF EXISTS  Account_Type;
@@ -162,9 +163,18 @@ CREATE TABLE Post (
   status Post_State not null DEFAULT 'Active',
   added_day DATE not null,
   exp_day DATE not null,
-  img_data VARCHAR(255) null, -- change to image bytes if needed
+  img_data bool not null DEFAULT False,
   PRIMARY KEY (post_id),
   FOREIGN KEY(farmer_id) REFERENCES Farmer(uid) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Post_Image(
+post_id uuid4,
+img_type varchar(255),
+name varchar(255),
+data BYTEA,
+PRIMARY KEY (post_id),
+FOREIGN KEY(post_id) REFERENCES Post(post_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -219,6 +229,8 @@ GRANT ALL ON TABLE public.farmer TO agri_app;
 GRANT ALL ON TABLE public.post TO agri_app;
 
 GRANT ALL ON TABLE public.session TO agri_app;
+
+GRANT ALL ON TABLE public.post_image TO agri_app;
 
 GRANT ALL ON TABLE public.userinfo TO agri_app;
 

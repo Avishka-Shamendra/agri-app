@@ -2,11 +2,19 @@ const Errors = require('../helpers/error');
 const User = require('../models/User');
 const Post = require('../models/Post');
 const dateFormat = require('../helpers/dateFormat');
+const {img_add_keyword_bitstream} = require('../helpers/image_helper');
 
 class postServices{
     //for home
     static async getRecentPosts(){
-        return Post.getRecentPosts();
+        const posts = await Post.getRecentPosts();
+        if(posts){
+            posts.forEach((post)=>{
+                post.img_b64 = img_add_keyword_bitstream(post.img_b64);
+                return post;
+            });
+        } 
+        return posts;
     }
 
     static async addPost({
@@ -24,15 +32,37 @@ class postServices{
     }
 
     static async getFarmerPostsById(uid){
-        return Post.getFarmerPostsById(uid);
+        const posts = await Post.getFarmerPostsById(uid);
+        if(posts){
+            posts.forEach((post)=>{
+                post.img_b64 = img_add_keyword_bitstream(post.img_b64);
+                return post;
+            });
+        } 
+        return posts;
+
     }
 
     static async getAllActivePosts(){
-        return Post.getAllActivePosts();
+        const posts = await Post.getAllActivePosts();
+        if(posts){
+            posts.forEach((post)=>{
+                post.img_b64 = img_add_keyword_bitstream(post.img_b64);
+                return post;
+            });
+        } 
+        return posts;
     }
 
     static async getAllActivePostsForBuyer(buyer_id){
-        return Post.getAllActivePostsWithMsgState(buyer_id);
+        const posts = await Post.getAllActivePostsWithMsgState(buyer_id);
+        if(posts){
+            posts.forEach((post)=>{
+                post.img_b64 = img_add_keyword_bitstream(post.img_b64);
+                return post;
+            });
+        } 
+        return posts;
     }
 
     static async getFilteredPosts({min_price,max_price,min_quantity,max_quantity,filter_category,filter_district},buyer_id){
@@ -42,21 +72,47 @@ class postServices{
         if(!max_price) max_price=100000000;
         if(filter_category==='all') filter_category=null;
         if(filter_district==='all') filter_district=null;
-        return Post.getFilteredPosts(min_price,max_price,min_quantity,max_quantity,filter_category,filter_district,buyer_id);
+        const posts = await Post.getFilteredPosts(min_price,max_price,min_quantity,max_quantity,filter_category,filter_district,buyer_id);
+        if(posts){
+            posts.forEach((post)=>{
+                post.img_b64 = img_add_keyword_bitstream(post.img_b64);
+                return post;
+            });
+        }  
+        return posts;
     }
 
 
     static async getPostsofFarmer(uid,limit=null){
         const posts = await Post.getPostsofFarmer(uid,limit);
+        if(posts){
+            posts.forEach((post)=>{
+                post.img_b64 = img_add_keyword_bitstream(post.img_b64);
+                return post;
+            });
+        }
         return posts;
     }
 
+    //buyer post page
     static async getPost(postid){
-        return Post.getPost(postid);
+        const post =await Post.getPost(postid);
+        if(post){
+            post.img_b64 = img_add_keyword_bitstream(post.img_b64);
+        }
+        return post;
     }
 
     static async getAllPosts(){
-        return Post.getAllPost();
+        const posts= await Post.getAllPost();
+        if(posts){
+            posts.forEach((post)=>{
+                post.img_b64 = img_add_keyword_bitstream(post.img_b64);
+                return post;
+            });
+        }
+        return posts;
+
     }
 
     static async deletePost(post_id){
@@ -64,7 +120,11 @@ class postServices{
     }
 
     static async getPostFarmerView(post_id){
-        return Post.getPostFarmerView(post_id)
+        const post = await Post.getPostFarmerView(post_id);
+        if(post){
+            post.img_b64 = img_add_keyword_bitstream(post.img_b64);
+        }
+        return post;
     }
 
     static async markAsSold(post_id){

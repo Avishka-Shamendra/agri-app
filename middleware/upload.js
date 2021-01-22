@@ -40,15 +40,18 @@ function uploadFileMiddleware(req, res, next) {
             res.redirect(`/farmer/post/${req.params.post_id}?error=${err}`);
         }else {
             // Everything went fine.
-            console.log(req.file.buffer);
+            //console.log(req.file.buffer);
             const [worked,image] = await UploadFileEdits(req);
             // console.log(req.file.buffer);
             if(worked){
                 try{
-                // console.log(image);
-                // req.file.buffer =image.bitmap.data;
-                // console.log(req.file.buffer);
-                }catch(e){}
+                 //console.log(image);
+                 req.file.buffer =image;
+                 //console.log(req.file);
+                 //console.log(req.file.reformed);
+                }catch(e){
+                    console.log(e);
+                }
             }
             next()
         }

@@ -15,82 +15,229 @@
                 <%=del_suc%>
             </div>
             <% } %>
-            <% if (requests.count <= 0) {%>
-                <div class="alert alert-warning" role="alert">
-                    <h5>There are no sent buyer request messages</h5>
-                </div>
-            <% } %>
         </div>
+        <div class="card shadow rounded border-success">
+            <div class="nav-tabs-boxed">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#newmsgs" role="tab"
+                            aria-controls="newmsgs" aria-selected="true">New Sent Requests</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#interestedmsgs" role="tab"
+                        aria-controls="interestedmsgs" aria-selected="false">Farmer Interested</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#notInterestedmsgs" role="tab"
+                        aria-controls="notInterestedmsgs" aria-selected="false">Farmer Not Interested</a></li>
             
-            <% if (requests.count > 0) {%>
-                <% requests.forEach(function(request) { %>
-
-                <div class="card mb-2 shadow border-success rounded">
-                   
-                    <div class="card-body">
-                            <h5 class="card-title">
-                                <%=request.request_title%>
-                                <% if (request.req_state==='New') {%>
-                                    <span class="text-warning" style="font-size: 13px;">(New)</span>
-                                <% } else if(request.req_state==='Interested'){%>
-                                    <span class="text-success" style="font-size: 13px;">(Seller Interested)</span>
-                                <%}else{%>
-                                    <span class="text-danger" style="font-size: 13px;">(Seller Not Interested)</span>
-                                <%}%>
-                            </h5>  
-                            <div class="row text-secondary" style="letter-spacing: 3;">
-                                <div class="col-md-4 col-xs-12">
-                                    <p class="card-text"><i class="fas fa-user" style="margin-right: 6px;"></i>To Seller: <%=request.first_name%> </p>
-                                </div>
-                                <div class="col-md-4 col-xs-12">
-                                    <p class="card-text"><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No: <%=request.contact_no%> </p>
-                                </div>
-                                <div class="col-md-4 col-xs-12">
-                                    <p class="card-text"><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Sent On: <%=request.added_on.getFullYear()+'/'+("0" + (request.added_on.getMonth() + 1)).slice(-2)+'/'+("0" + request.added_on.getDate()).slice(-2) %> </p>
-                                </div>
-                            </div>   
-                            <div class="mt-1">
-                                <p class="card-text"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message: <%=request.description%> </p>
-                            </div>
-                            <div class="row text-secondary mt-1 text-center" style="letter-spacing: 3;">
-                                <div class="col-sm-6 col-xs-12 mb-1">
-                                    <a href="/buyer/viewpost/<%=request.post_id%>" class="btn btn-outline-success btn-sm" role="button">Go to Post</a>
-                                </div>
-                                <div class="col-sm-6 col-xs-12 mb-1">
-                                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
-                                        Delete Message
-                                    </button>
-                                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the request?</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    No recovery will be possible.
-                                                </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <a class="btn btn-danger" href="/buyer/deleteMsg/<%=request.req_msg_id%>"  role="button">Delete</a>
+                </ul>
+            </div>
+            <div class="tab-content p-3">
+                <div class="tab-pane active" id="newmsgs" role="tabpanel">
+                    
+                    <% if (newRequests && newRequests.length > 0) {%>
+                        <% newRequests.forEach(function(request) { %>
+                        <div class="card mb-2 shadow border-success rounded">
+                            <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%=request.request_title%>
+                                        <% if (request.req_state==='New') {%>
+                                            <span class="text-warning" style="font-size: 13px;">(New)</span>
+                                        <% } else if(request.req_state==='Interested'){%>
+                                            <span class="text-success" style="font-size: 13px;">(Seller Interested)</span>
+                                        <%}else{%>
+                                            <span class="text-danger" style="font-size: 13px;">(Seller Not Interested)</span>
+                                        <%}%>
+                                    </h5>  
+                                    <div class="row text-secondary" style="letter-spacing: 3;">
+                                        <div class="col-md-4 col-xs-12">
+                                            <p class="card-text"><i class="fas fa-user" style="margin-right: 6px;"></i>To Seller: <%=request.first_name%> </p>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12">
+                                            <p class="card-text"><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No: <%=request.contact_no%> </p>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12">
+                                            <p class="card-text"><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Sent On: <%=request.added_on.getFullYear()+'/'+("0" + (request.added_on.getMonth() + 1)).slice(-2)+'/'+("0" + request.added_on.getDate()).slice(-2) %> </p>
+                                        </div>
+                                    </div>   
+                                    <div class="mt-1">
+                                        <p class="card-text"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message: <%=request.description%> </p>
+                                    </div>
+                                    <div class="row text-secondary mt-1 text-center" style="letter-spacing: 3;">
+                                        <div class="col-sm-6 col-xs-12 mb-1">
+                                            <a href="/buyer/viewpost/<%=request.post_id%>" class="btn btn-outline-success btn-sm" role="button">Go to Post</a>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 mb-1">
+                                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteNewModal">
+                                                Delete Message
+                                            </button>
+                                            <div class="modal fade" id="deleteNewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the request?</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            No recovery will be possible.
+                                                        </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <a class="btn btn-danger" href="/buyer/deleteMsg/<%=request.req_msg_id%>"  role="button">Delete</a>
+                                                            </div>
+                                                        
                                                     </div>
-                                                
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>  
-                    </div>
-                    
-                    
-
+                                    </div>  
+                            </div>
+                        </div>
+                        <% }); %>
+                    <% }else {%>
+                        <div class="alert alert-warning text-center">
+                            <strong>No New Requests Sent</strong>
+                        </div>
+                    <%}%>
                 </div>
-
-                
-                <% }); %>
-            <% } %>
+                <div class="tab-pane" id="interestedmsgs" role="tabpanel">
+                    
+                    <% if (interestedRequests && interestedRequests.length > 0) {%>
+                        <% interestedRequests.forEach(function(request) { %>
+                        <div class="card mb-2 shadow border-success rounded">
+                            <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%=request.request_title%>
+                                        <% if (request.req_state==='New') {%>
+                                            <span class="text-warning" style="font-size: 13px;">(New)</span>
+                                        <% } else if(request.req_state==='Interested'){%>
+                                            <span class="text-success" style="font-size: 13px;">(Seller Interested)</span>
+                                        <%}else{%>
+                                            <span class="text-danger" style="font-size: 13px;">(Seller Not Interested)</span>
+                                        <%}%>
+                                    </h5>  
+                                    <div class="row text-secondary" style="letter-spacing: 3;">
+                                        <div class="col-md-4 col-xs-12">
+                                            <p class="card-text"><i class="fas fa-user" style="margin-right: 6px;"></i>To Seller: <%=request.first_name%> </p>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12">
+                                            <p class="card-text"><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No: <%=request.contact_no%> </p>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12">
+                                            <p class="card-text"><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Sent On: <%=request.added_on.getFullYear()+'/'+("0" + (request.added_on.getMonth() + 1)).slice(-2)+'/'+("0" + request.added_on.getDate()).slice(-2) %> </p>
+                                        </div>
+                                    </div>   
+                                    <div class="mt-1">
+                                        <p class="card-text"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message: <%=request.description%> </p>
+                                    </div>
+                                    <div class="row text-secondary mt-1 text-center" style="letter-spacing: 3;">
+                                        <div class="col-sm-6 col-xs-12 mb-1">
+                                            <a href="/buyer/viewpost/<%=request.post_id%>" class="btn btn-outline-success btn-sm" role="button">Go to Post</a>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 mb-1">
+                                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteInterestedModal">
+                                                Delete Message
+                                            </button>
+                                            <div class="modal fade" id="deleteInterestedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the request?</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            No recovery will be possible.
+                                                        </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <a class="btn btn-danger" href="/buyer/deleteMsg/<%=request.req_msg_id%>"  role="button">Delete</a>
+                                                            </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>  
+                            </div>
+                        </div>
+                        <% }); %>
+                    <% }else {%>
+                        <div class="alert alert-warning text-center">
+                            <strong>No Sent Requests Marked Interested</strong>
+                        </div>
+                    <%}%>
+                </div>
+                <div class="tab-pane" id="notInterestedmsgs" role="tabpanel">
+                    
+                    <% if (notInterestedRequests && notInterestedRequests.length > 0) {%>
+                        <% notInterestedRequests.forEach(function(request) { %>
+                        <div class="card mb-2 shadow border-success rounded">
+                            <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%=request.request_title%>
+                                        <% if (request.req_state==='New') {%>
+                                            <span class="text-warning" style="font-size: 13px;">(New)</span>
+                                        <% } else if(request.req_state==='Interested'){%>
+                                            <span class="text-success" style="font-size: 13px;">(Seller Interested)</span>
+                                        <%}else{%>
+                                            <span class="text-danger" style="font-size: 13px;">(Seller Not Interested)</span>
+                                        <%}%>
+                                    </h5>  
+                                    <div class="row text-secondary" style="letter-spacing: 3;">
+                                        <div class="col-md-4 col-xs-12">
+                                            <p class="card-text"><i class="fas fa-user" style="margin-right: 6px;"></i>To Seller: <%=request.first_name%> </p>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12">
+                                            <p class="card-text"><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No: <%=request.contact_no%> </p>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12">
+                                            <p class="card-text"><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Sent On: <%=request.added_on.getFullYear()+'/'+("0" + (request.added_on.getMonth() + 1)).slice(-2)+'/'+("0" + request.added_on.getDate()).slice(-2) %> </p>
+                                        </div>
+                                    </div>   
+                                    <div class="mt-1">
+                                        <p class="card-text"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message: <%=request.description%> </p>
+                                    </div>
+                                    <div class="row text-secondary mt-1 text-center" style="letter-spacing: 3;">
+                                        <div class="col-sm-6 col-xs-12 mb-1">
+                                            <a href="/buyer/viewpost/<%=request.post_id%>" class="btn btn-outline-success btn-sm" role="button">Go to Post</a>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 mb-1">
+                                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteNotInterestedModal">
+                                                Delete Message
+                                            </button>
+                                            <div class="modal fade" id="deleteNotInterestedModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the request?</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            No recovery will be possible.
+                                                        </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <a class="btn btn-danger" href="/buyer/deleteMsg/<%=request.req_msg_id%>"  role="button">Delete</a>
+                                                            </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>  
+                            </div>
+                        </div>
+                        <% }); %>
+                    <% }else {%>
+                        <div class="alert alert-warning text-center">
+                            <strong>No Sent Requests Marked Not Interested</strong>
+                        </div>
+                    <%}%>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

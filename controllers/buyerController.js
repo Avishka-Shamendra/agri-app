@@ -90,7 +90,9 @@ class BuyerController {
                 error: req.query.error,
                 user : req.session.user,
                 del_suc: req.query.del_suc,
-                requests:requests,
+                newRequests:requests.filter((req)=>req.req_state==='New'),
+                interestedRequests:requests.filter((req)=>req.req_state==='Interested'),
+                notInterestedRequests:requests.filter((req)=>req.req_state==='NotInterested'),
                 });
         }catch(err){
             logger.error(err);

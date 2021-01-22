@@ -79,7 +79,7 @@ class MessageController{
 
     static async markAsNotInterested(req,res){
         try{
-            const post = await BuyerRequest.markAsNotInterested(req.params.req_id+'1');
+            const post = await BuyerRequest.markAsNotInterested(req.params.req_id);
             if(!post)  res.redirect(`/farmer/post/${req.params.post_id}?req_error=Could not change state to Not Interested.Please try again later#requests`)
             else{
             res.redirect(`/farmer/post/${req.params.post_id}?req_success=Request Message Sucessfully Marked as Not Interested#requests`)

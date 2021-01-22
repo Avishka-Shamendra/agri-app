@@ -6,6 +6,8 @@ const BuyerService = require('../services/buyerService');
 const PostService = require('../services/postServices');
 const AdminService = require('../services/adminService');
 const Error = require('../helpers/error');
+const { defaultLogger } = require('../config/logger');
+const logger = defaultLogger('admin-controller');
 
 class AdminController {
     static homePage(req,res){
@@ -13,13 +15,6 @@ class AdminController {
             error: req.query.error, 
             user: req.session.user,
          });
-    }
-
-    static async searchUser(req, res){
-        const search_param = req.body.search;
-        if(search_param.slice(0,4)){
-
-        }
     }
 
     static async search(req, res){
@@ -37,8 +32,6 @@ class AdminController {
                     buyers:buyer_alike
                 }
 
-                //console.log(farmer_alike);
-                //console.log(buyer_alike);
             }else {
                 const user_alike = await UserService.getUserNameLike(req.query.query);
                 res_obj ={
@@ -46,11 +39,10 @@ class AdminController {
                     type:'name',
                     users:user_alike
                 }
-                //console.log(user_alike)
             }
             res.json(res_obj);
         }catch (e) {
-            //console.log(e);
+            logger.error(e);
             res.json({
                 success:false,
                 error:e
@@ -77,7 +69,7 @@ class AdminController {
             await UserService.adminRegister(value);
             res.redirect('/login?adminRegSuccess=You are now registered as an system admin. You can now login using your email and password');
         } catch (err) {
-            //logger.error(err);
+            logger.error(err);
             res.redirect(`/admin/signup?error=${err}&email=${req.body.email}&firstName=${req.body.firstName}&lastName=${req.body.lastName}&gender=${req.body.gender}&securityKey=${req.body.securityKey}`);
         }
     } 
@@ -96,7 +88,7 @@ class AdminController {
             req.session.user.banned =user.banned; 
             res.redirect('/editProfile?success=Changes saved sucessfully');
         }catch(err){
-            //logger.error(err);
+            logger.error(err);
             res.redirect(`/editProfile?error=${err}`)
         }
     }
@@ -112,7 +104,7 @@ class AdminController {
                 farmers:farmers
             });
         }catch (e) {
-            //logger.error(err);
+            logger.error(e);
             res.redirect(`/admin?error=${e}`)
         }
     }
@@ -128,7 +120,7 @@ class AdminController {
             });
         }
         catch (e){
-            //logger.error(err);
+            logger.error(e);
             res.redirect(`/admin?error=${e}`)
         }
     }
@@ -146,7 +138,7 @@ class AdminController {
                 farmer:farmer,
             });
         }catch (e) {
-            //logger.error(err);
+            logger.error(e);
             res.redirect(`/admin/allFarmers?error=${e}`)
         }
     }
@@ -162,7 +154,7 @@ class AdminController {
                 buyer:buyer,
             });
         }catch (e) {
-            //logger.error(err);
+            logger.error(e);
             res.redirect(`/admin/allBuyers?error=${e}`)
         }
     }
@@ -185,7 +177,7 @@ class AdminController {
             }
 
         }catch (e) {
-            //logger.error(err);
+            logger.error(e);
             if (req.url === `/buyer/${req.params.uid}/ban`){
                 res.redirect(`/admin/buyer/${req.params.uid}?error=${e}`)
             }
@@ -215,7 +207,7 @@ class AdminController {
             }
 
         }catch (e) {
-            //logger.error(err);
+            logger.error(e);
             if (req.url === `/buyer/${req.params.uid}/unban`){
                 res.redirect(`/admin/buyer/${req.params.uid}?error=${e}`)
             }
@@ -237,6 +229,7 @@ class AdminController {
                 stats:stats_obj,
             });
         }catch (e) {
+            logger.error(e);
             res.redirect(`/admin?error=${e}`)
         }
     }
@@ -247,6 +240,7 @@ class AdminController {
             await UserService.deleteAccountAdmin(req.body,req.session.user.uid,account_uid);
             res.redirect('/admin/allFarmers?success=Farmer Deleted Successfully');
         }catch (e) {
+            logger.error(e);
             res.redirect(`/admin/farmer/${account_uid}?error=${e}`);
         }
     }
@@ -257,6 +251,7 @@ class AdminController {
             await UserService.deleteAccountAdmin(req.body,req.session.user.uid,account_uid);
             res.redirect('/admin/allBuyers?success=Buyer Deleted Successfully');
         }catch (e) {
+            logger.error(e);
             res.redirect(`/admin/buyer/${account_uid}?error=${e}`)
         }
     }
@@ -275,6 +270,7 @@ class AdminController {
             });
 
         }catch(e){
+            logger.error(e);
             res.redirect(`/admin?error=${e}`);
         }
     }
@@ -284,6 +280,7 @@ class AdminController {
             await AdminService.deleteAllSoldPost();
             res.redirect('/admin/allPosts?success=All SOLD posts deleted');
         }catch(e){
+            logger.error(e);
             res.redirect(`/admin/allPosts?error=${e}`);
         }
     }
@@ -293,6 +290,7 @@ class AdminController {
             await AdminService.deleteAllExpiredPost();
             res.redirect('/admin/allPosts?success=All EXPIRED posts deleted');
         }catch(e){
+            logger.error(e);
             res.redirect(`/admin/allPosts?error=${e}`);
         }
     }

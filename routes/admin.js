@@ -36,7 +36,6 @@ router.post('/signup',ifNotLoggedIn, AdminController.signup);
 router.post('/editProfile/:uid',ifLoggedIn,ifAdmin, AdminController.editProfile );
 router.post('/farmer/delete/:uid',ifLoggedIn,ifAdmin,AdminController.deleteFarmer);
 router.post('/buyer/delete/:uid',ifLoggedIn,ifAdmin,AdminController.deleteBuyer);
-router.post('/navbarSearch',ifLoggedIn,ifAdmin,AdminController.searchUser);
 router.post('/find',ifLoggedIn,ifAdmin,AdminController.search);
 
 

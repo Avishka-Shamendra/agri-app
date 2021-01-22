@@ -2,6 +2,11 @@
 
  <div class="container py-4 text-center">
      <h1>Welcome !</h1>
+     <% if (error) {%>
+        <div class="alert alert-danger text-center" role="alert">
+             <%=error.message%>
+        </div>
+        <% } %>
      <div class="row mt-3">
          <div class="col-md-4">
             <div class="card p-3 rounded shadow-lg border-success mb-3">
@@ -16,7 +21,7 @@
          <div class="col-md-4">
             <div class="card p-3 rounded shadow-lg border-success mb-3">
                 <div class="card-body text-center">
-                  <h5 class="card-title">Want to Add Your Own Post?</h5>
+                  <h5 class="card-title">Want to Add Your Own Posts?</h5>
                   <p class="card-text">Register with us as a farmer and add your posts here</p>
                   <a href="/farmer/signup" class="btn btn-success">Sign Up As a Farmer</a>
                 </div>

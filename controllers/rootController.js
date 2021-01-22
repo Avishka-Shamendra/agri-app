@@ -3,6 +3,8 @@ const Errors = require('../helpers/error');
 const UserService = require('../services/userServices');
 const PostService = require('../services/postServices');
 const { ChangePasswordInfo } = require('./validators/editProfileInfo');
+const { defaultLogger } = require('../config/logger');
+const logger = defaultLogger('root-controller');
 
 class RootController {
     static async indexPage(req,res){
@@ -18,9 +20,10 @@ class RootController {
                 posts:recentPosts,
             });
         }catch(e){
+            logger.error(e);
             res.render('index',
             {
-                error: req.query.error,
+                error: e,
                 user: req.session.user,
                 posts:null,
              }); 
@@ -76,7 +79,7 @@ class RootController {
             req.session.user.buyerData = user.buyerData; // null if not buyer
             res.redirect(`/${user.type}`);
         } catch (err) {
-            //logger.error(err);
+            logger.error(err);
             res.redirect(`/login?error=${err}&email=${req.body.email}`);
         }
     }
@@ -86,7 +89,7 @@ class RootController {
             req.session.user = undefined;
             res.redirect('/');
         } catch (err) {
-            //logger.error(err);
+            logger.error(err);
             res.redirect('/');
         }
     }
@@ -98,6 +101,7 @@ class RootController {
             await UserService.changePassword(value,req.params.uid);
             res.redirect(`/editProfile?pwd_success=Password Changed Successfully.#changePassword`)
         }catch(err){
+            logger.error(err);
             res.redirect(`/editProfile?pwd_error=${err}#changePassword`)
         }
     }
@@ -108,6 +112,7 @@ class RootController {
             req.session.user = undefined;
             res.redirect('/login?del_acc_success=Account Deleted Successfully');
         }catch(err){
+            logger.error(err);
             res.redirect(`/editProfile?del_acc_error=${err}#delAccount`)
         }
     }

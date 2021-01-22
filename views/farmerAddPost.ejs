@@ -12,7 +12,7 @@
                 <form method="post" action="/farmer/addPost">
                     <div class="text-center mb-3">
                         <img src="/assets/add_new_post.jpg" alt="Farmers"
-                            width="50%" />
+                            width="40%" />
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-sm-12 align-self-center">
@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12 align-self-center">
                             <div class="form-group">
-                                <label for="product_name">Product Name</label>
+                                <label for="product_name">Product Name<small> (ex: carrot,mango...)</small></label>
                                 <input class="form-control" type="text" id="product_name" name="product_name" placeholder="What is the product" value="<%=product_name%>" required>
                             </div>
                         </div>
@@ -31,14 +31,14 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12 align-self-center">
                             <div class="form-group">
-                                <label for="quantity">Quantity <small>(kg)</small></label>
+                                <label for="quantity">Quantity <small>(kg) min 50kg</small></label>
                                 <input class="form-control" type="text" id="quantity" name="quantity" placeholder="Amount to be sold" value="<%=quantity%>" required>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 align-self-center">
                             <div class="form-group">
-                                <label for="expected_price">Expected Total Price <small>(LKR/Rs.)</small></label>
-                                <input class="form-control" type="text" id="expected_price" name="expected_price" placeholder="Total Price" value="<%=expected_price%>" required>
+                                <label for="expected_price">Expected Unit Price <small>(Rs/kg) max. Rs 9999</small></label>
+                                <input class="form-control" type="text" id="expected_price" name="expected_price" placeholder="Unit Price" value="<%=expected_price%>" required>
                             </div>
                         </div>
                     </div>

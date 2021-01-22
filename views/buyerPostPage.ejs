@@ -1,0 +1,150 @@
+<%- include('_header',{user}) %>
+<div class="container py-4">
+    
+</div>
+
+<div class="p-3">
+    <% if(post && post.length!=0) { %>
+        <div class="card mb-2 shadow rounded border-success">
+        
+                
+                <div class="text-center">
+                    
+                    <div class="card-block p-3">
+                           <h5 class="card-title"><%=post[0].title%></h5>
+                           <% if(error) { %>
+                            <div class="alert alert-danger text-center" role="alert">
+                                <%=error%>
+                            </div>
+                            <%} %>
+                          <% if(msg_success) { %>
+                            <div class="alert alert-success text-center" role="alert">
+                                <%=msg_success%>
+                            </div>
+                          <%} %> 
+                           <div class="mb-3">
+                            <% if(!post[0].image_data && post[0].product_category=='vegetable') {%>
+                                <img class="center rounded border-success" src="/assets/default_vegetables.jpg" alt="vegetables" width="275px">
+                            <%} else if (!post[0].image_data && post[0].product_category=='fruit') {%>
+                                <img class="center rounded border-success" src="/assets/default_fruits.jpg" alt="fruits" width="275px">
+                            <%}%>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6 col-sm-12">
+                            <p><i class="fa fa-user" style="margin-right: 6px;"></i>Farmer : <%=post[0].first_name +' ' + post[0].last_name%></p>
+                            <p><strong><i class="fas fa-balance-scale-right" style="margin-right: 6px;"></i>Qunatity : <%=post[0].quantity%> kg</strong></p>
+                            <p><strong><i class="fas fa-tags" style="margin-right: 6px;"></i>Unit Price : Rs. <%=post[0].expected_price%></strong> </p>
+                            <p ><i class="fa fa-envelope" style="margin-right: 6px;"></i>email : <%=post[0].email%> </p>
+                            
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <p><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No : <%=post[0].contact_no%></p>
+                            <p><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i>Available Location : <%=post[0].available_address%> </p>
+                            <p><i class="fas fa-thumbtack" style="margin-right: 6px;"></i>Available District : <%=post[0].available_district%> </p>
+                            <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Added On : <%=post[0].added_day.getFullYear()+'/'+("0" + (post[0].added_day.getMonth() + 1)).slice(-2)+'/'+("0" + post[0].added_day.getDate()).slice(-2) %> </p>
+                        </div>
+                    </div>
+
+                    <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Description : <%=post[0].description%> </p>
+                    <div class="text-center">
+                        <a class="btn btn-outline-success btn-sm" href="/buyer/farmerProfile/<%=post[0].farmer_id%>"  role="button">View Farmer Profile</a>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 align-self-center">
+                            <img src="/assets/buyer_request.jpg" alt="request-image"
+                                width="50%" />
+                        </div>
+                        <a name='buyerRequest'></a>
+                        <div class="col-md-6 col-sm-12">
+                            <h3>Buyer Request</h3>
+                            <hr>
+                            
+                              <% if(msg_error) { %>
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <%=msg_error%>
+                                </div>
+                              <%} %> 
+                            <% if(!request){%>
+                            <small class="text-success"><strong>Send a one time buyer request message to the farmer to show that you are interested.</strong></small>
+                            <hr>
+                            <form method="post" action="/buyer/message/buyerRequest/<%=post[0].post_id%>">
+                                <div class="form-group">
+                                        <label for="title">Request Title</label>
+                                        <input class="form-control" type="text" id="title" name="title" placeholder="Title" value="<%=request_title%>" required>
+                                </div>
+                        
+                                <div class="form-group">
+                                    <label for="description">Message/Note</label>
+                                    <textarea class="form-control" id="description" name="description" placeholder="Message/Note" rows="15" required><%=description%></textarea>
+                                </div>
+                                <div class="form-group text-right">
+                                    <button class="btn btn-success" type="submit">Send Message</button>
+                                </div>
+                            </form>
+                            <%}else{%>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <strong>You have already sent a buyer request to this post</strong>
+                                    </div>
+                                <form>
+                                    <div class="form-group">
+                                            <label for="title">Request Title</label>
+                                            <input class="form-control" type="text" id="title" name="title" placeholder="Title" value="<%=request.request_title%>" disabled>
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="description">Message/Note</label>
+                                        <textarea class="form-control" id="description" name="description" placeholder="Message/Note" rows="15" disabled><%=request.description%></textarea>
+                                    </div>
+                                </form>
+                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
+                                    Delete Message
+                                </button>
+                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete the request?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                No recovery will be possible.
+                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <a class="btn btn-danger" href="/buyer/viewpost/deleteMsg/<%=request.req_msg_id%>"  role="button">Delete</a>
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}%>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+            
+           
+        </div>
+
+
+
+    <% }
+     else{ %>
+        <div class="alert alert-danger text-center" role="alert">
+            No Such Post or the Post is marked Sold/Expired
+        </div>
+    <% }%>
+
+
+</div>
+
+
+
+
+
+<%- include('_footer') %>

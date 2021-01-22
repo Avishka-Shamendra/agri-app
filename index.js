@@ -25,12 +25,16 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1 * 24 * 60 * 60 * 1000 },
+    cookie: { maxAge: 10 * 24 * 60 * 60 * 1000 },//10 days
 }));
 
 /* Define the static files and routes */
 app.use('/assets', express.static('public/assets'));
 app.use(require('./routes'));
+
+app.get('*', (req, res) => {
+    res.status(404).render('404', { code: 404, failed: 'OOPS! Not found' });
+});
 
 //on deployment add logger
 

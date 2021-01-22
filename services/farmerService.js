@@ -20,6 +20,12 @@ class FarmerService{
     }
 
     
+
+    static async getFarmerByNICLike(nic_query){
+        return await Farmer.getFarmerByNICLike(nic_query);
+    }
+
+    
 }
 
 module.exports = FarmerService;

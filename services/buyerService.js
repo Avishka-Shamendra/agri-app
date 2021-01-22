@@ -15,10 +15,16 @@ class BuyerService{
     static async getBuyer(uid){
         const buyer = await Buyer.getBuyer(uid);
         if(!buyer){
-            throw new Errors.BadRequest(' No Such Farmer');
+            throw new Errors.BadRequest(' No Such Buyer');
         }
         return buyer;
     }
+
+    static async getBuyerByNICLike(nic_query){
+        return await Buyer.getBuyerByNICLike(nic_query);
+    }
+
+    
 }
 
 module.exports = BuyerService;

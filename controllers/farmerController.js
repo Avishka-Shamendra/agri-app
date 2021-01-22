@@ -1,26 +1,42 @@
 const { FarmerSignupInfo } = require('./validators/authInfo');
 const UserService = require('../services/userServices');
 const PostService = require('../services/postServices');
+const BuyerService = require('../services/buyerService');
 const { FarmerEditInfo } = require('./validators/editProfileInfo');
+const MessageServices = require('../services/messageServices');
 
 class FarmerController {
-    static homePage(req,res){
+    static async homePage(req,res){
+        try{
+            const requests =  await MessageServices.getAllNewMessagesForAFarmer(req.session.user.uid);
+            res.render('farmerHome',{ 
+                error: req.query.error, 
+                user: req.session.user,
+                new_post_success:req.query.new_post_success,
+                requests:requests,
+             });
+
+        }catch(e){
         res.render('farmerHome',{ 
             error: req.query.error, 
             user: req.session.user,
             new_post_success:req.query.new_post_success,
+            requests:null
          });
+        } 
     } 
 
     static async myPostsPage(req,res){
         try{
-        const posts = await PostService.getFarmerPostsById(req.params.uid);
+        const posts = await PostService.getFarmerPostsById(req.session.user.uid);
         res.render('farmerMyPosts',{
             user:req.session.user,
             error:req.query.error,
+            success:req.query.success,
             posts:posts,
             activePosts:posts.filter((post)=>post.status=='Active'),
             soldPosts:posts.filter((post)=>post.status=='Sold'),
+            expiredPosts:posts.filter((post)=>post.status=='Expired'),
         });
         }catch(err){
             res.redirect(`/farmer?error=${err}`);
@@ -74,6 +90,24 @@ class FarmerController {
             res.redirect(`/editProfile?error=${err}`)
         }
     } 
+
+
+     //to farmer to see a buyer profile
+     static async buyerProfilePage(req,res){
+        try{
+            const buyer = await BuyerService.getBuyer(req.params.buyer_id);
+            res.render('farmerBuyerProfilePage',{
+                error: req.query.error,
+                user: req.session.user,
+                report_success:req.query.report_success,
+                reasons:req.query.reasons,
+                buyer:buyer,
+            });
+
+        }catch(e){
+            res.redirect(`farmer/?error=${e}`)
+        }
+    }
 }
 
 module.exports = FarmerController;

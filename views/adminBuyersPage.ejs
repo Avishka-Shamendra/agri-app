@@ -6,15 +6,20 @@
     <div class="container py-4">
         <div class="text-center">
             <% if (error) {%>
-                <div class="alert alert-danger" role="alert">
-                    <%=error%>
+            <div class="alert alert-danger" role="alert">
+                <%=error%>
+            </div>
+            <% } %>
+            <% if (success) {%>
+                <div class="alert alert-success" role="alert">
+                    <%=success%>
                 </div>
                 <% } %>
-                <% if (buyers.count <= 0) {%>
-                    <div class="alert alert-warning" role="alert">
-                        <h5>There are no registered farmers</h5>
-                    </div>
-                <% } %>
+            <% if (!buyers || buyers.count <= 0) {%>
+                <div class="alert alert-warning" role="alert">
+                    <h5>There are no registered farmers</h5>
+                </div>
+            <% } %>
         </div>
             
             <% if (buyers.count > 0) {%>
@@ -29,8 +34,6 @@
                                     <span class="text-danger" style="font-size: 13px;">(Banned)</span>
                                 <% } %>
                             </h5>
-                            
-                            <h6>Buyer Requests : 00 -Implement</h6>
                             
                         <div class="row text-secondary" style="letter-spacing: 3;">
                             <div class="col-md-3 col-sm-6 col-xs-12">
@@ -55,7 +58,7 @@
 
                 
                 <% } %>
-            <% } %>
+            <%}%>
     </div>
 </div>
 

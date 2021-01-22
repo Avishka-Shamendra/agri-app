@@ -1,0 +1,25 @@
+ html,body {
+    height: 100%;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  .content {
+    flex: 1 0 auto;
+  }
+  .footer {
+    flex-shrink: 0;
+  }
+
+  @media only screen and (max-width: 992px) {
+      #navbarDropdown {
+          display: none;
+      }
+  }
+
+  @media only screen and (min-width: 992px) {
+    #small-screen-nav {
+        display: none;
+    }
+}

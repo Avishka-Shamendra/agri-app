@@ -2,9 +2,16 @@
 <div class="container py-4">
     <h1 class="p-3 display-4" style="font-size:4vw;">Welcome <%=user.name.toUpperCase()%></h1>
     <hr>
+    <h6 class="text-center">Apply Filters To Get More Specific Results!</h6>
+    <hr>
     <% if(error) { %>
         <div class="alert alert-danger text-center" role="alert">
             <%=error%>
+        </div>
+    <%} %>
+    <% if(success) { %>
+        <div class="alert alert-success text-center" role="alert">
+            <%=success%>
         </div>
     <%} %>
 
@@ -47,13 +54,13 @@
             <div class="row">
                 <div class="col-sm-4 col-xs-12 align-self-center">
                     <div class="form-group">
-                        <label for="min_price">Min. Price <small>(Rs)</small></label>
+                        <label for="min_price">Min.Unit Price <small>(Rs)</small></label>
                         <input class="form-control" type="text" id="min_price" name="min_price" placeholder="Rupees" value="<%=min_price%>">
                     </div>
                 </div>
                 <div class="col-sm-4 col-xs-12 align-self-center">
                     <div class="form-group">
-                        <label for="max_price">Max. Price <small>(Rs.)</small></label>
+                        <label for="max_price">Max.Unit Price <small>(Rs.)</small></label>
                         <input class="form-control" type="text" id="max_price" name="max_price" placeholder="Rupees" value="<%=max_price%>">
                     </div>
                 </div>
@@ -222,12 +229,14 @@
                                 <p class="text-secondary"><i class="fas fa-shopping-basket" style="margin-right: 6px;"></i><%=post.product_name%></p>
                             </div>
                         </div>
-                        
+                        <%if (post.req_msg_id){%>
+                            <small class="text-success">Buyer Request Message Already Sent</small>
+                        <%}%>
                         <div class="row">
                             <div class="col-md-6 col-sm-12 text-secondary">
                                 
                                 <p><i class="fas fa-balance-scale-right" style="margin-right: 6px;"></i>Qunatity : <strong><%=post.quantity%> kg</strong> </p>
-                                <p><i class="fas fa-tags" style="margin-right: 6px;"></i>Price : <strong> Rs. <%=post.expected_price%></strong> </p>
+                                <p><i class="fas fa-tags" style="margin-right: 6px;"></i>Unit Price (/kg) : <strong> Rs. <%=post.expected_price%></strong> </p>
                                 <p><i class="fas fa-user" style="margin-right: 6px;"></i>Seller : <%=post.first_name[0].toUpperCase()+post.first_name.slice(1)+' '+post.last_name[0].toUpperCase()+post.last_name.slice(1)%></p>
                                 
                                 
@@ -240,7 +249,7 @@
                             </div>
                         </div>
                         <p class="text-secondary"><i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i>Available Location : <%=post.available_address%> </p>
-                        <a class="card-block stretched-link text-muted" href=''><i class="fa fa-info-circle" style="margin-right: 6px;"></i><span class="text-success">More Details</span></a>
+                        <a class="card-block stretched-link text-muted" href='/buyer/viewpost/<%=post.post_id%>'><i class="fa fa-info-circle" style="margin-right: 6px;"></i><span class="text-success">More Details</span></a>
                         
                     </div>
                   </div>
@@ -257,9 +266,6 @@
                 </div>
             <%}%>
     </div>
-
-
-
 </div>
 
 <%- include('_footer') %>

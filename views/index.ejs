@@ -35,8 +35,59 @@
          </div>
 
      </div>
+     
      <div class="container py-4">
+         <hr>
          <h3 class="text-center">Recent Posts</h3>
+         <h6 class="text-center">Log In to See More!</h6>
+         <hr>
+         <div class="p-3 text-left">
+            <% if(posts && posts.length>0) {%>
+                <% posts.forEach(function(post){%>
+                  <div class="card mb-2 shadow rounded border-success">
+                    <div class="row">
+                      <div class="col-lg-4 align center">
+                        <% if(!post.image_data && post.product_category=='vegetable') {%>
+                            <img class="d-block w-100" src="/assets/default_vegetables.jpg" alt="vegetables">
+                        <%} else if (!post.image_data && post.product_category=='fruit') {%>
+                            <img class="d-block w-100 rounded border-success" src="/assets/default_fruits.jpg" alt="">
+                        <%}%>
+                      </div>
+                      <div class="col-lg-8">
+                        <div class="card-block p-3">
+                            <h5 class="card-title"><%=post.title%></h5>
+                      
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 text-secondary">
+                                    <p class="text-secondary"><i class="fas fa-shopping-basket" style="margin-right: 6px;"></i>Product : <%=post.product_name%></p>
+                                    <p><i class="fas fa-balance-scale-right" style="margin-right: 6px;"></i>Qunatity : <strong><%=post.quantity%> kg</strong> </p>
+                                    <p><i class="fas fa-tags" style="margin-right: 6px;"></i>Unit Price : <strong> Rs. <%=post.expected_price%> per kg</strong> </p>
+                                    
+                                    
+                                </div>
+                                <div class="col-md-6 col-sm-12 text-secondary">
+                                  
+                                    <p><i class="fas fa-phone" style="margin-right: 6px;"></i>Contact No : <%=post.contact_no%></p>
+                                    <p><i class="fas fa-thumbtack" style="margin-right: 6px;"></i>Available District : <%=post.available_district%> </p>
+                                    <p><i class="fas fa-calendar-day" style="margin-right: 6px;"></i>Added On : <%=post.added_day.getFullYear()+'/'+("0" + (post.added_day.getMonth() + 1)).slice(-2)+'/'+("0" + post.added_day.getDate()).slice(-2) %> </p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                      </div>
+               
+                    </div>
+                  </div>
+                <%});%>
+    
+                
+    
+                <% }else{ %>
+                    <div class="alert alert-warning text-center">
+                        <strong>No Recent Posts Available</strong>
+                    </div>
+                <%}%>
+        </div>
 
      </div>
  </div>

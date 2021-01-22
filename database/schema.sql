@@ -10,8 +10,8 @@ DROP TABLE IF EXISTS Buyer_Request CASCADE;
 DROP TABLE IF EXISTS session CASCADE;
 
 DROP TYPE IF EXISTS  Account_Type;
+DROP TYPE IF EXISTS  Buyer_Request_State;
 DROP TYPE IF EXISTS  Category;
-DROP TYPE IF EXISTS  Complain_State;
 DROP TYPE IF EXISTS  Post_State;
 DROP TYPE IF EXISTS  District_Name;
 DROP TYPE IF EXISTS  Gender_Type;
@@ -30,11 +30,6 @@ CREATE TYPE Category AS ENUM(
 'fruit'
 );  
 
-CREATE TYPE Complain_State AS ENUM(
-'new',
-'handled'
-);  
-
 CREATE TYPE Post_State AS ENUM(
 'Active',
 'Expired',
@@ -46,7 +41,11 @@ CREATE TYPE Gender_Type AS ENUM(
 'Female',
 'Other'
 );
-
+CREATE TYPE Buyer_Request_State AS ENUM(
+'New',
+'Interested',
+'NotInterested'
+);
 CREATE TYPE District_Name As ENUM(
 'Anuradhapura',
 'Ampara',
@@ -142,7 +141,7 @@ CREATE TABLE Complain (
   uid uuid4 not null,--person who the complain is about
   complainer_id uuid4 not null,-- person who is complaining
   body varchar(511) not null,-- message text
-  status Complain_State DEFAULT 'new',
+  added_on timestamp not null DEFAULT NOW(),
   PRIMARY KEY (comp_id),
   FOREIGN KEY(uid) REFERENCES UserInfo(uid) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(complainer_id) REFERENCES UserInfo(uid) ON DELETE CASCADE ON UPDATE CASCADE
@@ -175,6 +174,10 @@ CREATE TABLE Buyer_Request (
   req_msg_id uuid4 DEFAULT generate_uuid4 (), -- auto generated
   buyer_id uuid4 not null,
   post_id uuid4 not null,
+  request_title VARCHAR(100) not null,
+  description VARCHAR(999) not null,
+  req_state Buyer_Request_State not null DEFAULT 'New', 
+  added_on timestamp not null DEFAULT NOW(),
   PRIMARY KEY (req_msg_id),
   FOREIGN KEY(buyer_id) REFERENCES Buyer(uid) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(post_id) REFERENCES Post(post_id) ON DELETE CASCADE ON UPDATE CASCADE

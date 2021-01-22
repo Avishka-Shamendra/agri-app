@@ -4,7 +4,7 @@ const UploadFileEdits =async (req)=>{
     const {worked,image} = await Jimp.read(req.file.buffer)
         .then(image => {
             // Do stuff with the image.
-            image
+             image
                 .quality(60)
                 .resize(600, 400);
             return true,image;

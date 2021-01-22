@@ -38,7 +38,7 @@ CREATE TYPE Complain_State AS ENUM(
 CREATE TYPE Post_State AS ENUM(
 'Active',
 'Expired',
-'Sold',
+'Sold'
 );
 
 CREATE TYPE Gender_Type AS ENUM(

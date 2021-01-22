@@ -1,8 +1,10 @@
 const express = require('express');
-const helmet = require('helmet');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const pgConnect = require('connect-pg-simple');
+const helmet = require('helmet');
+const Ouch = require('ouch');
+const errorPageHandler = require('./helpers/errorPageRender');
 
 /* Make all variables from our .env file available in our process */
 require('dotenv').config();
@@ -25,7 +27,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 10 * 24 * 60 * 60 * 1000 },//10 days
+    cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },// 7 days
 }));
 
 /* Define the static files and routes */
@@ -33,19 +35,20 @@ app.use('/assets', express.static('public/assets'));
 app.use(require('./routes'));
 
 app.get('*', (req, res) => {
-    res.status(404).render('404', { code: 404, failed: 'OOPS! Not found' });
+    res.status(404).render('404');
 });
 
-//on deployment add logger
 
-// const errorLogger = defaultLogger('error-handler');
-
-
-// app.use((err, req, res, next) => {
-//     const { query, params, body } = req;
-//     errorLogger.error({ err, req: { query, params, body } });
-//     res.sendStatus(500);
-// });
+app.use((err, req, res,next) => {
+    (new Ouch()).pushHandler(new Ouch.handlers.CallbackHandler((next, exception,
+        inspector, run, request, response) => {
+        errorPageHandler.errorResponse(response, 'Internal Server Error', 500);
+    }))
+        .handleException(err, req, res,
+            () => {
+                console.log(`Error occurred: ${err}`);
+            });
+});
 
 /* Listen on the port for requests */
 app.listen(process.env.PORT || 3000, () => {

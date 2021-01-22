@@ -29,7 +29,7 @@ function uploadFileMiddleware(req, res, next) {
     //console.log(req.url);
     const upload = uploadFile.single('imgFile');
 
-    upload(req, res, function (err) {
+    upload(req, res, async function (err) {
         if (err instanceof multer.MulterError && (req.url === '/farmer/addPostImage')) {
             res.redirect(`/farmer/post/${req.params.post_id}?error=${err}`);
         }
@@ -40,11 +40,16 @@ function uploadFileMiddleware(req, res, next) {
             res.redirect(`/farmer/post/${req.params.post_id}?error=${err}`);
         }else {
             // Everything went fine.
-            const {worked,image} = UploadFileEdits(req);
+            console.log(req.file.buffer);
+            const [worked,image] = await UploadFileEdits(req);
+            // console.log(req.file.buffer);
             if(worked){
-                req.file.buffer = image;
+                try{
+                // console.log(image);
+                // req.file.buffer =image.bitmap.data;
+                // console.log(req.file.buffer);
+                }catch(e){}
             }
-            //console.log(req.file.buffer)
             next()
         }
     })

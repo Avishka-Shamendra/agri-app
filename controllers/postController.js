@@ -1,9 +1,10 @@
 
 const PostService = require('../services/postServices');
-const { addpostInfo } = require('./validators/postInfo');
-
 const MessageService = require('../services/messageServices');
 const BuyerRequest = require('../models/BuyerRequest');
+const { addpostInfo } = require('./validators/postInfo');
+const { defaultLogger } = require('../config/logger');
+const logger = defaultLogger('post-controller');
 
 class PostController{
     static addPostPage(req, res){
@@ -29,6 +30,7 @@ class PostController{
             const post = await PostService.addPost(req.body,req.session.user.uid);
             res.redirect('/farmer?new_post_success=Your post is now Active .You can view the post in "My Posts" section.You can add an image to your post from there if needed.');
         }catch (e) {
+            logger.error(e);
             res.redirect(`/farmer/addPost?error=${e}&title=${req.body.title}&product_name=${req.body.product_name}&expected_price=${req.body.expected_price}&quantity=${req.body.quantity}&phone_num=${req.body.phone_num}&description=${req.body.description}&product_category=${req.body.product_category}&address=${req.body.address}&district=${req.body.district}`);
         }
     }
@@ -50,6 +52,7 @@ class PostController{
 
         }
         catch(e){
+            logger.error(e);
             res.redirect(`/farmer/myPosts?error=${e}`)
         }
     }
@@ -71,6 +74,7 @@ class PostController{
             
         }
         catch(err){
+            logger.error(err);
             res.redirect(`/buyer?error=${err}`);
         }
     }
@@ -80,6 +84,7 @@ class PostController{
             await PostService.deletePost(req.params.post_id);
             res.redirect(`/admin/allPosts?success=Post Deleted Successfully`);
         }catch(e){
+            logger.error(e);
             res.redirect(`/admin/allPosts?error=${e}`);
         }
     }
@@ -89,6 +94,7 @@ class PostController{
             await PostService.deletePost(req.params.post_id);
             res.redirect(`/admin/allFarmers?success=Post Deleted Successfully`);
         }catch(e){
+            logger.error(e);
             res.redirect(`/admin/allFarmers?error=${e}`);
         }
     }
@@ -98,6 +104,7 @@ class PostController{
             const post = await PostService.markAsSold(req.params.post_id);
             res.redirect(`/farmer/post/${req.params.post_id}?success=Post State changed to SOLD.`);
         }catch(e){
+            logger.error(e);
             res.redirect(`/farmer/myPosts?error=${e}`);
         }
     }
@@ -112,6 +119,7 @@ class PostController{
             }
             
         }catch(e){
+            logger.error(e);
             res.redirect(`/farmer/post${req.params.post_id}?error=${e}`)
         }
     }

@@ -57,7 +57,7 @@
                                         </div>
                                     </div>   
                                     <div class="mt-1">
-                                        <p class="card-text"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message: <%=request.description%> </p>
+                                        <p class="card-text text-justify"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message: <%=request.description%> </p>
                                     </div>
                                     <div class="row text-secondary mt-1 text-center" style="letter-spacing: 3;">
                                         <div class="col-sm-6 col-xs-12 mb-1">
@@ -126,7 +126,7 @@
                                         </div>
                                     </div>   
                                     <div class="mt-1">
-                                        <p class="card-text"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message: <%=request.description%> </p>
+                                        <p class="card-text  text-justify"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message: <%=request.description%> </p>
                                     </div>
                                     <div class="row text-secondary mt-1 text-center" style="letter-spacing: 3;">
                                         <div class="col-sm-6 col-xs-12 mb-1">
@@ -170,6 +170,9 @@
                 <div class="tab-pane" id="notInterestedmsgs" role="tabpanel">
                     
                     <% if (notInterestedRequests && notInterestedRequests.length > 0) {%>
+                        <div class="alert alert-warning text-center">
+                            <strong>Lets keep it clean! Delete unwanted requests.</strong>
+                        </div>
                         <% notInterestedRequests.forEach(function(request) { %>
                         <div class="card mb-2 shadow border-success rounded">
                             <div class="card-body">
@@ -195,7 +198,7 @@
                                         </div>
                                     </div>   
                                     <div class="mt-1">
-                                        <p class="card-text"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message: <%=request.description%> </p>
+                                        <p class="card-text  text-justify"><i class="fas fa-comment" style="margin-right: 6px;"></i>Message: <%=request.description%> </p>
                                     </div>
                                     <div class="row text-secondary mt-1 text-center" style="letter-spacing: 3;">
                                         <div class="col-sm-6 col-xs-12 mb-1">

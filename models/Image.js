@@ -1,7 +1,5 @@
 const sql = require("./../config/db");
 
-//SELECT encode(data, 'base64') FROM image where id = 145
-
 class ImageClass{
     static  async addPostImg(details){
         const [post_id] = await sql.begin(async sql => {

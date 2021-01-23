@@ -48,13 +48,6 @@ class Buyer {
           return updatedUser;
     }
 
-    // static async deleteBuyer(uid){
-    //     const [buyer_id] = await sql.begin(async sql=>{
-    //        sql`DELETE FROM userinfo WHERE uid=${uid} RETURNING uid`;
-    //         return buyer_id;
-    //     });
-    //     return buyer_id;
-    // }
 
     static async getBuyerByNICLike(nic_query, LIMIT=5){
         nic_query = '%'+nic_query+'%';

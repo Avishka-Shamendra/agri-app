@@ -28,7 +28,7 @@ class PostController{
             const { value, error } = await addpostInfo.validate(req.body);
             if (error) throw (error);
             const post = await PostService.addPost(req.body,req.session.user.uid);
-            res.redirect('/farmer?new_post_success=Your post is now Active .You can view the post in "My Posts" section.You can add an image to your post from there if needed.');
+            res.redirect('/farmer?new_post_success=Your post is now Active .You can view the post in "My Posts" section.You can add an image to your post, delete the post from there.');
         }catch (e) {
             logger.error(e);
             res.redirect(`/farmer/addPost?error=${e}&title=${req.body.title}&product_name=${req.body.product_name}&expected_price=${req.body.expected_price}&quantity=${req.body.quantity}&phone_num=${req.body.phone_num}&description=${req.body.description}&product_category=${req.body.product_category}&address=${req.body.address}&district=${req.body.district}`);

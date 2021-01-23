@@ -25,15 +25,15 @@
                     <% } %>
                     <div class="form-group">
                         <label for='firstName'>First Name</label>
-                        <input type='text' name='firstName' value="<%=user.firstName%>" placeholder="First Name" class="form-control" required>
+                        <input type='text' name='firstName' value="<%=user.firstName%>" placeholder="First Name" class="form-control" required maxlength="50" style="text-transform: capitalize;">
                     </div>
                     <div class="form-group ">
                         <label for='lastName'>Last Name</label>
-                        <input type='text' name='lastName' value="<%=user.lastName%>" placeholder="Last Name" class="form-control" required>
+                        <input type='text' name='lastName' value="<%=user.lastName%>" placeholder="Last Name" class="form-control" required maxlength="50" style="text-transform: capitalize;">
                     </div>
                     <div class="form-group ">
                         <label for='email'>Email</label>
-                        <input type='email' name='email' value="<%=user.email%>" placeholder="Email" class="form-control" required>
+                        <input type='email' name='email' value="<%=user.email%>" placeholder="Email" class="form-control" required maxlength="50">
                     </div>
                     <div class="form-group">
                         <label for="gender">Gender</label>
@@ -59,15 +59,15 @@
                     <% if(user.type=='farmer') {%>
                     <div class="form-group ">
                         <label for='contactNo'>Contact Number</label>
-                        <input type='text' name='contactNo' value="<%=user.farmerData.contact_no%>" placeholder="Contact Number" class="form-control" required>
+                        <input type='text' name='contactNo' value="<%=user.farmerData.contact_no%>" placeholder="Contact Number" class="form-control" required maxlength="10">
                     </div>
                     <div class="form-group ">
                         <label for='nicNumber'>NIC Number</label>
-                        <input type='text' name='nicNumber' value="<%=user.farmerData.nic%>" placeholder="NIC Number" class="form-control" required>
+                        <input type='text' name='nicNumber' value="<%=user.farmerData.nic%>" placeholder="NIC Number" class="form-control" required maxlength="15" style="text-transform: uppercase;">
                     </div>
                     <div class="form-group">
                         <label for="address">Address</label>
-                        <textarea class="form-control" id="address" name="address" rows="3"><%=user.farmerData.address%></textarea>
+                        <textarea class="form-control" id="address" name="address" rows="3" maxlength="100" style="text-transform: capitalize;"><%=user.farmerData.address%></textarea>
                     </div>  
                     <div class="form-group">
                         <label for="district">Residential District</label>
@@ -199,11 +199,11 @@
                     <% if(user.type=='buyer') {%>
                         <div class="form-group ">
                             <label for='contactNo'>Contact Number</label>
-                            <input type='text' name='contactNo' value="<%=user.buyerData.contact_no%>" placeholder="Contact Number" class="form-control" required>
+                            <input type='text' name='contactNo' value="<%=user.buyerData.contact_no%>" placeholder="Contact Number" class="form-control" required maxlength="10">
                         </div>
                         <div class="form-group ">
                             <label for='nicNumber'>NIC Number</label>
-                            <input type='text' name='nicNumber' value="<%=user.buyerData.nic%>" placeholder="NIC Number" class="form-control" required>
+                            <input type='text' name='nicNumber' value="<%=user.buyerData.nic%>" placeholder="NIC Number" class="form-control" required maxlength="15" style="text-transform: uppercase;">
                         </div>
                         <div class="form-group">
                             <label for="district">Residential District</label>
@@ -362,15 +362,15 @@
         <% } %>
         <div class="form-group">
             <label for='old_pwd'>Current Password</label>
-            <input type='password' name='old_pwd' id="old_pwd" class="form-control" required>
+            <input type='password' name='old_pwd' id="old_pwd" class="form-control" required maxlength="40">
         </div>
         <div class="form-group">
-            <label for='new_pwd'>New Password</label>
-            <input type='password' name='new_pwd' id="new_pwd" class="form-control" required>
+            <label for='new_pwd'>New Password<small> (min 6 max 20 characters long)</small></label>
+            <input type='password' name='new_pwd' id="new_pwd" class="form-control" required maxlength="40">
         </div>
         <div class="form-group">
             <label for='confirm_pwd'>Confirm New Password</label>
-            <input type='password' name='confirm_pwd' id="confirm_pwd" class="form-control" required>
+            <input type='password' name='confirm_pwd' id="confirm_pwd" class="form-control" required maxlength="40">
         </div>
         <div class="text-right">
             <input type="submit" value='Change and Save New Password' class="btn btn-success" required>

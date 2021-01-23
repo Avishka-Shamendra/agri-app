@@ -18,13 +18,13 @@
                         <div class="col-md-6 col-sm-12 align-self-center">
                             <div class="form-group">
                                 <label for="title">Post Title</label>
-                                <input class="form-control" type="text" id="title" name="title" placeholder="Title of Post" value="<%=title%>" required>
+                                <input class="form-control" type="text" id="title" name="title" placeholder="Title of Post" value="<%=title%>" required maxlength="60">
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 align-self-center">
                             <div class="form-group">
                                 <label for="product_name">Product Name<small> (ex: carrot,mango...)</small></label>
-                                <input class="form-control" type="text" id="product_name" name="product_name" placeholder="What is the product" value="<%=product_name%>" required>
+                                <input class="form-control" type="text" id="product_name" name="product_name" placeholder="What is the product" value="<%=product_name%>" required maxlength="30">
                             </div>
                         </div>
                     </div>
@@ -32,13 +32,13 @@
                         <div class="col-md-6 col-sm-12 align-self-center">
                             <div class="form-group">
                                 <label for="quantity">Quantity <small>(kg) min 50kg</small></label>
-                                <input class="form-control" type="text" id="quantity" name="quantity" placeholder="Amount to be sold" value="<%=quantity%>" required>
+                                <input class="form-control" type="text" id="quantity" name="quantity" placeholder="Amount to be sold" value="<%=quantity%>" required maxlength="10">
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 align-self-center">
                             <div class="form-group">
                                 <label for="expected_price">Expected Unit Price <small>(Rs/kg) max. Rs 9999</small></label>
-                                <input class="form-control" type="text" id="expected_price" name="expected_price" placeholder="Unit Price" value="<%=expected_price%>" required>
+                                <input class="form-control" type="text" id="expected_price" name="expected_price" placeholder="Unit Price" value="<%=expected_price%>" required maxlength="5">
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                         <div class="col-md-6 col-sm-12 align-self-center">
                             <div class="form-group">
                                 <label for="phone_num">Contact Number</label>
-                                <input class="form-control" type="text" id="phone_num" name="phone_num" placeholder="Phone Number" value="<%=phone_num%>" required>
+                                <input class="form-control" type="text" id="phone_num" name="phone_num" placeholder="Phone Number" value="<%=phone_num%>" required maxlength="10">
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 align-self-center">
@@ -72,7 +72,7 @@
                     </div>
                     <div class="form-group">
                         <label for="address">Available Location/Address</label>
-                        <textarea class="form-control" id="address" name="address" rows="3"><%=address%></textarea>
+                        <textarea class="form-control" id="address" name="address" rows="3" maxlength="100"><%=address%></textarea>
                     </div>
                     <div class="form-group">
                         <label for="district">Available District</label>
@@ -202,7 +202,7 @@
                       </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" id="description" name="description" placeholder="Description" rows="5" required><%=description%></textarea>
+                        <textarea class="form-control" id="description" name="description" placeholder="Description" rows="5" required maxlength="800"><%=description%></textarea>
                     </div>
                     <small>Note that all posts will expire after 30 to 37 days</small>
                     <div class="form-group text-right">

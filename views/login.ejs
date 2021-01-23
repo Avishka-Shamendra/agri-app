@@ -13,22 +13,22 @@
                 <h3 class="text-center">Log  In</h3>
                 <form method="POST" action="/login">
                     <% if (error) {%>
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger text-center" role="alert">
                         <%=error%>
                     </div>
                     <% } %>
                     <% if (del_acc_success) {%>
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger text-center" role="alert">
                             <%=del_acc_success%>
                         </div>
                         <% } %>
                     <% if (adminRegSuccess) {%>
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-success text-center" role="alert">
                         <%=adminRegSuccess%>
                     </div>
                     <% } %>
                     <% if (farmerRegSuccess) {%>
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-success text-center" role="alert">
                         <%=farmerRegSuccess%>
                     </div>
                     <% } %>
@@ -39,7 +39,7 @@
                     <% } %>
                     <div class="form-group">
                         <label for="email">Enter Your Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required value="<%=email%>">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required value="<%=email%>" maxlength="100">
                     </div>
     
                     <div class="form-group">

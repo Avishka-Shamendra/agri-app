@@ -34,11 +34,12 @@ app.use(session({
 app.use('/assets', express.static('public/assets'));
 app.use(require('./routes'));
 
+/*404 error*/
 app.get('*', (req, res) => {
     res.status(404).render('404');
 });
 
-
+/*incase of unexpeted error*/
 app.use((err, req, res,next) => {
     (new Ouch()).pushHandler(new Ouch.handlers.CallbackHandler((next, exception,
         inspector, run, request, response) => {

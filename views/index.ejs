@@ -2,13 +2,21 @@
 
  <div class="container py-4 text-center">
      <h1>Welcome !</h1>
+     <hr>
+     <% if (error) {%>
+        <div class="alert alert-danger text-center" role="alert">
+             <strong>OOPS! IT SEEMS SOMETHING WENT WRONG. PLEASE TRY AGAIN LATER.</strong> 
+             <br>
+             <%=error.message%>
+        </div>
+        <% } %>
      <div class="row mt-3">
          <div class="col-md-4">
             <div class="card p-3 rounded shadow-lg border-success mb-3">
                 <div class="card-body text-center">
                   <h5 class="card-title">Still a Guest?</h5>
                   <p class="card-text">Register with us as a buyer to see more posts</p>
-                  <a href="/buyer/signup" class="btn btn-success">Sign Up As a Buyer</a>
+                  <a href="/buyer/signup" class="btn btn-success">Sign Up as A Buyer</a>
                 </div>
               </div>
 
@@ -16,9 +24,9 @@
          <div class="col-md-4">
             <div class="card p-3 rounded shadow-lg border-success mb-3">
                 <div class="card-body text-center">
-                  <h5 class="card-title">Want to Add Your Own Post?</h5>
+                  <h5 class="card-title">Want to Add Your Own Posts?</h5>
                   <p class="card-text">Register with us as a farmer and add your posts here</p>
-                  <a href="/farmer/signup" class="btn btn-success">Sign Up As a Farmer</a>
+                  <a href="/farmer/signup" class="btn btn-success">Sign Up as A Farmer</a>
                 </div>
               </div>
 
@@ -27,7 +35,7 @@
             <div class="card p-3 rounded shadow-lg border-success mb-3">
                 <div class="card-body text-center">
                   <h5 class="card-title">Already Have an Account?</h5>
-                  <p class="card-text">Log in using your buyer/farmer account</p>
+                  <p class="card-text">Log In using your buyer/farmer account</p>
                   <a href="/login" class="btn btn-success">Log In Now</a>
                 </div>
               </div>
@@ -90,7 +98,12 @@
                     </div>
                 <%}%>
         </div>
-
+        <hr>
+        <div class="text-center">
+            <h4>Contact Us</h4>
+            <p><i class="fas fa-envelope" style="margin-right: 6px;"></i>admin@agro.com</p>
+            <p><i class="fas fa-phone" style="margin-right: 6px;"></i>+12 345678123</p>
+        </div>
      </div>
  </div>
 

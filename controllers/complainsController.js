@@ -1,5 +1,8 @@
 const {complainInfo} = require('./validators/complainInfo');
 const ComplainServices = require('../services/complainService');
+const { defaultLogger } = require('../config/logger');
+const logger = defaultLogger('complains-controller');
+
 
 class ComplainController{
     static async farmerReport(req,res){
@@ -11,6 +14,7 @@ class ComplainController{
 
         }
         catch(e){
+            logger.error(e);
             res.redirect(`/buyer/farmerProfile/${req.params.farmer_id}?error=${e}&reasons=${req.body.reasons}`);
         }
 
@@ -25,6 +29,7 @@ class ComplainController{
 
         }
         catch(e){
+            logger.error(e);
             res.redirect(`/farmer/buyerProfile/${req.params.buyer_id}?error=${e}&reasons=${req.body.reasons}`);
         }
 
@@ -43,6 +48,7 @@ class ComplainController{
             });
 
         }catch(e){
+            logger.error(e);
             res.redirect(`/admin?error=${e}`);
         }
     }
@@ -52,6 +58,7 @@ class ComplainController{
             await ComplainServices.delete(req.params.comp_id);
             res.redirect('/admin/complains?success=Complain Deleted Successfully');
         }catch(e){
+            logger.error(e);
             res.redirect(`/admin/complains?error=${e}`);
         }
     }

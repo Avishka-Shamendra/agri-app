@@ -193,10 +193,8 @@ CREATE TABLE Buyer_Request (
   FOREIGN KEY(post_id) REFERENCES Post(post_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
------------------------------------ Indices Schema ----------------------------------------------
 
-
------------------------------------- Session Sceham ----------------------------------------------
+------------------------------------ Session Scehma ----------------------------------------------
 ---------------------------------- SESSION TABLE SCHEMA -----------------------------------
 
 CREATE TABLE "session" (

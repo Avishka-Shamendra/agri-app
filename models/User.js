@@ -19,7 +19,6 @@ class User {
     
 
     static async findUser(email) {
-        //no need of transactions as all are selects.
         const [user] = await sql`
             SELECT * from userinfo
             WHERE email=${email}

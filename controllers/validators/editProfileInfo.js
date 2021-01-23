@@ -10,16 +10,16 @@ const ChangePasswordInfo = Joi.object().options({ abortEarly: false }).keys({
 const AdminEditInfo = Joi.object().options({ abortEarly: false }).keys({
     //commmon user details
     email: Joi.string().email().max(50).required().label("Email"),
-    firstName: Joi.string().max(20).required().label("First Name"),
-    lastName: Joi.string().max(20).required().label("Last Name"),
+    firstName: Joi.string().min(2).max(20).required().label("First Name"),
+    lastName: Joi.string().min(2).max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
 });
 
 const FarmerEditInfo = Joi.object().options({ abortEarly: false }).keys({
     //commmon user details
     email: Joi.string().email().max(50).required().label("Email"),
-    firstName: Joi.string().max(20).required().label("First Name"),
-    lastName: Joi.string().max(20).required().label("Last Name"),
+    firstName: Joi.string().min(2).max(20).required().label("First Name"),
+    lastName: Joi.string().min(2).max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
     //farmer special
     nicNumber: Joi.string().required().label("NIC Number")
@@ -38,8 +38,8 @@ const FarmerEditInfo = Joi.object().options({ abortEarly: false }).keys({
 const BuyerEditInfo = Joi.object().options({ abortEarly: false }).keys({
     //commmon user details
     email: Joi.string().email().max(50).required().label("Email"),
-    firstName: Joi.string().max(20).required().label("First Name"),
-    lastName: Joi.string().max(20).required().label("Last Name"),
+    firstName: Joi.string().min(2).max(20).required().label("First Name"),
+    lastName: Joi.string().min(2).max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
     // buyer special
     nicNumber: Joi.string().required().label("NIC Number")

@@ -1,6 +1,8 @@
 const {buyerRequestInfo} =require('./validators/buyerRequestInfo');
 const messageServices =require('../services/messageServices');
 const BuyerRequest = require('../models/BuyerRequest');
+const { defaultLogger } = require('../config/logger');
+const logger = defaultLogger('message-controller');
 
 class MessageController{
     static async buyerRequest(req,res){
@@ -12,6 +14,7 @@ class MessageController{
 
         }
         catch(e){
+            logger.error(e);
             res.redirect(`/buyer/viewpost/${req.params.postid}?msg_error=${e}&request_title=${req.body.title}&description=${req.body.description}#buyerRequest`);
         }
 
@@ -21,6 +24,7 @@ class MessageController{
             await messageServices.deleteMsg(req.params.msg_id);
             res.redirect(`/buyer/sentRequests?del_suc=Message Deleted from the System Successfully`);
         }catch(e){
+            logger.error(e);
             res.redirect(`/buyer/sentRequests?error=${e}`);
         }
     } 
@@ -29,6 +33,7 @@ class MessageController{
             await messageServices.deleteMsg(req.params.msg_id);
             res.redirect(`/buyer?success=Message Deleted from the System Successfully`);
         }catch(e){
+            logger.error(e);
             res.redirect(`/buyer?error=${e}`);
         }
     } 
@@ -38,6 +43,7 @@ class MessageController{
             await messageServices.deleteMsg(req.params.req_msg_id);
             res.redirect(`/admin/buyerRequests?success=Message Deleted from the System Successfully`);
         }catch(e){
+            logger.error(e);
             res.redirect(`/admin/buyerRequests?error=${e}`);
         }
     } 
@@ -52,6 +58,7 @@ class MessageController{
                 requests:messages,
             })
         }catch(e){
+            logger.error(e);
             res.redirect(`/admin?error=${e}`);
         }
     }
@@ -65,19 +72,21 @@ class MessageController{
             }
 
         }catch(e){
+            logger.error(e);
             res.redirect(`/farmer/post/${req.params.post_id}?req_error=${e}#requests`)
         }
     }
 
     static async markAsNotInterested(req,res){
         try{
-            const post = await BuyerRequest.markAsNotInterested(req.params.req_id+'1');
+            const post = await BuyerRequest.markAsNotInterested(req.params.req_id);
             if(!post)  res.redirect(`/farmer/post/${req.params.post_id}?req_error=Could not change state to Not Interested.Please try again later#requests`)
             else{
             res.redirect(`/farmer/post/${req.params.post_id}?req_success=Request Message Sucessfully Marked as Not Interested#requests`)
             }
 
         }catch(e){
+            logger.error(e);
             res.redirect(`/farmer/post/${req.params.post_id}?req_error=${e}#requests`)
         }
     }

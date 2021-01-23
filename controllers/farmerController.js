@@ -4,6 +4,8 @@ const PostService = require('../services/postServices');
 const BuyerService = require('../services/buyerService');
 const { FarmerEditInfo } = require('./validators/editProfileInfo');
 const MessageServices = require('../services/messageServices');
+const { defaultLogger } = require('../config/logger');
+const logger = defaultLogger('farmer-controller');
 
 class FarmerController {
     static async homePage(req,res){
@@ -17,6 +19,7 @@ class FarmerController {
              });
 
         }catch(e){
+        logger.error(e);
         res.render('farmerHome',{ 
             error: req.query.error, 
             user: req.session.user,
@@ -39,6 +42,7 @@ class FarmerController {
             expiredPosts:posts.filter((post)=>post.status=='Expired'),
         });
         }catch(err){
+            logger.error(err);
             res.redirect(`/farmer?error=${err}`);
         }
     }
@@ -64,7 +68,7 @@ class FarmerController {
             await UserService.farmerRegister(value);
             res.redirect('/login?farmerRegSuccess=Registration as Farmer Successful');
         } catch (err) {
-            //logger.error(err);
+            logger.error(err);
             res.redirect(
                 `/farmer/signup?error=${err}&email=${req.body.email}&firstName=${req.body.firstName}&lastName=${req.body.lastName}&gender=${req.body.gender}&district=${req.body.district}&nicNumber=${req.body.nicNumber}&contactNo=${req.body.contactNo}&address=${req.body.address}`
                 );
@@ -86,7 +90,7 @@ class FarmerController {
             req.session.user.farmerData=user.farmerData;
             res.redirect('/editProfile?success=Changes saved sucessfully');
         }catch(err){
-            //logger.error(err);
+            logger.error(err);
             res.redirect(`/editProfile?error=${err}`)
         }
     } 
@@ -105,6 +109,7 @@ class FarmerController {
             });
 
         }catch(e){
+            logger.error(e);
             res.redirect(`farmer/?error=${e}`)
         }
     }

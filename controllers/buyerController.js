@@ -1,10 +1,14 @@
-const { BuyerSignupInfo } = require('./validators/authInfo');
-const { BuyerEditInfo } = require('./validators/editProfileInfo');
-const {filterPostsInfo } = require('./validators/postInfo');
 const UserService = require('../services/userServices');
 const PostService = require('../services/postServices');
 const MessageService = require('../services/messageServices');
 const FarmerService = require('../services/farmerService');
+const { BuyerSignupInfo } = require('./validators/authInfo');
+const { BuyerEditInfo } = require('./validators/editProfileInfo');
+const {filterPostsInfo } = require('./validators/postInfo');
+const { defaultLogger } = require('../config/logger');
+const logger = defaultLogger('admin-controller');
+
+
 class BuyerController {
     static async  homePage(req,res){
             try{
@@ -22,6 +26,7 @@ class BuyerController {
                     max_quantity:req.query.max_quantity,
                 });
             }catch(err){
+                logger.error(err);
                 res.render('buyerHome',{ 
                     error: err, 
                     user: req.session.user,
@@ -57,6 +62,7 @@ class BuyerController {
                 max_quantity:req.body.max_quantity,
             });
         } catch (err) {
+            logger.error(err);
             res.redirect(
                 `/buyer?error=${err}&filter_category=${req.body.filter_category}&filter_district=${req.body.filter_district}&min_price=${req.body.min_price}&max_price=${req.body.max_price}&min_quantity=${req.body.min_quantity}&max_quantity=${req.body.max_quantity}`
                 );
@@ -84,9 +90,12 @@ class BuyerController {
                 error: req.query.error,
                 user : req.session.user,
                 del_suc: req.query.del_suc,
-                requests:requests,
+                newRequests:requests.filter((req)=>req.req_state==='New'),
+                interestedRequests:requests.filter((req)=>req.req_state==='Interested'),
+                notInterestedRequests:requests.filter((req)=>req.req_state==='NotInterested'),
                 });
         }catch(err){
+            logger.error(err);
             res.redirect(`/buyer?error=${err}`);
         }
     } 
@@ -98,7 +107,7 @@ class BuyerController {
             await UserService.buyerRegister(value);
             res.redirect('/login?buyerRegSuccess=Registration as a Buyer Successful');
         } catch (err) {
-            //logger.error(err);
+            logger.error(err);
             res.redirect(
                 `/buyer/signup?error=${err}&email=${req.body.email}&firstName=${req.body.firstName}&lastName=${req.body.lastName}&gender=${req.body.gender}&district=${req.body.district}&nicNumber=${req.body.nicNumber}&contactNo=${req.body.contactNo}`
                 );
@@ -120,7 +129,7 @@ class BuyerController {
             req.session.user.buyerData=user.buyerData;
             res.redirect('/editProfile?success=Changes saved sucessfully');
         }catch(err){
-            //logger.error(err);
+            logger.error(err);
             res.redirect(`/editProfile?error=${err}`)
         }
     } 
@@ -140,6 +149,7 @@ class BuyerController {
             });
 
         }catch(e){
+            logger.error(e);
             res.redirect(`/buyer/?error=${e}`)
         }
     }

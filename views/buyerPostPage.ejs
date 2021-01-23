@@ -73,12 +73,12 @@
                             <form method="post" action="/buyer/message/buyerRequest/<%=post.post_id%>">
                                 <div class="form-group">
                                         <label for="title">Request Title</label>
-                                        <input class="form-control" type="text" id="title" name="title" placeholder="Title" value="<%=request_title%>" required>
+                                        <input class="form-control" type="text" id="title" name="title" placeholder="Title" value="<%=request_title%>" required maxlength="50" style="text-transform: capitalize;">
                                 </div>
                         
                                 <div class="form-group">
                                     <label for="description">Message/Note</label>
-                                    <textarea class="form-control" id="description" name="description" placeholder="Message/Note" rows="15" required><%=description%></textarea>
+                                    <textarea class="form-control" id="description" name="description" placeholder="Message/Note" rows="15" required maxlength="800"><%=description%></textarea>
                                 </div>
                                 <div class="form-group text-right">
                                     <button class="btn btn-success" type="submit">Send Message</button>

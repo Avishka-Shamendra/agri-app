@@ -1,5 +1,7 @@
 const multer = require("multer");
-const { UploadFileEdits } = require('../helpers/ImageManipulationForUpload')
+const { UploadFileEdits } = require('../helpers/ImageManipulationForUpload');
+const { defaultLogger } = require('../config/logger');
+const logger = defaultLogger('image-middleware');
 
 
 const imageFilter = (req, file, cb) => {
@@ -29,7 +31,7 @@ function uploadFileMiddleware(req, res, next) {
     //console.log(req.url);
     const upload = uploadFile.single('imgFile');
 
-    upload(req, res, function (err) {
+    upload(req, res, async function (err) {
         if (err instanceof multer.MulterError && (req.url === '/farmer/addPostImage')) {
             res.redirect(`/farmer/post/${req.params.post_id}?error=${err}`);
         }
@@ -39,12 +41,14 @@ function uploadFileMiddleware(req, res, next) {
         else if (err) {
             res.redirect(`/farmer/post/${req.params.post_id}?error=${err}`);
         }else {
-            // Everything went fine.
-            const {worked,image} = UploadFileEdits(req);
+            const [worked,image] = await UploadFileEdits(req);
             if(worked){
-                req.file.buffer = image;
+                try{
+                 req.file.buffer =image;
+                }catch(e){
+                    logger.error(e);
+                }
             }
-            //console.log(req.file.buffer)
             next()
         }
     })

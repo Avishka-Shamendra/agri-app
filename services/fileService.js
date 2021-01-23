@@ -1,6 +1,5 @@
 const Image = require("./../models/Image");
 const Errors = require('../helpers/error');
-const {img_add_keyword} = require('../helpers/image_helper');
 
 
 class FileService {

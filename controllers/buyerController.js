@@ -1,10 +1,10 @@
-const { BuyerSignupInfo } = require('./validators/authInfo');
-const { BuyerEditInfo } = require('./validators/editProfileInfo');
-const {filterPostsInfo } = require('./validators/postInfo');
 const UserService = require('../services/userServices');
 const PostService = require('../services/postServices');
 const MessageService = require('../services/messageServices');
 const FarmerService = require('../services/farmerService');
+const { BuyerSignupInfo } = require('./validators/authInfo');
+const { BuyerEditInfo } = require('./validators/editProfileInfo');
+const {filterPostsInfo } = require('./validators/postInfo');
 const { defaultLogger } = require('../config/logger');
 const logger = defaultLogger('admin-controller');
 

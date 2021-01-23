@@ -58,7 +58,7 @@
                         <form class="p-3 text-left" method="POST" action="/farmer/reportBuyer/<%=buyer.uid%>">
                             <div class="form-group">
                                 <label for="reasons">Reasons</label>
-                                <textarea class="form-control" id="reasons" name="reasons" rows="3" required><%=reasons%></textarea>
+                                <textarea class="form-control" id="reasons" name="reasons" rows="3" required maxlength="400"><%=reasons%></textarea>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

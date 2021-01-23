@@ -30,14 +30,14 @@ const FarmerSignupInfo = Joi.object().options({ abortEarly: false }).keys({
     //farmer special
     nicNumber: Joi.string().required().label("NIC Number")
     .min(10)
-    .message('"NIC Number" should be more than 10 digits'),
+    .message('"NIC Number" should be more than 10 characters'),
     contactNo:Joi.string().trim().required()
     .length(10, 'utf8')
     .message('"Contact Number" must be 10 digits')
     .regex(/^\d+$/)
     .message('"Contact Number" contains invalid characters'),
     district: Joi.string().required().label("District"),
-    address: Joi.string().required().label("Address")
+    address: Joi.string().required().max(100).label("Address")
     
 });
 
@@ -53,7 +53,7 @@ const BuyerSignupInfo = Joi.object().options({ abortEarly: false }).keys({
     // buyer special
     nicNumber: Joi.string().required().label("NIC Number")
     .min(10)
-    .message('"NIC Number" should be more than 10 digits'),
+    .message('"NIC Number" should be more than 10 characters'),
     contactNo:Joi.string().trim().required()
     .length(10, 'utf8')
     .message('"Contact Number" must be 10 digits')

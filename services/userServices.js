@@ -102,7 +102,7 @@ class UserService {
     }
 
     static async farmerUpdate({
-        firstName,lastName,gender,email, nicNumber, contactNo, address, district
+        firstName,lastName,gender,email, contactNo, address, district
     },uid) {
 
 
@@ -110,12 +110,8 @@ class UserService {
         if (user && user.uid!=uid) {
             throw new Errors.BadRequest(' Email is already registered');
         }
-        const isNICRegistered = await User.isNICregistered(nicNumber);
-        if (isNICRegistered) {
-            throw new Errors.BadRequest(' NIC is already registered');
-        }
         
-        return Farmer.updateFarmer(firstName,lastName,gender,email, nicNumber, contactNo, address, district,uid);
+        return Farmer.updateFarmer(firstName,lastName,gender,email, contactNo, address, district,uid);
     }
 
     static async buyerRegister({
@@ -140,7 +136,7 @@ class UserService {
     }
 
     static async buyerUpdate({
-        firstName,lastName,gender,email, nicNumber, contactNo, district
+        firstName,lastName,gender,email, contactNo, district
     },uid) {
 
 
@@ -148,11 +144,7 @@ class UserService {
         if (user && user.uid!=uid) {
             throw new Errors.BadRequest(' Email is already registered');
         }
-        const isNICRegistered = await User.isNICregistered(nicNumber);
-        if (isNICRegistered) {
-            throw new Errors.BadRequest(' NIC is already registered');
-        }
-        return Buyer.updateBuyer(firstName,lastName,gender,email, nicNumber, contactNo, district,uid);
+        return Buyer.updateBuyer(firstName,lastName,gender,email, contactNo, district,uid);
     }
 
     static async changePassword({old_pwd,new_pwd,confirm_pwd},uid){

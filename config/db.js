@@ -1,8 +1,5 @@
 const postgres = require('postgres');
 
-const sql = postgres({connectionString:process.env.DATABASE_URL,
-    ssl:{
-        rejectUnauthorized: false
-    }});
+const sql = postgres(process.env.DATABASE_URL, {ssl:true});
 
 module.exports = sql;

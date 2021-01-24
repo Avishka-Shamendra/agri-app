@@ -1,12 +1,12 @@
 
 const sql = require('../config/db');
 class Complain{
-    static async addComplain(complainer_id,complainee_id,reasons){
+    static async addComplain(complainer_id,complainee_id,reasons,added_day){
         const [complain] = await sql`
             INSERT INTO Complain
-                ( uid,complainer_id,body) 
+                ( uid,complainer_id,body,added_on) 
             VALUES 
-                ( ${complainee_id}, ${complainer_id}, ${reasons})
+                ( ${complainee_id}, ${complainer_id}, ${reasons},${added_day})
             RETURNING *
             `;
         return complain;

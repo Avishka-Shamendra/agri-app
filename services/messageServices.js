@@ -2,6 +2,7 @@ const Errors = require('../helpers/error');
 const User = require('../models/User');
 const Post = require('../models/Post');
 const BuyerRequest = require('../models/BuyerRequest');
+const dateFormat = require('../helpers/dateFormat');
 
 class messageServices{
     static async addRequest({
@@ -18,8 +19,12 @@ class messageServices{
         if(request){
             throw new Errors.Unauthorized("You have already sent a request to this post");
         }
+
+        //change
+        const date_obj = dateFormat.changeTimezoneToLk(new Date());
+        const added_day = dateFormat.ymd(date_obj);
         
-        return BuyerRequest.addRequest(uid,postid,title,description);
+        return BuyerRequest.addRequest(uid,postid,title,description,added_day);
         }
 
         static async getSentMessages(buyer_uid){

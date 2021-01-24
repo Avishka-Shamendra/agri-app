@@ -1,6 +1,6 @@
 const Errors = require('../helpers/error');
-const { getAllComplains } = require('../models/Complains');
 const Complains = require('../models/Complains');
+const dateFormat = require('../helpers/dateFormat');
 
 class ComplainServices{
     static async addComplain({
@@ -9,8 +9,10 @@ class ComplainServices{
         if(isComplained){
             throw new Errors.Unauthorized("You have already reported the user");
         }
+        const date_obj = dateFormat.changeTimezoneToLk(new Date());
+        const added_day = dateFormat.ymd(date_obj);
         
-        return Complains.addComplain(complainer_id,complainee_id,reasons);
+        return Complains.addComplain(complainer_id,complainee_id,reasons,added_day);
         }
 
         static async getAllComplains(){

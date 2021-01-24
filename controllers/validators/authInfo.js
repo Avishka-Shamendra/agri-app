@@ -2,17 +2,17 @@ const Joi = require('joi');
 
 const LogInInfo = Joi.object().options({ abortEarly: false }).keys({
     password: Joi.string().required().label("password"),
-    email: Joi.string().required().label("email"),
+    email: Joi.string().trim().required().label("email"),
 });
 
 const AdminSignUpInfo = Joi.object().options({ abortEarly: false }).keys({
     //commmon user details
-    email: Joi.string().email().max(50).required().label("Email"),
+    email: Joi.string().trim().email().max(50).required().label("Email"),
     password: Joi.string().min(6).max(20).required().label("Password"),
     confirmPassword: Joi.string().required().valid(Joi.ref('password')).label("Confirmation Password")
     .messages({ 'any.only': '{{#label}} does not match "Password"' }),
-    firstName: Joi.string().min(2).max(20).required().label("First Name"),
-    lastName: Joi.string().min(2).max(20).required().label("Last Name"),
+    firstName: Joi.string().trim().min(2).max(20).required().label("First Name"),
+    lastName: Joi.string().trim().min(2).max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
     //admin special
     securityKey: Joi.string().required().label("Security Key"),
@@ -20,15 +20,15 @@ const AdminSignUpInfo = Joi.object().options({ abortEarly: false }).keys({
 
 const FarmerSignupInfo = Joi.object().options({ abortEarly: false }).keys({
     //commmon user details
-    email: Joi.string().email().max(50).required().label("Email"),
+    email: Joi.string().trim().email().max(50).required().label("Email"),
     password: Joi.string().min(6).max(20).required().label("Password"),
     confirmPassword: Joi.string().required().valid(Joi.ref('password')).label("Confirmation Password")
     .messages({ 'any.only': '{{#label}} does not match "Password"' }),
-    firstName: Joi.string().min(2).max(20).required().label("First Name"),
-    lastName: Joi.string().min(2).max(20).required().label("Last Name"),
+    firstName: Joi.string().trim().min(2).max(20).required().label("First Name"),
+    lastName: Joi.string().trim().min(2).max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
     //farmer special
-    nicNumber: Joi.string().required().label("NIC Number")
+    nicNumber: Joi.string().trim().required().label("NIC Number")
     .min(10)
     .message('"NIC Number" should be more than 10 characters'),
     contactNo:Joi.string().trim().required()
@@ -37,21 +37,21 @@ const FarmerSignupInfo = Joi.object().options({ abortEarly: false }).keys({
     .regex(/^\d+$/)
     .message('"Contact Number" contains invalid characters'),
     district: Joi.string().required().label("District"),
-    address: Joi.string().required().max(100).label("Address")
+    address: Joi.string().trim().required().max(100).label("Address")
     
 });
 
 const BuyerSignupInfo = Joi.object().options({ abortEarly: false }).keys({
     //commmon user details
-    email: Joi.string().email().max(50).required().label("Email"),
+    email: Joi.string().trim().email().max(50).required().label("Email"),
     password: Joi.string().min(6).max(20).required().label("Password"),
     confirmPassword: Joi.string().required().valid(Joi.ref('password')).label("Confirmation Password")
     .messages({ 'any.only': '{{#label}} does not match "Password"' }),
-    firstName: Joi.string().min(2).max(20).required().label("First Name"),
-    lastName: Joi.string().min(2).max(20).required().label("Last Name"),
-    gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
+    firstName: Joi.string().trim().min(2).max(20).required().label("First Name"),
+    lastName: Joi.string().trim().min(2).max(20).required().label("Last Name"),
+    gender: Joi.string().trim().valid('Male','Female','Other').required().label("Gender"),
     // buyer special
-    nicNumber: Joi.string().required().label("NIC Number")
+    nicNumber: Joi.string().trim().required().label("NIC Number")
     .min(10)
     .message('"NIC Number" should be more than 10 characters'),
     contactNo:Joi.string().trim().required()

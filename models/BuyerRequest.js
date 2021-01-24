@@ -1,11 +1,11 @@
 const sql = require('../config/db');
 class BuyerRequest{
-    static async addRequest(uid,postid,title,description){
+    static async addRequest(uid,postid,title,description,added_day){
         const [createdPost] = await sql`
             INSERT INTO buyer_request 
-                ( buyer_id,post_id, request_title, description) 
+                ( buyer_id,post_id, request_title, description,added_on) 
             VALUES 
-                ( ${uid}, ${postid}, ${title},${description})
+                ( ${uid}, ${postid}, ${title},${description},${added_day})
             RETURNING *
             `;
         return createdPost;

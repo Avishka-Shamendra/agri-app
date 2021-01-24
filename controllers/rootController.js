@@ -13,6 +13,7 @@ class RootController {
             try{
                 await PostService.updateExpired();
             }catch(e){
+                logger.error(e);
             }
             res.render('index',
             { error: req.query.error,

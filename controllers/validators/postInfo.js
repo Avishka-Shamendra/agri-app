@@ -1,11 +1,11 @@
 const Joi = require('joi');
 
 const addpostInfo = Joi.object().options({ abortEarly: false }).keys({
-    title:Joi.string().max(50).required().label("Post Title"),
-    product_name:Joi.string().max(50).required().label("Product Name"),
+    title:Joi.string().trim().max(50).required().label("Post Title"),
+    product_name:Joi.string().trim().max(50).required().label("Product Name"),
     quantity:Joi.number().integer().min(50).less(100000000).required().label("Quantity"),
     expected_price:Joi.number().integer().min(0).less(10000).required().label("Expected Price"),
-    description:Joi.string().max(800).required().label("Description"),
+    description:Joi.string().trim().max(800).required().label("Description"),
     phone_num:Joi.string().trim().required()
     .length(10, 'utf8')
     .message('"Contact Number" must be 10 digits')
@@ -13,7 +13,7 @@ const addpostInfo = Joi.object().options({ abortEarly: false }).keys({
     .message('"Contact Number" contains invalid characters'),
     product_category:Joi.string().valid('vegetable','fruit').required().label("Product Category"),
     district: Joi.string().required().label("District"),
-    address: Joi.string().required().label("Address")
+    address: Joi.string().trim().required().max(100).label("Address")
 });
 
 const filterPostsInfo = Joi.object().options({ abortEarly: false }).keys({

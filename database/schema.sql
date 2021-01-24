@@ -142,7 +142,7 @@ CREATE TABLE Complain (
   uid uuid4 not null,--person who the complain is about
   complainer_id uuid4 not null,-- person who is complaining
   body varchar(511) not null,-- message text
-  added_on timestamp not null DEFAULT NOW(),
+  added_on DATE not null,
   PRIMARY KEY (comp_id),
   FOREIGN KEY(uid) REFERENCES UserInfo(uid) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(complainer_id) REFERENCES UserInfo(uid) ON DELETE CASCADE ON UPDATE CASCADE
@@ -187,7 +187,7 @@ CREATE TABLE Buyer_Request (
   request_title VARCHAR(100) not null,
   description VARCHAR(999) not null,
   req_state Buyer_Request_State not null DEFAULT 'New', 
-  added_on timestamp not null DEFAULT NOW(),
+  added_on DATE not null,
   PRIMARY KEY (req_msg_id),
   FOREIGN KEY(buyer_id) REFERENCES Buyer(uid) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(post_id) REFERENCES Post(post_id) ON DELETE CASCADE ON UPDATE CASCADE

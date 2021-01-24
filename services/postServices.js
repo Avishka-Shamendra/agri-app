@@ -23,7 +23,7 @@ class postServices{
         if (!user || user.type!='farmer') {
             throw new Errors.Unauthorized('You do not have permission to add new posts');
         }
-        const date_obj = new Date();
+        const date_obj = dateFormat.changeTimezoneToLk(new Date());
         const added_day = dateFormat.ymd(date_obj);
         const days_till_expire = 30;
         date_obj.setDate(date_obj.getDate()+days_till_expire);

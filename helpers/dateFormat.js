@@ -9,7 +9,16 @@ const ymd = (date_obj)=>{
     return format;
 }
 
+const changeTimezoneToLk=(date)=> {
+    var invdate = new Date(date.toLocaleString('en-US', {
+      timeZone: "Asia/Colombo"
+    }));
+    var diff = date.getTime() - invdate.getTime();
+    return new Date(date.getTime() - diff); 
+  
+  }
 
 module.exports = {
-    ymd:ymd
+    ymd:ymd,
+    changeTimezoneToLk:changeTimezoneToLk,
 }

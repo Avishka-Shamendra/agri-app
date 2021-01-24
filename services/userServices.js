@@ -110,6 +110,10 @@ class UserService {
         if (user && user.uid!=uid) {
             throw new Errors.BadRequest(' Email is already registered');
         }
+        const isNICRegistered = await User.isNICregistered(nicNumber);
+        if (isNICRegistered) {
+            throw new Errors.BadRequest(' NIC is already registered');
+        }
         
         return Farmer.updateFarmer(firstName,lastName,gender,email, nicNumber, contactNo, address, district,uid);
     }
@@ -143,6 +147,10 @@ class UserService {
         const user = await User.findUser(email);
         if (user && user.uid!=uid) {
             throw new Errors.BadRequest(' Email is already registered');
+        }
+        const isNICRegistered = await User.isNICregistered(nicNumber);
+        if (isNICRegistered) {
+            throw new Errors.BadRequest(' NIC is already registered');
         }
         return Buyer.updateBuyer(firstName,lastName,gender,email, nicNumber, contactNo, district,uid);
     }

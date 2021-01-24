@@ -22,9 +22,6 @@ const FarmerEditInfo = Joi.object().options({ abortEarly: false }).keys({
     lastName: Joi.string().trim().min(2).max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
     //farmer special
-    nicNumber: Joi.string().trim().required().label("NIC Number")
-    .min(10)
-    .message('"NIC Number" should be more than 10 digits'),
     contactNo:Joi.string().trim().required()
     .length(10, 'utf8')
     .message('"Contact Number" must be 10 digits')
@@ -42,9 +39,6 @@ const BuyerEditInfo = Joi.object().options({ abortEarly: false }).keys({
     lastName: Joi.string().trim().min(2).max(20).required().label("Last Name"),
     gender: Joi.string().valid('Male','Female','Other').required().label("Gender"),
     // buyer special
-    nicNumber: Joi.string().trim().required().label("NIC Number")
-    .min(10)
-    .message('"NIC Number" should be more than 10 digits'),
     contactNo:Joi.string().trim().required()
     .length(10, 'utf8')
     .message('"Contact Number" must be 10 digits')

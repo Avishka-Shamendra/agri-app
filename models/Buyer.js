@@ -25,7 +25,7 @@ class Buyer {
           return [createdUser, createdBuyer];
     }
 
-    static async updateBuyer(firstName,lastName,gender,email, nicNumber, contactNo, district, uid) {
+    static async updateBuyer(firstName,lastName,gender,email, contactNo, district, uid) {
         //transaction as insert is one to two tables
         const [updatedUser, updatedBuyer] = await sql.begin(async sql => {
             const [user] = await sql
@@ -38,7 +38,7 @@ class Buyer {
            
             const [Buyer] = await sql`
             UPDATE Buyer
-            SET nic=${nicNumber},contact_no=${contactNo},district=${district}
+            SET contact_no=${contactNo},district=${district}
             WHERE uid=${uid}
             RETURNING *
             `

@@ -1,5 +1,14 @@
 # Agri-App
 
+## About
+
+In the modern world, farmers and wholesale buyers with matching requirements need a way to quickly find and connect with each other.
+Traditionally, farmers have marketed their harvest at regular times in physical locations, which were well-known to their regular customers. However, as the world changes, the urban and farming communities have grown farther apart, and it has become harder for farmers to connect with their customer base.
+Especially following the COVID-19 pandemic, farmers and customers have been unable to rely on the physical marketplaces. Sales of essential goods such as farm produce cannot wait until the markets are reopened. There were many reported instances in Sri Lanka of farmers having to dispose of their harvest while vegetable prices shot up in urban areas.
+Farmers may not always have access to electronic payment methods. Therefore, it is easier for a wholesale buyer and a farmer to simply share contact details and set up meetings to exchange goods and cash in person.
+Also it is cumbersome for a wholesale buyer requiring specific types of goods to contact farmer after farmer searching for his requirement. Farmers also cannot guarantee the time of availability of their produce.
+Therefore, a platform is needed, where the farmer can place advertisements(posts) for whatever type of product he has now, which a wholesale buyer can browse and express interest in via a private form of communication.
+
 ## Guide
 
 ### Database setup

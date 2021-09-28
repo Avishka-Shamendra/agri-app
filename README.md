@@ -9,7 +9,7 @@ Farmers may not always have access to electronic payment methods. Therefore, it 
 Also it is cumbersome for a wholesale buyer requiring specific types of goods to contact farmer after farmer searching for his requirement. Farmers also cannot guarantee the time of availability of their produce.
 Therefore, a platform is needed, where the farmer can place advertisements(posts) for whatever type of product he has now, which a wholesale buyer can browse and express interest in via a private form of communication.
 
-##Product Scope
+## Product Scope
 
 This system allows farmers to publicly make posts about their newly harvested produce up for sale, and buyers to privately respond with a bid and their contact information. The farmer will be able to accept whichever bid he wishes, which renders the post closed to any other buyers.
 Farmers can add new posts, update their existing posts to reflect new information, view all their posts and requests received, and delete any of them. Buyers can filter posts by the type of product they need, send request messages in response to a post, and view all their previous request messages.
